@@ -1,0 +1,64 @@
+Arguments: 
+  /usr/local/Cellar/node/12.7.0/bin/node /usr/local/bin/yarn add axios reaact-router-dom redux react-redux redux-thunk redux-devtools-extension moment react-moment
+
+PATH: 
+  /Volumes/HDD/ApplicationHDD/anaconda3/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/Users/jonhyun/.rvm/gems/ruby-2.5.1/bin:/Users/jonhyun/.rvm/gems/ruby-2.5.1@global/bin:/Users/jonhyun/.rvm/rubies/ruby-2.5.1/bin:/usr/local/mysql/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Applications/Xamarin Workbooks.app/Contents/SharedSupport/path-bin:/Volumes/HDD/ApplicationHDD/anaconda2/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/Volumes/HDD/ApplicationHDD/anaconda2/bin:/Volumes/HDD/ApplicationHDD/anaconda2/condabin:/Users/jonhyun/.rvm/gems/ruby-2.5.1/bin:/Users/jonhyun/.rvm/gems/ruby-2.5.1@global/bin:/Users/jonhyun/.rvm/rubies/ruby-2.5.1/bin:/usr/local/mysql/bin:/Users/jonhyun/.rvm/bin:/Users/jonhyun/Developer/flutter/bin:/usr/local/mongodb/bin:/Users/jonhyun/Library/Android/sdk/emulator:/Users/jonhyun/Library/Android/sdk/tools:/Users/jonhyun/Library/Android/sdk/tools/bin:/Users/jonhyun/Library/Android/sdk/platform-tools:/Users/jonhyun/Developer/flutter/bin:/usr/local/mongodb/bin:/Users/jonhyun/Library/Android/sdk/emulator:/Users/jonhyun/Library/Android/sdk/tools:/Users/jonhyun/Library/Android/sdk/tools/bin:/Users/jonhyun/Library/Android/sdk/platform-tools
+
+Yarn version: 
+  1.17.3
+
+Node version: 
+  12.7.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/reaact-router-dom: Not found
+      at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66830:18)
+      at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:140464:22)
+      at Request.emit (events.js:203:13)
+      at Request.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141436:10)
+      at Request.emit (events.js:203:13)
+      at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141358:12)
+      at Object.onceWrapper (events.js:291:20)
+      at IncomingMessage.emit (events.js:208:15)
+      at endReadableNT (_stream_readable.js:1161:12)
+      at processTicksAndRejections (internal/process/task_queues.js:77:11)
+
+npm manifest: 
+  {
+    "name": "devconnector",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node server",
+      "server": "nodemon server",
+      "client": "npm start --prefix client",
+      "dev": "concurrently \"npm run server\" \"npm run client\""
+    },
+    "author": "Jonghyun Yeo",
+    "license": "MIT",
+    "dependencies": {
+      "bcryptjs": "^2.4.3",
+      "config": "^3.2.5",
+      "express": "^4.17.1",
+      "express-validator": "^6.3.1",
+      "gravatar": "^1.8.0",
+      "jsonwebtoken": "^8.5.1",
+      "mongoose": "^5.8.10",
+      "request": "^2.88.0"
+    },
+    "devDependencies": {
+      "concurrently": "^5.1.0",
+      "nodemon": "^2.0.2"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
