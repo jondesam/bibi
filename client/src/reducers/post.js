@@ -10,8 +10,8 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  posts: [],
-  post: null,
+  posts: [],//list of all posts
+  post: null, //post info for comment
   loading: true,
   error: {}
 };
@@ -21,12 +21,14 @@ export default function(state = initialState, action) {
 
   switch (type) {
     case GET_POSTS:
+      console.log('posts : ', state.posts, 'post : ', state.post);
       return {
         ...state,
         posts: payload,
         loading: false
       };
     case GET_POST:
+      console.log('posts : ', state.posts, 'post : ', state.post);
       return {
         ...state,
         post: payload,
@@ -34,6 +36,9 @@ export default function(state = initialState, action) {
       };
     case ADD_POST:
       // console.log('posts array reducer', state.posts);
+
+      console.log('posts : ', state.posts, 'post : ', state.post);
+
       return {
         ...state,
         posts: [payload, ...state.posts],
@@ -60,6 +65,7 @@ export default function(state = initialState, action) {
         loading: false
       };
     case ADD_COMMENT:
+      console.log('posts : ', state.posts, 'post : ', state.post);
       return {
         ...state,
         post: { ...state.post, comments: payload },

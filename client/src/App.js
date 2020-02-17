@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Routes from './components/routing/Routes';
 
@@ -23,7 +23,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <Router>
+      <BrowserRouter>
         <Fragment>
           <Navbar />
           <Switch>
@@ -31,7 +31,7 @@ const App = () => {
             <Route component={Routes}></Route>
           </Switch>
         </Fragment>
-      </Router>
+      </BrowserRouter>
     </Provider>
   );
 };

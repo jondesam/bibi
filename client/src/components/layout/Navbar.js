@@ -12,10 +12,13 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
           <Link to='/createBibim'>Create Bibim</Link>
         </li>
         <li>
-          <Link to='/profiles'>Developers</Link>
+        <Link to='/bibims'>All Bibim</Link>
+      </li>
+        <li>
+          <Link to='/profiles'>Users</Link>
         </li>
         <li>
-          <Link to='/posts'>Posts</Link>
+          <Link to='/posts'>All Posts</Link>
         </li>
         <li>
           <Link to='/dashboard'>
@@ -92,7 +95,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
             // value={}
           />
           <button className='button is-info' onClick={addItem}>
-            Add Item
+            Search
           </button>
         </form>
       </section>

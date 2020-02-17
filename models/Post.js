@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
-  mumbo: {
+  bibim: {
     type: String
   },
   user: {

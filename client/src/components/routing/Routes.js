@@ -1,5 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import PrivateRoute from '../routing/PrivateRoute';
+
 import Register from '../auth/Register';
 import Login from '../auth/Login';
 import Alert from '../layout/Alert';
@@ -12,9 +14,11 @@ import Profiles from '../profiles/Profiles';
 import Profile from '../profile/Profile';
 import Posts from '../posts/Posts';
 import Post from '../post/Post';
+
 import NotFound from '../layout/NotFound';
-import PrivateRoute from '../routing/PrivateRoute';
+
 import CreateBibim from '../bibim/CreateBibim';
+import Bibim from '../bibim/Bibim';
 
 const Routes = () => {
   return (
@@ -25,6 +29,7 @@ const Routes = () => {
         <Route exact path='/login' component={Login} />
         <Route exact path='/profiles' component={Profiles} />
         <Route exact path='/profile/:id' component={Profile} />
+        <Route exact path='/bibims' component={Bibim} />
 
         <PrivateRoute
           exact
@@ -38,7 +43,11 @@ const Routes = () => {
         <PrivateRoute exact path='/add-education' component={AddEducation} />
         <PrivateRoute exact path='/posts' component={Posts} />
         <PrivateRoute exact path='/posts/:id' component={Post} />
+
         <PrivateRoute exact path='/createBibim' component={CreateBibim} />
+
+        <PrivateRoute exact path='/bibim/:id' component={Bibim} />
+
         <Route component={NotFound} />
       </Switch>
     </section>
