@@ -33,6 +33,7 @@ router.post(
       const newBibim = new Bibim({
         name: req.body.name,
         creater: user._id,
+        createrName: user.name,
         description: req.body.description
       });
 

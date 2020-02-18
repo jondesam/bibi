@@ -30,6 +30,7 @@ const Routes = () => {
         <Route exact path='/profiles' component={Profiles} />
         <Route exact path='/profile/:id' component={Profile} />
         <Route exact path='/bibims' component={Bibim} />
+        <Route exact path='/bibims/:id' component={Bibim} />
 
         <PrivateRoute
           exact
@@ -45,8 +46,6 @@ const Routes = () => {
         <PrivateRoute exact path='/posts/:id' component={Post} />
 
         <PrivateRoute exact path='/createBibim' component={CreateBibim} />
-
-        <PrivateRoute exact path='/bibim/:id' component={Bibim} />
 
         <Route component={NotFound} />
       </Switch>

@@ -36,7 +36,7 @@ router.post(
         name: user.name,
         avatar: user.avatar,
         user: req.user.id,
-        bibim: 'jumbo'
+        bibim: req.body.bibim
       });
       console.log('newPost', newPost);
       console.log('res posts', res);

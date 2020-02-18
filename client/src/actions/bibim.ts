@@ -4,7 +4,7 @@ import { ADD_BIBIM, POST_ERROR, GET_BIBIMS } from './types';
 import { setAlert } from './alert';
 
 //Add bibim
-export const createBibim = formData => async dispatch => {
+export const addBibim = formData => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'

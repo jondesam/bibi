@@ -12,8 +12,8 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
           <Link to='/createBibim'>Create Bibim</Link>
         </li>
         <li>
-        <Link to='/bibims'>All Bibim</Link>
-      </li>
+          <Link to='/bibims'>All Bibim</Link>
+        </li>
         <li>
           <Link to='/profiles'>Users</Link>
         </li>
@@ -82,7 +82,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <nav className='navbar bg-dark'>
       <h1>
         <Link to='/'>
-          <i className='fas fa-code' /> Tadada
+          <i className='fas fa-code' /> Bibimi
         </Link>
       </h1>
       <section className='section'>

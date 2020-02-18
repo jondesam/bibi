@@ -614,3 +614,14 @@ button {
     padding: 0.3rem 0.4rem;
   }
 }
+
+#ddlCars {
+  min-height: 290px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: absolute;
+  width: 300px;
+  margin-bottom: 50px;
+
+  /* display: contents; */
+}

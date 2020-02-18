@@ -10,10 +10,11 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  posts: [],//list of all posts
+  posts: [], //list of all posts
   post: null, //post info for comment
   loading: true,
-  error: {}
+  error: {},
+  bibim: String
 };
 
 export default function(state = initialState, action) {
@@ -36,12 +37,14 @@ export default function(state = initialState, action) {
       };
     case ADD_POST:
       // console.log('posts array reducer', state.posts);
+      console.log('ADD POST');
 
       console.log('posts : ', state.posts, 'post : ', state.post);
 
       return {
         ...state,
         posts: [payload, ...state.posts],
+        bibim: payload.bibim,
         loading: false
       };
     case DELETE_POST:

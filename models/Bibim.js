@@ -3,16 +3,19 @@ const Schema = mongoose.Schema;
 
 const BibimSchema = new Schema({
   name: {
-    type: String
-    // required: true
+    type: String,
+    required: true
   },
   creater: {
     type: Schema.Types.ObjectId,
     ref: 'users'
   },
-  description: {
+  createrName: {
     type: String
-    // required: true
+  },
+  description: {
+    type: String,
+    required: true
   },
   subscription: [
     {

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createBibim } from '../../actions/bibim';
+import { addBibim } from '../../actions/bibim';
 
-const BibimForm = ({ createBibim }) => {
+const BibimForm = ({ addBibim }) => {
   const [formData, setFormData] = useState({
     name: '',
     description: ''
@@ -26,7 +26,12 @@ const BibimForm = ({ createBibim }) => {
           e.preventDefault();
           // console.log(name, description);
 
-          createBibim(formData);
+          addBibim(formData);
+          
+          setFormData({
+            name: '',
+            description: ''
+          });
         }}
       >
         <div className='form-group'>
@@ -59,4 +64,4 @@ const BibimForm = ({ createBibim }) => {
 //   addPost: PropTypes.func.isRequired
 // };
 
-export default connect(null, { createBibim })(BibimForm);
+export default connect(null, { addBibim })(BibimForm);
