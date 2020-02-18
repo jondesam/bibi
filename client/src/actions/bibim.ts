@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { ADD_BIBIM, POST_ERROR, GET_BIBIMS } from './types';
+import { ADD_BIBIM, POST_ERROR, GET_BIBIMS, GET_BIBIM } from './types';
 import { setAlert } from './alert';
 
 //Add bibim
@@ -34,13 +34,30 @@ export const addBibim = formData => async dispatch => {
   }
 };
 
-// Get posts
+// Get Bibims
 export const getBibims = () => async dispatch => {
   try {
     const res = await axios.get('/api/bibim');
 
     dispatch({
       type: GET_BIBIMS,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Get post
+export const getBibim = id => async dispatch => {
+  try {
+    const res = await axios.get(`/api/bibim/${id}`);
+
+    dispatch({
+      type: GET_BIBIM,
       payload: res.data
     });
   } catch (err) {

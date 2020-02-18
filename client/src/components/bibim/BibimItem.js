@@ -12,7 +12,7 @@ const BibimItem = ({
 }) => (
   <div className='post bg-white p-1 my-1'>
     <div>
-      <Link>
+      <Link to={`/bibims/${_id}`}>
         <p className='my-1'>Bibim name : {name}</p>
       </Link>
     </div>

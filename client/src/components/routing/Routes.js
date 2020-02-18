@@ -18,7 +18,7 @@ import Post from '../post/Post';
 import NotFound from '../layout/NotFound';
 
 import CreateBibim from '../bibim/CreateBibim';
-import Bibim from '../bibim/Bibim';
+import Bibims from '../bibim/Bibims';
 
 const Routes = () => {
   return (
@@ -29,8 +29,8 @@ const Routes = () => {
         <Route exact path='/login' component={Login} />
         <Route exact path='/profiles' component={Profiles} />
         <Route exact path='/profile/:id' component={Profile} />
-        <Route exact path='/bibims' component={Bibim} />
-        <Route exact path='/bibims/:id' component={Bibim} />
+        <Route exact path='/bibims' component={Bibims} />
+        <Route exact path='/bibims/:id' component={Bibims} />
 
         <PrivateRoute
           exact

@@ -60,4 +60,27 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
+// @route    GET api/posts/:id
+// @desc     Get post by ID
+// @access   Private
+router.get('/:id', auth, async (req, res) => {
+  try {
+    const bibim = await Bibim.findById(req.params.id);
+
+    // Check for ObjectId format and bibim
+    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !bibim) {
+      return res.status(404).json({ msg: 'Bibim not found' });
+    }
+
+    res.json(bibim);
+  } catch (err) {
+    console.error(err.message);
+
+    if (err.kind === 'ObjectId') {
+      return res.status(404).json({ msg: 'Bibim not found' });
+    }
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;
