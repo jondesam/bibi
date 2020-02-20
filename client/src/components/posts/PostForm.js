@@ -14,7 +14,7 @@ const PostForm = ({ addPost, bibim: { bibims } }) => {
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  console.log('props PostForm', bibims);
+  // console.log('props PostForm', bibims);
 
   return (
     <div className='post-form'>
@@ -22,7 +22,7 @@ const PostForm = ({ addPost, bibim: { bibims } }) => {
         <select name='bibim' size='1' value={bibim} onChange={onChange}>
           <option value=''>- Please select a Bibim -</option>
           {bibims.map(bibim => (
-            <option key={bibim._id} value={bibim.name}>
+            <option key={bibim._id} value={bibim._id}>
               {' '}
               {bibim.name}
             </option>

@@ -6,6 +6,7 @@ const auth = require('../../middleware/auth');
 const Post = require('../../models/Post');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+const Bibim = require('../../models/Bibim');
 
 // @route    POST api/posts
 // @desc     Create a post
@@ -30,18 +31,28 @@ router.post(
 
     try {
       const user = await User.findById(req.user.id).select('-password');
+      // console.log('req.params.id', req.params.id);
+
+      const bibim = await Bibim.findById(req.body.bibim);
+
+      console.log('bibim PostCreate', bibim);
 
       const newPost = new Post({
         text: req.body.text,
         name: user.name,
         avatar: user.avatar,
         user: req.user.id,
-        bibim: req.body.bibim
+        bibim: req.body.bibim,
+        bibimName: bibim.name
       });
-      console.log('newPost', newPost);
-      console.log('res posts', res);
+      console.log('newPost PostCreate', newPost);
+      // console.log('res posts', res);
+
+      bibim.posts.unshift(newPost);
 
       const post = await newPost.save();
+
+      await bibim.save();
 
       res.json(post);
     } catch (err) {
@@ -56,6 +67,21 @@ router.post(
 // @access   Private
 router.get('/', auth, async (req, res) => {
   try {
+    // const bibims = await Bibim.find().sort({ date: -1 });
+
+    // console.log('get posts api', bibims);
+
+    // const allPosts = [];
+
+    // bibims.map(item => {
+    //   if (item.posts.length !== 0) {
+    //     item.posts.map(post => allPosts.push(post));
+    //   }
+    // });
+
+    // console.log('all posts', allPosts);
+
+    // res.json(allPosts);
     const posts = await Post.find().sort({ date: -1 });
     res.json(posts);
   } catch (err) {
@@ -201,7 +227,11 @@ router.post(
 
     try {
       const user = await User.findById(req.user.id).select('-password');
+
+      console.log('req.params.id', req.params.id);
       const post = await Post.findById(req.params.id);
+
+      // console.log('req post comment', req);
 
       const newComment = {
         text: req.body.text,

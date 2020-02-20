@@ -22,12 +22,13 @@ export default function(state = initialState, action) {
 
   switch (type) {
     case GET_POSTS:
-      console.log('posts : ', state.posts, 'post : ', state.post);
+      console.log('GET_POSTS', 'posts : ', state.posts, 'post : ', state.post);
       return {
         ...state,
         posts: payload,
         loading: false
       };
+
     case GET_POST:
       console.log('posts : ', state.posts, 'post : ', state.post);
       return {
@@ -35,11 +36,19 @@ export default function(state = initialState, action) {
         post: payload,
         loading: false
       };
+
     case ADD_POST:
       // console.log('posts array reducer', state.posts);
-      console.log('ADD POST');
 
-      console.log('posts : ', state.posts, 'post : ', state.post);
+      console.log(
+        'ADD POST',
+        'posts : ',
+        state.posts,
+        'post : ',
+        state.post,
+        'PAYLOAD',
+        payload
+      );
 
       return {
         ...state,
@@ -67,16 +76,23 @@ export default function(state = initialState, action) {
         ),
         loading: false
       };
-    
-      case ADD_COMMENT:
-      console.log('posts : ', state.posts, 'post : ', state.post);
+
+    case ADD_COMMENT:
+      console.log(
+        'posts : ',
+        state.posts,
+        'post : ',
+        state.post,
+        'payload: ',
+        payload
+      );
 
       return {
         ...state,
         post: { ...state.post, comments: payload },
         loading: false
       };
-      
+
     case REMOVE_COMMENT:
       return {
         ...state,

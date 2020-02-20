@@ -19,13 +19,20 @@ const BibimItem = ({
     <div>
       <p className='my-1'>description : {description}</p>
       <Link to={`/profile/${creater}`}>
-        <h4>{createrName}</h4>
+        <h4>Creater : {createrName}</h4>
       </Link>
       <p className='post-date'>
         Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
       </p>
 
       <Fragment>
+        <button
+          type='button'
+          className='btn btn-light'
+          onClick={() => console.log('subscribe pressed')}
+        >
+          Subscribe
+        </button>
         <button
           //   onClick={() => addLike(_id)}
           type='button'

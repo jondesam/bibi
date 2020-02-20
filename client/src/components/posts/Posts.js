@@ -6,12 +6,17 @@ import PostItem from './PostItem';
 import PostForm from './PostForm';
 import { getPosts } from '../../actions/post';
 
-const Posts = ({ getPosts, post: { posts, loading } }) => {
+const Posts = ({
+  getPosts,
+  post: { posts, loading },
+  bibim: { bibim, bibims }
+}) => {
   useEffect(() => {
     getPosts();
   }, [getPosts]);
+  console.log('posts : ', posts);
 
-  console.log(posts);
+  // console.log('bibim : ', bibim, 'bibims : ', bibims);
 
   return loading ? (
     <Spinner />
@@ -21,12 +26,11 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
       <p className='lead'>
         <i className='fas fa-user' /> Welcome to the community
       </p>
-    
 
       <PostForm />
       <div className='posts'>
         {posts.map(post => (
-          <PostItem key={post._id} post={post} />
+          <PostItem key={post._id} post={post} bibims={bibims} />
         ))}
       </div>
     </Fragment>
@@ -39,7 +43,8 @@ Posts.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  post: state.post
+  post: state.post,
+  bibim: state.bibim
 });
 
 export default connect(mapStateToProps, { getPosts })(Posts);

@@ -8,10 +8,12 @@ import CommentForm from '../post/CommentForm';
 import CommentItem from '../post/CommentItem';
 import { getPost } from '../../actions/post';
 
-const Post = ({ getPost, post: { post, loading }, match }) => {
+const Post = ({ getPost, post: { post, loading }, match, bibim: {} }) => {
   useEffect(() => {
     getPost(match.params.id);
   }, [getPost, match.params.id]);
+
+  console.log('post siglePost', post);
 
   return loading || post === null ? (
     <Spinner />
@@ -37,7 +39,8 @@ Post.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  post: state.post
+  post: state.post,
+  bibim: state.bibim
 });
 
 export default connect(mapStateToProps, { getPost })(Post);

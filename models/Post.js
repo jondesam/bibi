@@ -5,6 +5,9 @@ const PostSchema = new Schema({
   bibim: {
     type: String
   },
+  bibimName: {
+    type: String
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'users'
