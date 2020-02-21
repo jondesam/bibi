@@ -38,7 +38,7 @@ const CreateProfile = props => {
   } = formData;
 
   const onChange = e => {
-    console.log(props);
+    // console.log(props);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 

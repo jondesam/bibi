@@ -10,12 +10,30 @@ const PostItem = ({
   removeLike,
   deletePost,
   auth,
-  post: { _id, text, name, avatar, user, likes, comments, date, bibimName },
+  post: {
+    _id,
+    text,
+    name,
+    avatar,
+    user,
+    likes,
+    comments,
+    date,
+    bibimName,
+    bibim
+  },
   showActions,
-  bibims
+  bibim: { bibims }
 }) => {
-  console.log('bibims postItem: ', bibims);
-  console.log('bibimName', bibimName);
+  // console.log('bibims : ', bibims);
+  // console.log('bibimName', bibimName);
+  console.log(bibim, bibimName);
+
+  const canClick = () => {
+    addLike(_id);
+  };
+
+  //  bibims.filter(bibim => posts._id === post._id)
 
   return (
     <div className='post bg-white p-1 my-1'>
@@ -27,7 +45,13 @@ const PostItem = ({
       </div>
       <div>
         <p className='my-1'>{text}</p>
-        <h4> bibim : {bibimName}</h4>
+
+        <Link to={`/bibims/${bibim}`}>
+          <p className='my-1'> {bibimName}</p>
+        </Link>
+
+        {bibimName && <h4> bibim : {bibimName}</h4>}
+
         <p className='post-date'>
           Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
         </p>
@@ -35,14 +59,13 @@ const PostItem = ({
         {showActions && (
           <Fragment>
             <button
-              onClick={() => addLike(_id)}
+              onClick={() => canClick()}
               type='button'
               className='btn btn-light'
             >
               <i className='fas fa-thumbs-up' />{' '}
               <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
             </button>
-
             <button
               onClick={() => removeLike(_id)}
               type='button'
@@ -50,7 +73,6 @@ const PostItem = ({
             >
               <i className='fas fa-thumbs-down' />
             </button>
-
             <Link to={`/posts/${_id}`} className='btn btn-primary'>
               Discussion{' '}
               {comments.length > 0 && (
@@ -88,7 +110,8 @@ PostItem.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  bibim: state.bibim
 });
 
 export default connect(mapStateToProps, { addLike, removeLike, deletePost })(

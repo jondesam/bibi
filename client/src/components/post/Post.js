@@ -13,7 +13,7 @@ const Post = ({ getPost, post: { post, loading }, match, bibim: {} }) => {
     getPost(match.params.id);
   }, [getPost, match.params.id]);
 
-  console.log('post siglePost', post);
+  // console.log('post siglePost', post);
 
   return loading || post === null ? (
     <Spinner />

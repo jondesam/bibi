@@ -298,7 +298,7 @@ router.put(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    console.log('req.body', req.body);
+    // console.log('req.body', req.body);
 
     const {
       title,
@@ -325,7 +325,7 @@ router.put(
 
       profile.experience.unshift(newExp);
 
-      console.log('newExp', newExp);
+      // console.log('newExp', newExp);
       await profile.save();
 
       res.json(profile);

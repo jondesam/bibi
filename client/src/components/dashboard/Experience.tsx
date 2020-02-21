@@ -9,7 +9,7 @@ const Experience = (
   props
   // { experience, deleteExperience }
 ) => {
-  console.log('ExCompo props ', props);
+  // console.log('ExCompo props ', props);
 
   const experiences = props.experience.map(exp => (
     <tr key={exp._id}>

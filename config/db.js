@@ -12,9 +12,9 @@ const connectDB = async () => {
       ssl:true
     });
 
-    console.log('MongoDB Connected...');
+    // console.log('MongoDB Connected...');
   } catch (err) {
-    console.log(err.message);
+    // console.log(err.message);
     //Exit process with failure
     process.exit(1);
   }

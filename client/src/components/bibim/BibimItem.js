@@ -8,59 +8,62 @@ const BibimItem = ({
   removeLike,
   deletePost,
 
-  bibim: { _id, createrName, date, likes, name, description, creater }
-}) => (
-  <div className='post bg-white p-1 my-1'>
-    <div>
-      <Link to={`/bibims/${_id}`}>
-        <p className='my-1'>Bibim name : {name}</p>
-      </Link>
-    </div>
-    <div>
-      <p className='my-1'>description : {description}</p>
-      <Link to={`/profile/${creater}`}>
-        <h4>Creater : {createrName}</h4>
-      </Link>
-      <p className='post-date'>
-        Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
-      </p>
+  bibim: { _id, createrName, date, likes, name, description, creater}
+}) => {
+  // const pathName = ;
 
-      <Fragment>
-        <button
-          type='button'
-          className='btn btn-light'
-          onClick={() => console.log('subscribe pressed')}
-        >
-          Subscribe
-        </button>
-        <button
-          //   onClick={() => addLike(_id)}
-          type='button'
-          className='btn btn-light'
-        >
-          <i className='fas fa-thumbs-up' />{' '}
-          <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
-        </button>
-        <button
-          onClick={() => removeLike(_id)}
-          type='button'
-          className='btn btn-light'
-        >
-          <i className='fas fa-thumbs-down' />
-        </button>
-        {/* postuser === logged in user */}
-        <button
-          onClick={() => deletePost(_id)}
-          type='button'
-          className='btn btn-danger'
-        >
-          <i className='fas fa-times' />
-        </button>
-      </Fragment>
-    </div>
-  </div>
-);
+  return (
+    <div className='post bg-white p-1 my-1'>
+      <div>
+        <Link to={`/bibims/${_id}`}>
+          <p className='my-1'> {name}</p>
+        </Link>
+      </div>
+      <div>
+        <p className='my-1'>description : {description}</p>
+        <Link to={`/profile/${creater}`}>
+          <h4>Creater : {createrName}</h4>
+        </Link>
+        <p className='post-date'>
+          Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
+        </p>
 
+        <Fragment>
+          <button
+            type='button'
+            className='btn btn-light'
+            onClick={() => console.log('subscribe pressed')}
+          >
+            Subscribe
+          </button>
+          <button
+            //   onClick={() => addLike(_id)}
+            type='button'
+            className='btn btn-light'
+          >
+            <i className='fas fa-thumbs-up' />{' '}
+            <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
+          </button>
+          <button
+            onClick={() => removeLike(_id)}
+            type='button'
+            className='btn btn-light'
+          >
+            <i className='fas fa-thumbs-down' />
+          </button>
+          {/* postuser === logged in user */}
+          <button
+            onClick={() => deletePost(_id)}
+            type='button'
+            className='btn btn-danger'
+          >
+            <i className='fas fa-times' />
+          </button>
+        </Fragment>
+      </div>
+    </div>
+  );
+};
 BibimItem.defaultProps = {
   showActions: true
 };

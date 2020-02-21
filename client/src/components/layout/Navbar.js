@@ -12,13 +12,13 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
           <Link to='/createBibim'>Create Bibim</Link>
         </li>
         <li>
-          <Link to='/bibims'>All Bibim</Link>
+          <Link to='/create-post'>Create Post</Link>
         </li>
         <li>
           <Link to='/profiles'>Users</Link>
         </li>
         <li>
-          <Link to='/posts'>Create Post</Link>
+          <Link to='/posts'>All Posts</Link>
         </li>
         <li>
           <Link to='/dashboard'>

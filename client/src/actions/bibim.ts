@@ -11,12 +11,12 @@ export const addBibim = formData => async dispatch => {
     }
   };
 
-  console.log('Create Bibim');
+  // console.log('Create Bibim');
 
   try {
     const res = await axios.post('/api/bibim/create', formData, config);
 
-    console.log('res addPost', res);
+    // console.log('res addPost', res);
 
     dispatch({
       type: ADD_BIBIM,
@@ -25,7 +25,7 @@ export const addBibim = formData => async dispatch => {
 
     dispatch(setAlert('Post Created', 'success'));
   } catch (err) {
-    console.log(err);
+    // console.log(err);
 
     dispatch({
       type: POST_ERROR,

@@ -17,7 +17,7 @@ const Login = props => {
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
-    console.log('email and password', email, password);
+    // console.log('email and password', email, password);
     // console.log('props', props);
 
     props.login(email, password);

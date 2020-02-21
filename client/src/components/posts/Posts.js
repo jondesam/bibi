@@ -8,8 +8,8 @@ import { getPosts } from '../../actions/post';
 
 const Posts = ({
   getPosts,
-  post: { posts, loading },
-  bibim: { bibim, bibims }
+  post: { posts, loading }
+  // bibim: { bibim, bibims }
 }) => {
   useEffect(() => {
     getPosts();
@@ -27,10 +27,9 @@ const Posts = ({
         <i className='fas fa-user' /> Welcome to the community
       </p>
 
-      <PostForm />
       <div className='posts'>
         {posts.map(post => (
-          <PostItem key={post._id} post={post} bibims={bibims} />
+          <PostItem key={post._id} post={post} />
         ))}
       </div>
     </Fragment>
@@ -43,8 +42,8 @@ Posts.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  post: state.post,
-  bibim: state.bibim
+  post: state.post
+  // bibim: state.bibim
 });
 
 export default connect(mapStateToProps, { getPosts })(Posts);

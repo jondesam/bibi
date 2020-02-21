@@ -11,7 +11,7 @@ export default function(state = initialState, action) {
 
   switch (type) {
     case ADD_BIBIM:
-      console.log('bibims : ', state.bibims);
+      // console.log('bibims : ', state.bibims);
 
       return {
         ...state,

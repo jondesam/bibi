@@ -15,8 +15,7 @@ const User = require('../../models/User');
 router.get('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
-    console.log('user', user);
-    console.log('User', User);
+    // console.log('user', user);
 
     res.json(user);
   } catch (error) {
@@ -53,7 +52,7 @@ router.post(
       let user = await User.findOne({ email });
 
       console.log('user', user);
-      console.log('User', User);
+
       if (!user) {
         return res
           .status(400)

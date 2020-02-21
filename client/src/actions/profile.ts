@@ -87,7 +87,7 @@ export const createProfile = (
   history,
   edit = false
 ) => async dispatch => {
-  console.log('createProfile');
+  // console.log('createProfile');
 
   try {
     const config = {
@@ -95,9 +95,9 @@ export const createProfile = (
         'Content-Type': 'application/json'
       }
     };
-    console.log('1');
+
     const res = await axios.post('/api/profile', formData, config);
-    console.log('res createPRofile', res);
+    // console.log('res createPRofile', res);
 
     dispatch({
       type: GET_PROFILE,
@@ -106,14 +106,14 @@ export const createProfile = (
 
     dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
 
-    console.log('edit value', edit);
+    // console.log('edit value', edit);
 
     if (!edit) {
       history.push('/dashboard');
     }
   } catch (err) {
-    console.log('err', err.response);
-    console.log('2');
+    // console.log('err', err.response);
+
     const errors = err.response.data.errors;
 
     if (errors) {

@@ -28,7 +28,7 @@ router.post(
     try {
       const user = await User.findById(req.user.id).select('-password');
 
-      console.log('found user', user);
+      // console.log('found user', user);
 
       const newBibim = new Bibim({
         name: req.body.name,

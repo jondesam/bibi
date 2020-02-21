@@ -21,7 +21,7 @@ export const loadUser = () => async dispatch => {
   try {
     const res = await axios.get('/api/auth');
 
-    console.log('res.data loadUser', res.data);
+    // console.log('res.data loadUser', res.data);
 
     dispatch({
       type: USER_LOADED,
@@ -47,7 +47,7 @@ export const register = ({ name, email, password }) => async dispatch => {
   try {
     const res = await axios.post('/api/users', body, config);
 
-    console.log('res.data in register action', res.data);
+    // console.log('res.data in register action', res.data);
 
     dispatch({
       type: REGISTER_SUCCESS,
@@ -82,7 +82,7 @@ export const login = (email, password) => async dispatch => {
 
   try {
     const res = await axios.post('/api/auth', body, config);
-    console.log('login action', res.data);
+    // console.log('login action', res.data);
 
     // console.log('res in login auth client', res);
 
@@ -95,7 +95,7 @@ export const login = (email, password) => async dispatch => {
   } catch (err) {
     const errors = err.response.data.errors;
 
-    console.log('errors /api/auth', err.response);
+    // console.log('errors /api/auth', err.response);
 
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));

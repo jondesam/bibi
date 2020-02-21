@@ -50,14 +50,14 @@ export const getPost = id => async dispatch => {
 export const addLike = id => async dispatch => {
   try {
     const res = await axios.put(`/api/posts/like/${id}`);
-    console.log('res add like', res);
+    // console.log('res add like', res);
 
     dispatch({
       type: UPDATE_LIKES,
       payload: { id, likes: res.data }
     });
   } catch (err) {
-    console.log('Already liked');
+    // console.log('Already liked');
 
     dispatch({
       type: POST_ERROR,
@@ -110,12 +110,12 @@ export const addPost = formData => async dispatch => {
     }
   };
 
-  console.log('formData Add Post', formData);
+  // console.log('formData Add Post', formData);
 
   try {
     const res = await axios.post('/api/posts', formData, config);
 
-    console.log('payload addPost', res.data);
+    // console.log('payload addPost', res.data);
 
     dispatch({
       type: ADD_POST,
@@ -145,7 +145,7 @@ export const addComment = (postId, formData) => async dispatch => {
       formData,
       config
     );
-    console.log('res addComment', res);
+    // console.log('res addComment', res);
 
     dispatch({
       type: ADD_COMMENT,

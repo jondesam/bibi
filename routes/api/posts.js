@@ -27,7 +27,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    console.log('req posts', req.body);
+    // console.log('req posts', req.body);
 
     try {
       const user = await User.findById(req.user.id).select('-password');
@@ -35,7 +35,7 @@ router.post(
 
       const bibim = await Bibim.findById(req.body.bibim);
 
-      console.log('bibim PostCreate', bibim);
+      // console.log('bibim PostCreate', bibim);
 
       const newPost = new Post({
         text: req.body.text,
@@ -45,7 +45,7 @@ router.post(
         bibim: req.body.bibim,
         bibimName: bibim.name
       });
-      console.log('newPost PostCreate', newPost);
+      // console.log('newPost PostCreate', newPost);
       // console.log('res posts', res);
 
       bibim.posts.unshift(newPost);
@@ -65,7 +65,7 @@ router.post(
 // @route    GET api/posts
 // @desc     Get all posts
 // @access   Private
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     // const bibims = await Bibim.find().sort({ date: -1 });
 
@@ -160,6 +160,7 @@ router.put('/like/:id', auth, async (req, res) => {
       //     'dddd',
       //     post.likes.filter(like => like.user.toString() === req.user.id)
       //   );
+      console.log('Post already liked');
 
       return res.status(400).json({ msg: 'Post already liked' });
     }
@@ -228,7 +229,7 @@ router.post(
     try {
       const user = await User.findById(req.user.id).select('-password');
 
-      console.log('req.params.id', req.params.id);
+      // console.log('req.params.id', req.params.id);
       const post = await Post.findById(req.params.id);
 
       // console.log('req post comment', req);

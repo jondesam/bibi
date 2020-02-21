@@ -60,7 +60,7 @@ Dashboard.propTypes = {
 };
 
 const mapStateToProps = state => {
-  console.log('dashboard state', state);
+  // console.log('dashboard state', state);
 
   return {
     auth: state.auth,

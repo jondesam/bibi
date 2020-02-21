@@ -18,7 +18,8 @@ import Post from '../post/Post';
 import NotFound from '../layout/NotFound';
 
 import CreateBibim from '../bibim/CreateBibim';
-import Bibims from '../bibim/Bibims';
+import Bibims from '../bibim/Bibims-createPost';
+import BibimProfile from '../bibim/BibimProfile';
 
 const Routes = () => {
   return (
@@ -29,21 +30,18 @@ const Routes = () => {
         <Route exact path='/login' component={Login} />
         <Route exact path='/profiles' component={Profiles} />
         <Route exact path='/profile/:id' component={Profile} />
-        <Route exact path='/bibims' component={Bibims} />
-        <Route exact path='/bibims/:id' component={Bibims} />
+        <Route exact path='/create-post' component={Bibims} />
 
-        <PrivateRoute
-          exact
-          path='/dashboard'
-          component={Dashboard}
-          baba='bububub'
-        />
+        <Route exact path='/posts' component={Posts} />
+
+        <PrivateRoute exact path='/dashboard' component={Dashboard} />
         <PrivateRoute exact path='/create-profile' component={CreateProfile} />
         <PrivateRoute exact path='/edit-profile' component={EditProfile} />
         <PrivateRoute exact path='/add-experience' component={AddExperience} />
         <PrivateRoute exact path='/add-education' component={AddEducation} />
-        <PrivateRoute exact path='/posts' component={Posts} />
+
         <PrivateRoute exact path='/posts/:id' component={Post} />
+        <PrivateRoute exact path='/bibims/:id' component={BibimProfile} />
 
         <PrivateRoute exact path='/createBibim' component={CreateBibim} />
 
