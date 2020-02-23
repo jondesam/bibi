@@ -1,16 +1,35 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
+import { addSubscription } from '../../actions/bibim';
+import { getCurrentProfile } from '../../actions/profile';
 
 const BibimItem = ({
   removeLike,
   deletePost,
-
-  bibim: { _id, createrName, date, likes, name, description, creater}
+  addSubscription,
+  getCurrentProfile,
+  bibim: {
+    _id,
+    createrName,
+    date,
+    likes,
+    name,
+    description,
+    creater,
+    subscriptions
+  },
+  profile: { profile }
 }) => {
-  // const pathName = ;
+  useEffect(() => {
+    getCurrentProfile();
+  }, [getCurrentProfile]);
+
+  console.log('profile', profile);
+  // const profileId = profile._id;
+  const formData = { _id, profile };
 
   return (
     <div className='post bg-white p-1 my-1'>
@@ -32,9 +51,12 @@ const BibimItem = ({
           <button
             type='button'
             className='btn btn-light'
-            onClick={() => console.log('subscribe pressed')}
+            onClick={() => addSubscription(_id, profile)}
           >
             Subscribe
+            <span>
+              {subscriptions.length > 0 && <span>{subscriptions.length}</span>}
+            </span>
           </button>
           <button
             //   onClick={() => addLike(_id)}
@@ -77,4 +99,10 @@ BibimItem.defaultProps = {
 //   showActions: PropTypes.bool
 // };
 
-export default BibimItem;
+const mapStateToProps = state => ({
+  profile: state.profile
+});
+
+export default connect(mapStateToProps, { addSubscription, getCurrentProfile })(
+  BibimItem
+);

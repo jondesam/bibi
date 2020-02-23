@@ -28,7 +28,7 @@ const App = () => {
         <Fragment>
           <Navbar />
           <Switch>
-            <Route exact path='/' component={Posts} />
+           
             <Route component={Routes}></Route>
           </Switch>
         </Fragment>

@@ -10,7 +10,6 @@ const PrivateRoute = ({
 }) => {
   return (
     <Route
-      adf='adadfadfadsff'
       {...rest}
       render={props => {
         // console.log('props aaa', props);

@@ -8,7 +8,7 @@ const ProfileAbout = ({
     user: { name }
   }
 }) => {
-  console.log('skilla', skills);
+
 
   return (
     <div className='profile-about bg-light p-2'>
@@ -22,7 +22,7 @@ const ProfileAbout = ({
       <h2 className='text-primary'>Skill Set</h2>
       <div className='skills'>
         {skills.map((skill, index, asd) => {
-          console.log('aaaaa', skill, index, asd);
+
 
           return (
             <div key={index} className='p-1'>

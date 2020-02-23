@@ -4,23 +4,43 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 import PostForm from './PostForm';
+import { getBibims } from '../../actions/bibim.ts';
 import { getPosts } from '../../actions/post';
+import { getCurrentProfile } from '../../actions/profile';
+import { get } from 'http';
 
 const Posts = ({
   getPosts,
-  post: { posts, loading }
-  // bibim: { bibim, bibims }
+  getCurrentProfile,
+  getBibims,
+  post: { posts, loading },
+  profile: { profile },
+  bibim: { bibims }
 }) => {
+  useEffect(() => {
+    getCurrentProfile();
+  }, [getCurrentProfile]);
+
   useEffect(() => {
     getPosts();
   }, [getPosts]);
-  console.log('posts : ', posts);
 
-  // console.log('bibim : ', bibim, 'bibims : ', bibims);
+  useEffect(() => {
+    getBibims();
+  }, [getBibims]);
 
-  return loading ? (
-    <Spinner />
-  ) : (
+  let bibimIDs = [];
+  bibimIDs = bibims.map(bibim => bibim._id);
+
+  let subscribedbibimIds = [];
+  if (profile !== null) {
+    subscribedbibimIds = profile.subscriptions.map(item => item.bibimId);
+  }
+
+  let bibimToShow = [];
+  bibimToShow = bibimIDs.filter(bibim => subscribedbibimIds.includes(bibim));
+
+  return (
     <Fragment>
       <h1 className='large text-primary'>Posts</h1>
       <p className='lead'>
@@ -28,13 +48,20 @@ const Posts = ({
       </p>
 
       <div className='posts'>
-        {posts.map(post => (
-          <PostItem key={post._id} post={post} />
-        ))}
+        {posts.map(post =>
+          bibimToShow.includes(post.bibim) ? (
+            <PostItem key={post._id} post={post} />
+          ) : null
+        )}
       </div>
     </Fragment>
   );
 };
+// {posts.map(post => {
+//   if (bibimToShow.includes(post.bibim)) {
+//     return <PostItem key={post._id} post={post} />;
+//   }
+// })}
 
 Posts.propTypes = {
   getPosts: PropTypes.func.isRequired,
@@ -42,8 +69,13 @@ Posts.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  post: state.post
-  // bibim: state.bibim
+  post: state.post,
+  profile: state.profile,
+  bibim: state.bibim
 });
 
-export default connect(mapStateToProps, { getPosts })(Posts);
+export default connect(mapStateToProps, {
+  getPosts,
+  getCurrentProfile,
+  getBibims
+})(Posts);

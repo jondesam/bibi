@@ -106,8 +106,6 @@ export const createProfile = (
 
     dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
 
-    // console.log('edit value', edit);
-
     if (!edit) {
       history.push('/dashboard');
     }

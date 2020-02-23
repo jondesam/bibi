@@ -50,7 +50,7 @@ export const getPost = id => async dispatch => {
 export const addLike = id => async dispatch => {
   try {
     const res = await axios.put(`/api/posts/like/${id}`);
-    // console.log('res add like', res);
+    console.log('res add like', res);
 
     dispatch({
       type: UPDATE_LIKES,

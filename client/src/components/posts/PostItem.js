@@ -25,13 +25,12 @@ const PostItem = ({
   showActions,
   bibim: { bibims }
 }) => {
-  // console.log('bibims : ', bibims);
-  // console.log('bibimName', bibimName);
-  console.log(bibim, bibimName);
-
   const canClick = () => {
     addLike(_id);
   };
+  // console.log(post);
+
+  // console.log('_id', _id, comments, likes);
 
   //  bibims.filter(bibim => posts._id === post._id)
 
@@ -64,7 +63,9 @@ const PostItem = ({
               className='btn btn-light'
             >
               <i className='fas fa-thumbs-up' />{' '}
-              <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
+              <span>
+                {likes.length > 0 ? <span>{likes.length}</span> : null}
+              </span>
             </button>
             <button
               onClick={() => removeLike(_id)}
@@ -73,12 +74,16 @@ const PostItem = ({
             >
               <i className='fas fa-thumbs-down' />
             </button>
-            <Link to={`/posts/${_id}`} className='btn btn-primary'>
-              Discussion{' '}
-              {comments.length > 0 && (
-                <span className='comment-count'>{comments.length}</span>
-              )}
-            </Link>
+
+            {_id ? (
+              <Link to={`/posts/${_id}`} className='btn btn-primary'>
+                Discussion{' '}
+                {comments.length > 0 && (
+                  <span className='comment-count'>{comments.length}</span>
+                )}
+              </Link>
+            ) : null}
+
             {/* postuser === logged in user */}
             {!auth.loading && user === auth.user._id && (
               <button

@@ -5,6 +5,8 @@ const auth = require('../../middleware/auth');
 
 const Bibim = require('../../models/Bibim');
 const User = require('../../models/User');
+const Profile = require('../../models/Profile');
+
 // @route    POST api/bibims
 // @desc     Create a bibim
 // @access   Private
@@ -83,4 +85,45 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 
+// @route    PUT api/posts/subscription/:id
+// @desc     subscribe a bibim
+// @access   Private
+router.put('/subscription/:id', auth, async (req, res) => {
+  try {
+    const bibim = await Bibim.findById(req.params.id);
+    console.log('req.body', req.body);
+    console.log('req.user.id', req.user.id);
+
+    const profile = await Profile.findById(req.body._id);
+    // console.log(profile);
+
+    const newSubscription = {
+      profileId: req.body._id
+    }; //profile._id
+    console.log('newSubscription peofileId', newSubscription);
+
+    // Check if the post has already been liked
+    if (
+      bibim.subscriptions.filter(
+        subscription => subscription.user.toString() === req.user.id
+      ).length > 0
+    ) {
+      console.log('Bibim already subscribed');
+
+      return res.status(400).json({ msg: 'Post already liked' });
+    }
+
+    profile.subscriptions.unshift({ bibimId: req.params.id });
+
+    bibim.subscriptions.unshift(newSubscription);
+
+    await profile.save();
+    await bibim.save();
+
+    res.json(bibim.subscriptions);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 module.exports = router;

@@ -18,11 +18,11 @@ const BibimSchema = new Schema({
     type: String,
     required: true
   },
-  subscription: [
+  subscriptions: [
     {
-      user: {
+      profileId: {
         type: Schema.Types.ObjectId,
-        ref: 'users'
+        ref: 'profiles'
       }
     }
   ],

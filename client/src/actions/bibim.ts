@@ -1,6 +1,12 @@
 import axios from 'axios';
 
-import { ADD_BIBIM, POST_ERROR, GET_BIBIMS, GET_BIBIM } from './types';
+import {
+  ADD_BIBIM,
+  POST_ERROR,
+  GET_BIBIMS,
+  GET_BIBIM,
+  UPDATE_SUBSCRIPTION
+} from './types';
 import { setAlert } from './alert';
 
 //Add bibim
@@ -64,6 +70,38 @@ export const getBibim = id => async dispatch => {
     dispatch({
       type: POST_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Add Subscription
+//id : bibimId
+export const addSubscription = (bibimId, profile) => async dispatch => {
+  console.log(profile._id);
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  try {
+    const res = await axios.put(
+      `/api/bibim/subscription/${bibimId}`,
+      profile,
+      config
+    );
+    console.log('res addSubscription ', res);
+
+    dispatch({
+      type: UPDATE_SUBSCRIPTION,
+      payload: { bibimId, subscriptions: res.data }
+    });
+  } catch (err) {
+    console.log('addSubscription ERR');
+
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.data.msg, status: err.response.status }
     });
   }
 };

@@ -38,10 +38,21 @@ const Dashboard = ({
             <i className='fas fa-window-maximize' /> Welcome to{' '}
             {user && currentBibim[0].name}
           </p>
+          <button
+            type='button'
+            className='btn btn-light'
+            onClick={() => console.log('subscribe pressed')}
+          >
+            Subscribe
+          </button>
           <p>Bibim Name : {bibims && currentBibim[0].name}</p>
           <p>Creater : {currentBibim[0].createrName}</p>
           <p>description :{currentBibim[0].description}</p>
-          <p>subscription : {currentBibim[0].subscription.length}</p>
+          <p>
+            subscription :{' '}
+            {currentBibim[0].subscription &&
+              currentBibim[0].subscription.length}
+          </p>
           <p>like : {currentBibim[0].likes.length}</p>
           <p>number of posts : {currentBibim[0].posts.length}</p>
           <div className='posts'>

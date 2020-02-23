@@ -25,3 +25,4 @@ export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 export const ADD_BIBIM = 'ADD_BIBIM';
 export const GET_BIBIMS = 'GET_BIBIMS';
 export const GET_BIBIM = 'GET_BIBIM';
+export const UPDATE_SUBSCRIPTION = 'UPDATE_SUBSCRIPTION';
