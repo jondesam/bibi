@@ -77,7 +77,7 @@ export const getBibim = id => async dispatch => {
 // Add Subscription
 //id : bibimId
 export const addSubscription = (bibimId, profile) => async dispatch => {
-  console.log(profile._id);
+  // console.log(bibimId, profile._id);
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -102,6 +102,32 @@ export const addSubscription = (bibimId, profile) => async dispatch => {
     dispatch({
       type: POST_ERROR,
       payload: { msg: err.response.data.msg, status: err.response.status }
+    });
+  }
+};
+
+// Remove subscription
+export const removeSubscription = (bibimId, profile) => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  try {
+    const res = await axios.put(
+      `/api/bibim/unsubscription/${bibimId}`,
+      profile,
+      config
+    );
+
+    dispatch({
+      type: UPDATE_SUBSCRIPTION,
+      payload: { bibimId, subscriptions: res.data }
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
 };

@@ -13,6 +13,8 @@ import AddEducation from '../profile-forms/AddEducation';
 import Profiles from '../profiles/Profiles';
 import Profile from '../profile/Profile';
 import Posts from '../posts/Posts';
+import AllPosts from '../posts/AllPosts';
+
 import Post from '../post/Post';
 
 import NotFound from '../layout/NotFound';
@@ -33,7 +35,7 @@ const Routes = () => {
         <Route exact path='/profile/:id' component={Profile} />
         <Route exact path='/create-post' component={Bibims} />
 
-        <Route exact path='/posts' component={Posts} />
+        <Route exact path='/all-posts' component={AllPosts} />
 
         <PrivateRoute exact path='/dashboard' component={Dashboard} />
         <PrivateRoute exact path='/create-profile' component={CreateProfile} />

@@ -188,6 +188,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
       post.likes.filter(like => like.user.toString() === req.user.id).length ===
       0
     ) {
+      console.log('Post has not yet been liked');
       return res.status(400).json({ msg: 'Post has not yet been liked' });
     }
 
@@ -206,9 +207,6 @@ router.put('/unlike/:id', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
-
-
-
 
 // @route    POST api/posts/comment/:id
 // @desc     Comment on a post

@@ -23,6 +23,10 @@ const BibimSchema = new Schema({
       profileId: {
         type: Schema.Types.ObjectId,
         ref: 'profiles'
+      },
+      userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'users'
       }
     }
   ],

@@ -114,6 +114,10 @@ const ProfileSchema = new Schema({
       bibimId: {
         type: Schema.Types.ObjectId,
         ref: 'bibims'
+      },
+      bibimName: {
+        type: String,
+        ref: 'bibims'
       }
     }
   ]

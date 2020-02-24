@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
-import { addSubscription } from '../../actions/bibim';
+import { addSubscription, removeSubscription } from '../../actions/bibim';
 import { getCurrentProfile } from '../../actions/profile';
 
 const BibimItem = ({
@@ -11,6 +11,7 @@ const BibimItem = ({
   deletePost,
   addSubscription,
   getCurrentProfile,
+  removeSubscription,
   bibim: {
     _id,
     createrName,
@@ -28,8 +29,28 @@ const BibimItem = ({
   }, [getCurrentProfile]);
 
   console.log('profile', profile);
-  // const profileId = profile._id;
-  const formData = { _id, profile };
+  console.log('subscriptions', subscriptions);
+
+  let buttonTitle = '';
+
+  if (profile !== null) {
+    const result = subscriptions.filter(element =>
+      element.profileId.includes(profile._id)
+    );
+    if (result.length === 0) {
+      buttonTitle = 'Subscribe';
+    } else {
+      buttonTitle = 'Unubscribe';
+    }
+  }
+
+  const clickAction = (_id, profile) => {
+    if (buttonTitle === 'Subscribe') {
+      addSubscription(_id, profile);
+    } else {
+      removeSubscription(_id, profile);
+    }
+  };
 
   return (
     <div className='post bg-white p-1 my-1'>
@@ -51,13 +72,11 @@ const BibimItem = ({
           <button
             type='button'
             className='btn btn-light'
-            onClick={() => addSubscription(_id, profile)}
+            onClick={() => clickAction(_id, profile)}
           >
-            Subscribe
-            <span>
-              {subscriptions.length > 0 && <span>{subscriptions.length}</span>}
-            </span>
+            {buttonTitle}
           </button>
+
           <button
             //   onClick={() => addLike(_id)}
             type='button'
@@ -90,6 +109,14 @@ BibimItem.defaultProps = {
   showActions: true
 };
 
+// {profile !== null
+//   ? subscriptions.filter(element =>
+//       element.profileId.includes(profile._id)
+//     )
+//     ? 'Unsub'
+//     : 'Sub'
+//   : null}
+
 // BibimItem.propTypes = {
 //   post: PropTypes.object.isRequired,
 //   auth: PropTypes.object.isRequired,
@@ -103,6 +130,8 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { addSubscription, getCurrentProfile })(
-  BibimItem
-);
+export default connect(mapStateToProps, {
+  addSubscription,
+  removeSubscription,
+  getCurrentProfile
+})(BibimItem);

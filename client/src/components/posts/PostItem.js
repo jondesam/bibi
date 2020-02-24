@@ -28,6 +28,8 @@ const PostItem = ({
   const canClick = () => {
     addLike(_id);
   };
+
+  
   // console.log(post);
 
   // console.log('_id', _id, comments, likes);
@@ -67,6 +69,7 @@ const PostItem = ({
                 {likes.length > 0 ? <span>{likes.length}</span> : null}
               </span>
             </button>
+
             <button
               onClick={() => removeLike(_id)}
               type='button'

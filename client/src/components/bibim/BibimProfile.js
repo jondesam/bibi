@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import PostItem from '../posts/PostItem';
+import { addSubscription } from '../../actions/bibim.ts';
 
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 
 const Dashboard = ({
-  getCurrentProfile,
+  addSubscription,
   auth,
   bibim: { bibims },
   deleteAccount,
@@ -23,11 +24,11 @@ const Dashboard = ({
   }, [getCurrentProfile]);
 
   const currentBibim = bibims.filter(bibim => match.params.id === bibim._id);
-  // console.log('currentBibim post', currentBibim);
+
+  console.log(currentBibim[0].name, currentBibim[0]._id);
 
   // currentBibim.posts.map(post => <p>{post.name}</p>);
 
-  // return <div>Dashboard</div>;
   return loading && profile === null ? (
     <Spinner />
   ) : (
@@ -41,7 +42,7 @@ const Dashboard = ({
           <button
             type='button'
             className='btn btn-light'
-            onClick={() => console.log('subscribe pressed')}
+            onClick={() => addSubscription(currentBibim[0]._id, profile)}
           >
             Subscribe
           </button>
@@ -85,6 +86,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
-  Dashboard
-);
+export default connect(mapStateToProps, {
+  addSubscription,
+  getCurrentProfile,
+  deleteAccount
+})(Dashboard);

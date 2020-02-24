@@ -91,21 +91,13 @@ router.get('/:id', auth, async (req, res) => {
 router.put('/subscription/:id', auth, async (req, res) => {
   try {
     const bibim = await Bibim.findById(req.params.id);
-    console.log('req.body', req.body);
-    console.log('req.user.id', req.user.id);
 
     const profile = await Profile.findById(req.body._id);
-    // console.log(profile);
-
-    const newSubscription = {
-      profileId: req.body._id
-    }; //profile._id
-    console.log('newSubscription peofileId', newSubscription);
 
     // Check if the post has already been liked
     if (
       bibim.subscriptions.filter(
-        subscription => subscription.user.toString() === req.user.id
+        subscription => subscription.profileId.toString() === req.body._id
       ).length > 0
     ) {
       console.log('Bibim already subscribed');
@@ -113,9 +105,15 @@ router.put('/subscription/:id', auth, async (req, res) => {
       return res.status(400).json({ msg: 'Post already liked' });
     }
 
-    profile.subscriptions.unshift({ bibimId: req.params.id });
+    profile.subscriptions.unshift({
+      bibimId: req.params.id,
+      bibimName: bibim.name
+    });
 
-    bibim.subscriptions.unshift(newSubscription);
+    bibim.subscriptions.unshift({
+      profileId: req.body._id,
+      userId: req.user.id
+    });
 
     await profile.save();
     await bibim.save();
@@ -126,4 +124,45 @@ router.put('/subscription/:id', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+// @route    PUT api/posts/unsubscription/:id
+// @desc     unsubscribe a bibim
+// @access   Private
+router.put('/unsubscription/:id', auth, async (req, res) => {
+  try {
+    const bibim = await Bibim.findById(req.params.id);
+    const profile = await Profile.findById(req.body._id);
+
+    // Check if the post has already been liked
+    if (
+      bibim.subscriptions.filter(
+        subscription => subscription.userId.toString() === req.user.id
+      ).length === 0
+    ) {
+      console.log('Bibim has not been subscribed');
+      return res.status(400).json({ msg: 'Post has not yet been liked' });
+    }
+
+    // Get remove index
+    const profileRemoveIndex = profile.subscriptions
+      .map(subscription => subscription.bibimId.toString())
+      .indexOf(bibim._id);
+
+    const bibimRemoveIndex = bibim.subscriptions
+      .map(subscription => subscription.profileId.toString())
+      .indexOf(profile._id);
+
+    profile.subscriptions.splice(profileRemoveIndex, 1);
+    bibim.subscriptions.splice(bibimRemoveIndex, 1);
+
+    await bibim.save();
+    await profile.save();
+
+    res.json(bibim.subscriptions);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;
