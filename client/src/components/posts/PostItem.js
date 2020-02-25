@@ -22,19 +22,11 @@ const PostItem = ({
     bibimName,
     bibim
   },
-  showActions,
-  bibim: { bibims }
+  showActions
 }) => {
   const canClick = () => {
     addLike(_id);
   };
-
-  
-  // console.log(post);
-
-  // console.log('_id', _id, comments, likes);
-
-  //  bibims.filter(bibim => posts._id === post._id)
 
   return (
     <div className='post bg-white p-1 my-1'>

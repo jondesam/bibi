@@ -3,10 +3,18 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
+import { createProfile } from '../../actions/profile';
 import PropTypes from 'prop-types';
 // import { register } from '../../actions/auth';
 
-const Register = (props: any) => {
+const Register = ({
+  register,
+  setAlert,
+  isAuthenticated,
+  history,
+  createProfile,
+  auth: { token }
+}) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -27,40 +35,17 @@ const Register = (props: any) => {
     // console.log('props', props);
 
     if (password !== password2) {
-      props.setAlert("passwords don't match", 'danger');
+      setAlert("passwords don't match", 'danger');
       // console.log('passwords dont match');
 
       //   setAlert('Passwords do not match', 'danger');
     } else {
-      props.register({ name, email, password });
-
-      //   register({ name, email, password });
-
-      //   const config = {
-      //     headers: {
-      //       'Content-Type': 'application/json'
-      //     }
-      //   };
-
-      //   const body = JSON.stringify({ name, email, password });
-
-      //   try {
-      //     const res = await axios.post('/api/users', body, config);
-      //     console.log(res);
-
-      //     console.log(res.data);
-      //   } catch (err) {
-      //     const errors = err.response.data.errors;
-
-      //     console.log(errors.respense.data);
-      //   }
-
-      //   console.log(formData);
+      register({ name, email, password });
     }
   };
 
-  if (props.isAuthenticated) {
-    return <Redirect to='/dashboard' />;
+  if (isAuthenticated) {
+    return <Redirect to='/all-posts' />;
   }
 
   return (
@@ -129,7 +114,10 @@ Register.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth
 });
 
-export default connect(mapStateToProps, { setAlert, register })(Register);
+export default connect(mapStateToProps, { setAlert, register, createProfile })(
+  Register
+);

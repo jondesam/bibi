@@ -85,7 +85,7 @@ router.post(
         (err, token) => {
           if (err) throw err;
 
-          res.json({ token, test: 'from /api/users.js' });
+          res.json({ token });
         }
       );
 

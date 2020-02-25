@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
@@ -10,13 +9,9 @@ import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 
 const Dashboard = ({
   addSubscription,
-  auth,
   bibim: { bibims },
-  deleteAccount,
   auth: { user },
   profile: { profile, loading },
-  bibimid,
-  param,
   match
 }) => {
   useEffect(() => {
@@ -25,9 +20,7 @@ const Dashboard = ({
 
   const currentBibim = bibims.filter(bibim => match.params.id === bibim._id);
 
-  console.log(currentBibim[0].name, currentBibim[0]._id);
-
-  // currentBibim.posts.map(post => <p>{post.name}</p>);
+  // console.log(currentBibim[0].name, currentBibim[0]._id);
 
   return loading && profile === null ? (
     <Spinner />

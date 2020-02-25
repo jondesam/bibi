@@ -1,18 +1,12 @@
-import React, { Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Spinner from '../layout/Spinner';
-// import PostItem from './PostItem';
+import React, { Fragment } from 'react';
+// import PropTypes from 'prop-types';
 import BibimForm from './BibimForm';
-// import { getPosts } from '../../actions/post';
 
 const NewCate = () => {
   return (
     <Fragment>
       <h1 className='large text-primary'>Create Bibim</h1>
-      <p className='lead'>
-        <i className='fas fa-user' />
-      </p>
+      <p className='lead'></p>
       <BibimForm />
     </Fragment>
   );

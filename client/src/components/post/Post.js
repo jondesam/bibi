@@ -8,12 +8,10 @@ import CommentForm from '../post/CommentForm';
 import CommentItem from '../post/CommentItem';
 import { getPost } from '../../actions/post';
 
-const Post = ({ getPost, post: { post, loading }, match, bibim: {} }) => {
+const Post = ({ getPost, post: { post, loading }, match }) => {
   useEffect(() => {
     getPost(match.params.id);
   }, [getPost, match.params.id]);
-
-  // console.log('post siglePost', post);
 
   return loading || post === null ? (
     <Spinner />

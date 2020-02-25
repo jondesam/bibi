@@ -11,6 +11,7 @@ import {
   CLEAR_PROFILE
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
+import { createProfile } from '../actions/profile';
 
 // Load User
 export const loadUser = () => async dispatch => {
@@ -47,7 +48,7 @@ export const register = ({ name, email, password }) => async dispatch => {
   try {
     const res = await axios.post('/api/users', body, config);
 
-    // console.log('res.data in register action', res.data);
+    console.log('res.data in register action', res.data); //token received
 
     dispatch({
       type: REGISTER_SUCCESS,
@@ -55,6 +56,17 @@ export const register = ({ name, email, password }) => async dispatch => {
     });
 
     dispatch(loadUser());
+
+    const defaultProfileformData = {
+      bio: '',
+      twitter: '',
+      facebook: '',
+      linkedin: '',
+      youtube: '',
+      instagram: ''
+    };
+
+    dispatch(createProfile(defaultProfileformData, null));
   } catch (err) {
     const errors = err.response.data.errors;
 

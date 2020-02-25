@@ -7,6 +7,8 @@ import DashboardActions from './DashboardAction';
 import Experience from './Experience';
 import Education from './Education';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
+import Profile from '../profile/Profile';
+import EditProfile from '../profile-forms/EditProfile';
 
 const Dashboard = ({
   getCurrentProfile,
@@ -22,38 +24,27 @@ const Dashboard = ({
 
   console.log('profile', profile);
 
-  return loading && profile === null ? (
-    <Spinner />
-  ) : (
+  return (
     <Fragment>
       <p className='lead'>
         <i className='fas fa-user' /> Welcome {user && user.name}
       </p>
-      {profile !== null ? (
-        <Fragment>
-          <DashboardActions />
-          <Experience experience={profile.experience} />
-          <Education education={profile.education} />
+      <Fragment>
+        <p>Subscribed Bibim </p>
 
-          <p>Subscribed Bibim </p>
-          {profile.subscriptions.map(bibim => (
-            <p key={bibim._id}>{bibim.bibimName}</p>
-          ))}
+        {profile !== null
+          ? profile.subscriptions.map(bibim => (
+              <p key={bibim._id}>{bibim.bibimName}</p>
+            ))
+          : null}
 
-          <div className='my-2'>
-            <button className='btn btn-danger' onClick={() => deleteAccount()}>
-              <i className='fas fa-user-minus' /> Delete My Account
-            </button>
-          </div>
-        </Fragment>
-      ) : (
-        <Fragment>
-          <p>You have not yet setup a profile, please add some info</p>
-          <Link to='/create-profile' className='btn btn-primary my-1'>
-            Create Profile
-          </Link>
-        </Fragment>
-      )}
+        <EditProfile></EditProfile>
+        <div className='my-2'>
+          <button className='btn btn-danger' onClick={() => deleteAccount()}>
+            Delete My Account
+          </button>
+        </div>
+      </Fragment>
     </Fragment>
   );
 };
@@ -66,8 +57,6 @@ Dashboard.propTypes = {
 };
 
 const mapStateToProps = state => {
-  // console.log('dashboard state', state);
-
   return {
     auth: state.auth,
     profile: state.profile

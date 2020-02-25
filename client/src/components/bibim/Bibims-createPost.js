@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import BibimForm from './BibimForm';
+// import PropTypes from 'prop-types';
+
 import { getBibims } from '../../actions/bibim';
 import BibimItem from './BibimItem.js';
 import PostForm from '../posts/PostForm.js';
@@ -16,8 +16,6 @@ const Bibim = ({
   useEffect(() => {
     getBibims();
   }, [getBibims]);
-
-  // console.log('bibim.bibims', bibims);
 
   return (
     <div>
@@ -34,7 +32,7 @@ const Bibim = ({
   );
 };
 
-Bibim.propTypes = {};
+// Bibim.propTypes = {};
 
 const mapStateToProps = state => ({
   bibim: state.bibim

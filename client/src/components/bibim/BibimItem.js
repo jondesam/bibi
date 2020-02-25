@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
@@ -7,8 +7,6 @@ import { addSubscription, removeSubscription } from '../../actions/bibim';
 import { getCurrentProfile } from '../../actions/profile';
 
 const BibimItem = ({
-  removeLike,
-  deletePost,
   addSubscription,
   getCurrentProfile,
   removeSubscription,
@@ -31,7 +29,7 @@ const BibimItem = ({
   console.log('profile', profile);
   console.log('subscriptions', subscriptions);
 
-  let buttonTitle = '';
+  let buttonTitle = 'Subscribe';
 
   if (profile !== null) {
     const result = subscriptions.filter(element =>
@@ -77,29 +75,7 @@ const BibimItem = ({
             {buttonTitle}
           </button>
 
-          <button
-            //   onClick={() => addLike(_id)}
-            type='button'
-            className='btn btn-light'
-          >
-            <i className='fas fa-thumbs-up' />{' '}
-            <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
-          </button>
-          <button
-            onClick={() => removeLike(_id)}
-            type='button'
-            className='btn btn-light'
-          >
-            <i className='fas fa-thumbs-down' />
-          </button>
           {/* postuser === logged in user */}
-          <button
-            onClick={() => deletePost(_id)}
-            type='button'
-            className='btn btn-danger'
-          >
-            <i className='fas fa-times' />
-          </button>
         </Fragment>
       </div>
     </div>

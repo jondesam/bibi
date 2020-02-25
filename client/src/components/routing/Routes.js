@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from '../routing/PrivateRoute';
+import { connect } from 'react-redux';
 
 import Register from '../auth/Register';
 import Login from '../auth/Login';
 import Alert from '../layout/Alert';
-import Dashboard from '../dashboard/Dashboard';
 import CreateProfile from '../profile-forms/CreateProfile';
 import EditProfile from '../profile-forms/EditProfile';
 import AddExperience from '../profile-forms/AddExperience';
@@ -14,16 +14,13 @@ import Profiles from '../profiles/Profiles';
 import Profile from '../profile/Profile';
 import Posts from '../posts/Posts';
 import AllPosts from '../posts/AllPosts';
-
 import Post from '../post/Post';
-
 import NotFound from '../layout/NotFound';
-
 import CreateBibim from '../bibim/CreateBibim';
 import Bibims from '../bibim/Bibims-createPost';
 import BibimProfile from '../bibim/BibimProfile';
 
-const Routes = () => {
+const Routes = ({ profile: { _id } }) => {
   return (
     <section className='container'>
       <Alert />
@@ -37,7 +34,7 @@ const Routes = () => {
 
         <Route exact path='/all-posts' component={AllPosts} />
 
-        <PrivateRoute exact path='/dashboard' component={Dashboard} />
+        <PrivateRoute exact path={`/profile/${_id}`} component={Profile} />
         <PrivateRoute exact path='/create-profile' component={CreateProfile} />
         <PrivateRoute exact path='/edit-profile' component={EditProfile} />
         <PrivateRoute exact path='/add-experience' component={AddExperience} />
@@ -53,5 +50,10 @@ const Routes = () => {
     </section>
   );
 };
+const mapStateToProps = state => {
+  return {
+    profile: state.profile
+  };
+};
 
-export default Routes;
+export default connect(mapStateToProps)(Routes);

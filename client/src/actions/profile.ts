@@ -87,7 +87,7 @@ export const createProfile = (
   history,
   edit = false
 ) => async dispatch => {
-  // console.log('createProfile');
+  console.log('CCCCCreateProfile');
 
   try {
     const config = {
@@ -97,7 +97,7 @@ export const createProfile = (
     };
 
     const res = await axios.post('/api/profile', formData, config);
-    // console.log('res createPRofile', res);
+    console.log('res createPRofile', res);
 
     dispatch({
       type: GET_PROFILE,
@@ -106,11 +106,12 @@ export const createProfile = (
 
     dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
 
-    if (!edit) {
-      history.push('/dashboard');
-    }
+    // if (!edit) {
+    //   history.push('/');
+    // }
   } catch (err) {
-    // console.log('err', err.response);
+    console.log('err', err.response);
+    console.log('profile ERR', err);
 
     const errors = err.response.data.errors;
 

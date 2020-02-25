@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Spinner from '../layout/Spinner';
+
 import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
 import ProfileExperience from './ProfileExperience';
@@ -10,9 +10,11 @@ import ProfileEducation from './ProfileEducation';
 import ProfileGithub from './ProfileGithub';
 import { getProfileById } from '../../actions/profile';
 
+import { createProfile } from '../../actions/profile';
 const Profile = ({
   getProfileById,
-  profile: { profile, loading },
+
+  profile: { profile },
   auth,
   match
 }) => {
@@ -20,12 +22,10 @@ const Profile = ({
     getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
 
-  // console.log('profile', profile);
-
   return (
     <Fragment>
-      {profile === null || loading ? (
-        <Spinner />
+      {profile === null ? (
+        <p>need profile</p>
       ) : (
         <Fragment>
           <Link to='/profiles' className='btn btn-light'>
@@ -95,4 +95,6 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { getProfileById })(Profile);
+export default connect(mapStateToProps, { getProfileById, createProfile })(
+  Profile
+);

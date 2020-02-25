@@ -15,7 +15,6 @@ const AllPosts = ({ getPosts, post: { posts, loading } }) => {
     <Spinner />
   ) : (
     <Fragment>
-      <h1 className='large text-primary'>All Posts</h1>
       <p className='lead'>
         <i className='fas fa-user' /> Welcome to the community
       </p>

@@ -1,10 +1,30 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
+import { getCurrentProfile } from '../../actions/profile.ts';
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
+const Navbar = ({
+  getCurrentProfile,
+  auth,
+  profile: { profile },
+
+  logout
+}) => {
+  // console.log('auth', auth, profile);
+
+  useEffect(() => {
+    getCurrentProfile();
+  }, [getCurrentProfile]);
+
+  let userId = '';
+
+  if (auth.user !== null) {
+    userId = auth.user._id;
+  }
+  // console.log('userId', userId);
+
   const authLinks = (
     <Fragment>
       <ul>
@@ -21,7 +41,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
           <Link to='/all-posts'>All Posts</Link>
         </li>
         <li>
-          <Link to='/dashboard'>
+          <Link to={`/profile/${userId}`}>
             <i className='fas fa-user' />{' '}
             <span className='hide-sm'>Profile</span>
           </Link>
@@ -81,9 +101,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   return (
     <nav className='navbar bg-dark'>
       <h1>
-        <Link to='/'>
-          <i className='fas fa-code' /> Bibimi
-        </Link>
+        <Link to='/'>Bibimi</Link>
       </h1>
       <section className='section'>
         <form className='form-group social-input' id='addItemForm'>
@@ -99,8 +117,8 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
           </button>
         </form>
       </section>
-      {!loading && (
-        <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+      {!auth.loading && (
+        <Fragment>{auth.isAuthenticated ? authLinks : guestLinks}</Fragment>
       )}
     </nav>
   );
@@ -112,7 +130,8 @@ Navbar.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  profile: state.auth
 });
 
-export default connect(mapStateToProps, { logout })(Navbar);
+export default connect(mapStateToProps, { logout, getCurrentProfile })(Navbar);
