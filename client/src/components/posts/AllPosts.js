@@ -11,18 +11,15 @@ const AllPosts = ({ getPosts, post: { posts, loading } }) => {
     getPosts();
   }, [getPosts]);
 
-  return loading ? (
-    <Spinner />
-  ) : (
+  return (
     <Fragment>
-      <p className='lead'>
-        <i className='fas fa-user' /> Welcome to the community
-      </p>
-
-      <div className='posts'>
-        {posts.map(post => (
-          <PostItem key={post._id} post={post} />
-        ))}
+      <div>
+        <h1 className='large text-primary'>Welcome to Bibimi</h1>
+        <div className='posts'>
+          {posts.map(post => (
+            <PostItem key={post._id} post={post} />
+          ))}
+        </div>{' '}
       </div>
     </Fragment>
   );

@@ -3,16 +3,23 @@ import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 
 import { getBibims } from '../../actions/bibim';
+import { getCurrentProfile } from '../../actions/profile';
+
 import BibimItem from './BibimItem.js';
 import PostForm from '../posts/PostForm.js';
 
 const Bibim = ({
   getBibims,
+  getCurrentProfile,
   bibim: { bibims },
   match: {
     params: { id }
   }
 }) => {
+  useEffect(() => {
+    getCurrentProfile();
+  }, [getCurrentProfile]);
+
   useEffect(() => {
     getBibims();
   }, [getBibims]);
@@ -38,4 +45,6 @@ const mapStateToProps = state => ({
   bibim: state.bibim
 });
 
-export default connect(mapStateToProps, { getBibims })(Bibim);
+export default connect(mapStateToProps, { getBibims, getCurrentProfile })(
+  Bibim
+);

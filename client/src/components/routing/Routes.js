@@ -20,12 +20,17 @@ import CreateBibim from '../bibim/CreateBibim';
 import Bibims from '../bibim/Bibims-createPost';
 import BibimProfile from '../bibim/BibimProfile';
 
-const Routes = ({ profile: { _id } }) => {
+const Routes = ({ profile: { _id }, auth: { isAuthenticated } }) => {
   return (
     <section className='container'>
       <Alert />
       <Switch>
-        <Route exact path='/' component={Posts} />
+        {isAuthenticated === true ? (
+          <Route exact path='/' component={Posts} />
+        ) : (
+          <Route exact path='/' component={AllPosts} />
+        )}
+
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/profiles' component={Profiles} />
@@ -52,7 +57,8 @@ const Routes = ({ profile: { _id } }) => {
 };
 const mapStateToProps = state => {
   return {
-    profile: state.profile
+    profile: state.profile,
+    auth: state.auth
   };
 };
 

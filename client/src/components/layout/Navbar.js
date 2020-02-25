@@ -14,9 +14,9 @@ const Navbar = ({
 }) => {
   // console.log('auth', auth, profile);
 
-  useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
+  // useEffect(() => {
+  //   getCurrentProfile();
+  // }, [getCurrentProfile]);
 
   let userId = '';
 

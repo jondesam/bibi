@@ -42,7 +42,7 @@ const Posts = ({
   return (
     <Fragment>
       <p className='lead'>
-        <i className='fas fa-user' /> Welcome to the community
+        <h1 className='large text-primary'>Welcome to Bibimi</h1>
       </p>
 
       <div className='posts'>

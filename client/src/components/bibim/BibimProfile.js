@@ -29,8 +29,8 @@ const Dashboard = ({
       {currentBibim.length > 0 ? (
         <div>
           <p className='lead'>
-            <i className='fas fa-window-maximize' /> Welcome to{' '}
-            {user && currentBibim[0].name}
+            <i className='fas fa-window-maximize' />{' '}
+            {user && currentBibim[0].name} Bibim
           </p>
           <button
             type='button'

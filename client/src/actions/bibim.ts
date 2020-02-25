@@ -29,7 +29,7 @@ export const addBibim = formData => async dispatch => {
       payload: res.data
     });
 
-    dispatch(setAlert('Post Created', 'success'));
+    dispatch(setAlert('Bibim Created', 'success'));
   } catch (err) {
     // console.log(err);
 
