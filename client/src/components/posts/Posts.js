@@ -41,9 +41,9 @@ const Posts = ({
 
   return (
     <Fragment>
-      <p className='lead'>
+      <div className='lead'>
         <h1 className='large text-primary'>Welcome to Bibimi</h1>
-      </p>
+      </div>
 
       <div className='posts'>
         {posts.map(post =>

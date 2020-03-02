@@ -1,14 +1,15 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import PostItem from '../posts/PostItem';
-import { addSubscription } from '../../actions/bibim.ts';
+import { addSubscription, removeSubscription } from '../../actions/bibim.ts';
 
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 
 const Dashboard = ({
   addSubscription,
+  removeSubscription,
   bibim: { bibims },
   auth: { user },
   profile: { profile, loading },
@@ -18,7 +19,37 @@ const Dashboard = ({
     getCurrentProfile();
   }, [getCurrentProfile]);
 
+  console.log('bibims', bibims);
+
   const currentBibim = bibims.filter(bibim => match.params.id === bibim._id);
+
+  console.log('currentBibim', currentBibim);
+
+  let inintialTitle = null;
+
+  if (currentBibim.length > 0) {
+    const result = currentBibim[0].subscriptions.filter(element =>
+      element.profileId.includes(profile._id)
+    );
+
+    if (result.length === 0) {
+      inintialTitle = 'Subscribe';
+    } else {
+      inintialTitle = 'Unsubscribe';
+    }
+  }
+
+  let [text, setTitle] = useState(inintialTitle);
+
+  const clickAction = (_id, profile) => {
+    if (text === 'Subscribe') {
+      addSubscription(_id, profile);
+      setTitle('Unsubscribe');
+    } else {
+      removeSubscription(_id, profile);
+      setTitle('Subscribe');
+    }
+  };
 
   // console.log(currentBibim[0].name, currentBibim[0]._id);
 
@@ -35,20 +66,21 @@ const Dashboard = ({
           <button
             type='button'
             className='btn btn-light'
-            onClick={() => addSubscription(currentBibim[0]._id, profile)}
+            onClick={() => clickAction(currentBibim[0]._id, profile)}
           >
-            Subscribe
+            {text === null ? inintialTitle : text}
           </button>
+
           <p>Bibim Name : {bibims && currentBibim[0].name}</p>
           <p>Creater : {currentBibim[0].createrName}</p>
-          <p>description :{currentBibim[0].description}</p>
+          <p>Description :{currentBibim[0].description}</p>
           <p>
-            subscription :{' '}
-            {currentBibim[0].subscription &&
-              currentBibim[0].subscription.length}
+            Subscription :{' '}
+            {currentBibim[0].subscriptions &&
+              currentBibim[0].subscriptions.length}
           </p>
-          <p>like : {currentBibim[0].likes.length}</p>
-          <p>number of posts : {currentBibim[0].posts.length}</p>
+          <p>Like : {currentBibim[0].likes.length}</p>
+          <p>Number of posts : {currentBibim[0].posts.length}</p>
           <div className='posts'>
             {currentBibim[0].posts.map(post => (
               <PostItem key={post._id} post={post} />
@@ -81,6 +113,7 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   addSubscription,
+  removeSubscription,
   getCurrentProfile,
   deleteAccount
 })(Dashboard);

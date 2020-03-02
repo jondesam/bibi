@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
@@ -26,27 +26,28 @@ const BibimItem = ({
     getCurrentProfile();
   }, [getCurrentProfile]);
 
-  console.log('profile', profile);
-  console.log('subscriptions', subscriptions);
-
-  let buttonTitle = 'Subscribe';
+  let inintialTitle = null;
 
   if (profile !== null) {
     const result = subscriptions.filter(element =>
       element.profileId.includes(profile._id)
     );
     if (result.length === 0) {
-      buttonTitle = 'Subscribe';
+      inintialTitle = 'Subscribe';
     } else {
-      buttonTitle = 'Unubscribe';
+      inintialTitle = 'Unsubscribe';
     }
   }
 
+  let [text, setTitle] = useState(inintialTitle);
+
   const clickAction = (_id, profile) => {
-    if (buttonTitle === 'Subscribe') {
+    if (text === 'Subscribe') {
       addSubscription(_id, profile);
+      setTitle('Unsubscribe');
     } else {
       removeSubscription(_id, profile);
+      setTitle('Subscribe');
     }
   };
 
@@ -72,7 +73,7 @@ const BibimItem = ({
             className='btn btn-light'
             onClick={() => clickAction(_id, profile)}
           >
-            {buttonTitle}
+            {text === null ? inintialTitle : text}
           </button>
 
           {/* postuser === logged in user */}
