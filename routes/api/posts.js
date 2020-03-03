@@ -83,7 +83,7 @@ router.get('/', async (req, res) => {
 
     // res.json(allPosts);
     const posts = await Post.find().sort({ date: -1 });
-    console.log('posts', posts);
+    // console.log('posts', posts);
 
     res.json(posts);
   } catch (err) {

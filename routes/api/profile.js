@@ -29,7 +29,7 @@ router.get('/me', auth, async (req, res) => {
 
     res.json(profile);
   } catch (error) {
-    console.log(error.message);
+    error.message;
     res.status(500).send('Server Error');
   }
 });

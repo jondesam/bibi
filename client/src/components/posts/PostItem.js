@@ -23,6 +23,9 @@ const PostItem = ({
     bibim
   }
 }) => {
+  // auth.user_id ? (
+  //   user === auth.user._id
+
   return (
     <div>
       <div className='post bg-white p-1 my-1'>
@@ -74,17 +77,15 @@ const PostItem = ({
 
               {/* postuser === logged in user */}
 
-              {auth.user_id
-                ? user === auth.user._id && (
-                    <button
-                      onClick={() => deletePost(_id)}
-                      type='button'
-                      className='btn btn-danger'
-                    >
-                      <i className='fas fa-times' />
-                    </button>
-                  )
-                : null}
+              {user === auth.user._id ? (
+                <button
+                  onClick={() => deletePost(_id)}
+                  type='button'
+                  className='btn btn-danger'
+                >
+                  <i className='fas fa-times' />
+                </button>
+              ) : null}
             </Fragment>
           ) : (
             <p>Problem</p>
@@ -94,6 +95,20 @@ const PostItem = ({
     </div>
   );
 };
+
+//SHOULD WORK BUT.....
+// {auth.user_id
+//   ? user === auth.user._id && (
+//       <button
+//         onClick={() => deletePost(_id)}
+//         type='button'
+//         className='btn btn-danger'
+//       >
+//         <i className='fas fa-times' />
+//         <p>adf</p>
+//       </button>
+//     )
+//   : null}
 
 PostItem.defaultProps = {
   showActions: true
