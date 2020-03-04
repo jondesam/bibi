@@ -2,33 +2,30 @@ import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import Spinner from '../layout/Spinner';
 import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
-import ProfileExperience from './ProfileExperience';
-import ProfileEducation from './ProfileEducation';
+
 import ProfileGithub from './ProfileGithub';
 import { getProfileById } from '../../actions/profile';
-
-import { createProfile } from '../../actions/profile';
 import ProfilePosts from '../posts/ProfilePosts';
 
 const Profile = ({
   getProfileById,
-
-  profile: { profile },
+  profile: { profile, loading },
   auth,
-  match,
-  post
+  match
 }) => {
   useEffect(() => {
     getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
 
+  console.log('profile', profile);
+
   return (
     <Fragment>
-      {profile === null ? (
-        <p>need profile</p>
+      {profile === null || loading ? (
+        <Spinner />
       ) : (
         <Fragment>
           <Link to='/profiles' className='btn btn-light'>
@@ -37,20 +34,15 @@ const Profile = ({
           {auth.isAuthenticated &&
             auth.loading === false &&
             auth.user._id === profile.user._id && (
-              <Link to='/edit-profile' className='btn btn-dark my-1'>
+              <Link to='/edit-profile' className='btn btn-dark'>
                 Edit Profile
               </Link>
             )}
-
-          <div className='profile-grid'>
+          <div className='profile-grid my-1'>
             <ProfileTop profile={profile} />
             <ProfileAbout profile={profile} />
           </div>
-
-          <div className='posts'>
-            {' '}
-            <ProfilePosts></ProfilePosts>
-          </div>
+          <ProfilePosts match={match}></ProfilePosts>
         </Fragment>
       )}
     </Fragment>
@@ -65,10 +57,7 @@ Profile.propTypes = {
 
 const mapStateToProps = state => ({
   profile: state.profile,
-  auth: state.auth,
-  post: state.post
+  auth: state.auth
 });
 
-export default connect(mapStateToProps, { getProfileById, createProfile })(
-  Profile
-);
+export default connect(mapStateToProps, { getProfileById })(Profile);

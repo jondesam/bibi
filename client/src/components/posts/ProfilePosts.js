@@ -5,32 +5,42 @@ import { connect } from 'react-redux';
 import PostItem from './PostItem';
 
 import { getPosts } from '../../actions/post';
-import { getCurrentProfile } from '../../actions/profile';
+import { getProfileById } from '../../actions/profile';
 
 const Posts = ({
   getPosts,
-  getCurrentProfile,
+
+  getProfileById,
 
   post: { posts, loading },
   profile: { profile },
   bibim: { bibims },
-  auth
+  auth,
+  match
 }) => {
+  console.log('match', match);
+
   useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
+    getProfileById(match.params.id);
+  }, [getProfileById, match.params.id]);
 
   useEffect(() => {
     getPosts();
   }, [getPosts]);
 
-  const userId = auth.user._id;
+  ////Have to make case of Guests visiting
+
+  // console.log('auth', auth);
+
+  let userId = match.params.id;
+
+  console.log('userId', userId);
 
   let postsToShow = [];
 
   postsToShow = posts.filter(post => post.user === userId);
 
-  console.log('postsToShow', postsToShow);
+  // console.log('postsToShow', postsToShow);
 
   return (
     <Fragment>
@@ -70,5 +80,5 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   getPosts,
-  getCurrentProfile
+  getProfileById
 })(Posts);

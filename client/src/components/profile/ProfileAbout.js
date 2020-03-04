@@ -9,6 +9,8 @@ const ProfileAbout = ({
     user: { name }
   }
 }) => {
+  console.log(bio);
+
   return (
     <div className='profile-about bg-light p-2'>
       {bio && (

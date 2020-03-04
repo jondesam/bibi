@@ -75,17 +75,19 @@ const PostItem = ({
                 </Link>
               ) : null}
 
-              {/* postuser === logged in user */}
+              {auth.user
+                ? user === auth.user._id && (
+                    <button
+                      onClick={() => deletePost(_id)}
+                      type='button'
+                      className='btn btn-danger'
+                    >
+                      <i className='fas fa-times' />
+                    </button>
+                  )
+                : null}
 
-              {user === auth.user._id ? (
-                <button
-                  onClick={() => deletePost(_id)}
-                  type='button'
-                  className='btn btn-danger'
-                >
-                  <i className='fas fa-times' />
-                </button>
-              ) : null}
+              {/* postuser === logged in user */}
             </Fragment>
           ) : (
             <p>Problem</p>
