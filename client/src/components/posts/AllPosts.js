@@ -14,7 +14,7 @@ const AllPosts = ({ getPosts, post: { posts, loading } }) => {
   return (
     <Fragment>
       <div>
-        <h1 className='large text-primary'>Welcome to Bibimi</h1>
+        <h1 className='mid text-primary'>All Posts</h1>
         <div className='posts'>
           {posts.map(post => (
             <PostItem key={post._id} post={post} />

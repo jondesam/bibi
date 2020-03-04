@@ -38,7 +38,7 @@ const PostItem = ({
         <div>
           <p className='my-1'>{text}</p>
           <Link to={`/bibims/${bibim}`}>
-            {bibimName && <h4> bibim : {bibimName}</h4>}
+            {bibimName && <h4> {bibimName} bibim</h4>}
           </Link>
 
           <p className='post-date'>
@@ -68,9 +68,18 @@ const PostItem = ({
 
               {_id ? (
                 <Link to={`/posts/${_id}`} className='btn btn-primary'>
-                  Discussion{' '}
-                  {comments.length > 0 && (
-                    <span className='comment-count'>{comments.length}</span>
+                  {comments.length > 1 ? (
+                    <p>
+                      <span className='comment-count'>{comments.length}</span>{' '}
+                      commnets
+                    </p>
+                  ) : comments.length === 1 ? (
+                    <p>
+                      <span className='comment-count'>{comments.length}</span>{' '}
+                      comment
+                    </p>
+                  ) : (
+                    <p>Reply</p>
                   )}
                 </Link>
               ) : null}

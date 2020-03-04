@@ -19,11 +19,7 @@ const Dashboard = ({
     getCurrentProfile();
   }, [getCurrentProfile]);
 
-  console.log('bibims', bibims);
-
   const currentBibim = bibims.filter(bibim => match.params.id === bibim._id);
-
-  console.log('currentBibim', currentBibim);
 
   let inintialTitle = null;
 
@@ -63,24 +59,30 @@ const Dashboard = ({
             <i className='fas fa-window-maximize' />{' '}
             {user && currentBibim[0].name} Bibim
           </p>
-          <button
-            type='button'
-            className='btn btn-light'
-            onClick={() => clickAction(currentBibim[0]._id, profile)}
-          >
-            {text === null ? inintialTitle : text}
-          </button>
 
-          <p>Bibim Name : {bibims && currentBibim[0].name}</p>
-          <p>Creater : {currentBibim[0].createrName}</p>
-          <p>Description :{currentBibim[0].description}</p>
-          <p>
-            Subscription :{' '}
-            {currentBibim[0].subscriptions &&
-              currentBibim[0].subscriptions.length}
-          </p>
-          <p>Like : {currentBibim[0].likes.length}</p>
-          <p>Number of posts : {currentBibim[0].posts.length}</p>
+          <div className='profile-about bg-light p-2'>
+            <button
+              type='button'
+              className='btn btn-light m-1'
+              onClick={() => clickAction(currentBibim[0]._id, profile)}
+            >
+              {text === null ? inintialTitle : text}
+            </button>
+
+            <p>{currentBibim[0].description}</p>
+            <p>
+              Created by {'  '}
+              <span>{currentBibim[0].createrName}</span>{' '}
+            </p>
+
+            <p>
+              Subscriptions :{' '}
+              {currentBibim[0].subscriptions &&
+                currentBibim[0].subscriptions.length}
+            </p>
+            <p>Total posts : {currentBibim[0].posts.length}</p>
+          </div>
+
           <div className='posts'>
             {currentBibim[0].posts.map(post => (
               <PostItem key={post._id} post={post} />

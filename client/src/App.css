@@ -95,6 +95,11 @@ img {
   line-height: 1.2;
   margin-bottom: 1rem;
 }
+.mid {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
 
 .lead {
   font-size: 1.5rem;
@@ -111,6 +116,9 @@ img {
 
 .text-dark {
   color: var(--dark-color);
+}
+.text-normal {
+  color: black;
 }
 
 /* Padding */
@@ -523,7 +531,7 @@ button {
 
 .post .post-date {
   color: #aaa;
-  font-size: 0.8rem;
+  font-size: 0.5rem;
   margin-bottom: 0.5rem;
 }
 

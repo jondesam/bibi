@@ -42,7 +42,7 @@ const Posts = ({
   return (
     <Fragment>
       <div className='lead'>
-        <h1 className='large text-primary'>Welcome to Bibimi</h1>
+        <h1 className='mid text-primary'>Welcome to Bibimi</h1>
       </div>
 
       <div className='posts'>

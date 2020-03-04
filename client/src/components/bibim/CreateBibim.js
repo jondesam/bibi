@@ -5,7 +5,7 @@ import BibimForm from './BibimForm';
 const NewCate = () => {
   return (
     <Fragment>
-      <h1 className='large text-primary'>Create Bibim</h1>
+      <h1 className='mid text-primary'>Create Bibim</h1>
       <p className='lead'></p>
       <BibimForm />
     </Fragment>
