@@ -24,7 +24,7 @@ const Register = ({
   });
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  console.log(match);
+  console.log('match', match);
 
   const { name, email, password, password2 } = formData;
 

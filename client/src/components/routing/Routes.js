@@ -38,6 +38,7 @@ const Routes = ({ profile: { _id }, auth: { isAuthenticated } }) => {
         <Route exact path='/create-post' component={Bibims} />
 
         <Route exact path='/all-posts' component={AllPosts} />
+        <Route exact path='/posts/:id' component={Post} />
 
         <PrivateRoute exact path={`/profile/${_id}`} component={Profile} />
         <PrivateRoute exact path='/create-profile' component={CreateProfile} />
@@ -45,7 +46,6 @@ const Routes = ({ profile: { _id }, auth: { isAuthenticated } }) => {
         <PrivateRoute exact path='/add-experience' component={AddExperience} />
         <PrivateRoute exact path='/add-education' component={AddEducation} />
 
-        <PrivateRoute exact path='/posts/:id' component={Post} />
         <PrivateRoute exact path='/bibims/:id' component={BibimProfile} />
 
         <PrivateRoute exact path='/createBibim' component={CreateBibim} />

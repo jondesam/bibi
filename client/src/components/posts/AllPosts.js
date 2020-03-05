@@ -6,7 +6,7 @@ import PostItem from './PostItem';
 
 import { getPosts } from '../../actions/post';
 
-const AllPosts = ({ getPosts, post: { posts, loading } }) => {
+const AllPosts = ({ getPosts, post: { posts, loading }, match }) => {
   useEffect(() => {
     getPosts();
   }, [getPosts]);
@@ -14,7 +14,6 @@ const AllPosts = ({ getPosts, post: { posts, loading } }) => {
   return (
     <Fragment>
       <div>
-        <h1 className='mid text-primary'>All Posts</h1>
         <div className='posts'>
           {posts.map(post => (
             <PostItem key={post._id} post={post} />

@@ -27,13 +27,16 @@ const PostItem = ({
     date,
     bibimName,
     bibim
-  }
+  },
+  match,
+  history,
+  noReplyBtn
 }) => {
   const clickAction = (_id, value) => {
     if (auth.isAuthenticated === true) {
       if (value === 'like') {
         addLike(_id);
-      } else if (value === 'dislike') {
+      } else if (value === 'unlike') {
         removeLike(_id);
       }
     } else {
@@ -76,7 +79,7 @@ const PostItem = ({
               </button>
 
               <button
-                onClick={() => clickAction(_id, 'dislike')}
+                onClick={() => clickAction(_id, 'unlike')}
                 type='button'
                 className='btn btn-light'
               >
