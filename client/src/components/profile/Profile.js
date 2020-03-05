@@ -20,8 +20,6 @@ const Profile = ({
     getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
 
-  console.log('profile', profile);
-
   return (
     <Fragment>
       {profile === null || loading ? (

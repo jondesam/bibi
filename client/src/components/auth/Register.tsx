@@ -13,7 +13,8 @@ const Register = ({
   isAuthenticated,
   history,
   createProfile,
-  auth: { token }
+  auth: { token },
+  match
 }) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -21,6 +22,9 @@ const Register = ({
     password: '',
     password2: ''
   });
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  console.log(match);
 
   const { name, email, password, password2 } = formData;
 

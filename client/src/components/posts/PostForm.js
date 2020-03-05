@@ -20,7 +20,7 @@ const PostForm = ({ addPost, bibim: { bibims } }) => {
     <div className='post-form'>
       <div className='small text-primary'>
         <select name='bibim' size='1' value={bibim} onChange={onChange}>
-          <option value=''>- Please select a Bibim -</option>
+          <option value=''>Please select a Bibim -</option>
           {bibims.map(bibim => (
             <option key={bibim._id} value={bibim._id}>
               {' '}

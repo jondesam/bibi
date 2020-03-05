@@ -1,12 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  createProfile,
-  getCurrentProfile,
-  deleteAccount
-} from '../../actions/profile';
+import { createProfile, getCurrentProfile } from '../../actions/profile';
 
 const initialState = {
   bio: '',
@@ -18,7 +14,6 @@ const initialState = {
 };
 
 const EditProfile = ({
-  deleteAccount,
   profile: { profile, loading },
   createProfile,
   getCurrentProfile,
@@ -26,25 +21,20 @@ const EditProfile = ({
 }) => {
   const [formData, setFormData] = useState(initialState);
 
+  const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
   useEffect(() => {
     if (!profile) getCurrentProfile();
-
     if (!loading) {
       const profileData = { ...initialState };
       for (const key in profile) {
         if (key in profileData) profileData[key] = profile[key];
       }
+      for (const key in profile.social) {
+        if (key in profileData) profileData[key] = profile.social[key];
+      }
       setFormData(profileData);
     }
-
-    // setFormData({
-    //   bio: loading || !profile.bio ? '' : profile.bio,
-    //   twitter: loading || !profile.social ? '' : profile.social.twitter,
-    //   facebook: loading || !profile.social ? '' : profile.social.facebook,
-    //   linkedin: loading || !profile.social ? '' : profile.social.linkedin,
-    //   youtube: loading || !profile.social ? '' : profile.social.youtube,
-    //   instagram: loading || !profile.social ? '' : profile.social.instagram
-    // });
   }, [loading, getCurrentProfile, profile]);
 
   const { bio, twitter, facebook, linkedin, youtube, instagram } = formData;
@@ -54,13 +44,13 @@ const EditProfile = ({
 
   const onSubmit = e => {
     e.preventDefault();
-    // console.log('Submit button');
-
     createProfile(formData, history, true);
   };
 
   return (
     <Fragment>
+      <h1 className='mid text-primary'>Edit Your Profile</h1>
+
       <form className='form' onSubmit={onSubmit}>
         <div className='form-group'>
           <textarea
@@ -71,7 +61,6 @@ const EditProfile = ({
           />
           <small className='form-text'>Tell us a little about yourself</small>
         </div>
-
         <Fragment>
           <div className='form-group social-input'>
             <i className='fab fa-twitter fa-2x' />
@@ -130,11 +119,9 @@ const EditProfile = ({
         </Fragment>
 
         <input type='submit' className='btn btn-primary my-1' />
-        <div className='my-2'>
-          <button className='btn btn-danger' onClick={() => deleteAccount()}>
-            Delete My Account
-          </button>
-        </div>
+        <Link className='btn btn-light my-1' to='/dashboard'>
+          Go Back
+        </Link>
       </form>
     </Fragment>
   );
@@ -150,8 +137,6 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, {
-  createProfile,
-  getCurrentProfile,
-  deleteAccount
-})(withRouter(EditProfile));
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+  withRouter(EditProfile)
+);

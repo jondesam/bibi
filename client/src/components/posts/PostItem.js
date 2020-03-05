@@ -1,9 +1,15 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
 import { addLike, removeLike, deletePost } from '../../actions/post';
+import Modal from 'react-modal';
+import Register from '../auth/Register.tsx';
+import Fake from '../auth/DammFake';
+
+Modal.setAppElement('#root');
 
 const PostItem = ({
   addLike,
@@ -23,8 +29,19 @@ const PostItem = ({
     bibim
   }
 }) => {
-  // auth.user_id ? (
-  //   user === auth.user._id
+  const clickAction = (_id, value) => {
+    if (auth.isAuthenticated === true) {
+      if (value === 'like') {
+        addLike(_id);
+      } else if (value === 'dislike') {
+        removeLike(_id);
+      }
+    } else {
+      setModalIsOpen(true);
+    }
+  };
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   return (
     <div>
@@ -48,7 +65,7 @@ const PostItem = ({
           {_id !== null ? (
             <Fragment>
               <button
-                onClick={() => addLike(_id)}
+                onClick={() => clickAction(_id, 'like')}
                 type='button'
                 className='btn btn-light'
               >
@@ -59,7 +76,7 @@ const PostItem = ({
               </button>
 
               <button
-                onClick={() => removeLike(_id)}
+                onClick={() => clickAction(_id, 'dislike')}
                 type='button'
                 className='btn btn-light'
               >
@@ -98,9 +115,17 @@ const PostItem = ({
 
               {/* postuser === logged in user */}
             </Fragment>
-          ) : (
-            <p>Problem</p>
-          )}
+          ) : null}
+
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={() => setModalIsOpen(false)}
+            style={{
+              content: { top: '130px', bottom: '30px', padding: '40px' }
+            }}
+          >
+            <Register></Register>
+          </Modal>
         </div>
       </div>
     </div>

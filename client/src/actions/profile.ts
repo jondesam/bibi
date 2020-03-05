@@ -51,7 +51,7 @@ export const getProfiles = () => async dispatch => {
 export const getProfileById = userId => async dispatch => {
   try {
     const res = await axios.get(`/api/profile/user/${userId}`);
-    console.log('getProfileById', res);
+    // console.log('getProfileById', res);
 
     dispatch({
       type: GET_PROFILE,
@@ -88,8 +88,6 @@ export const createProfile = (
   history,
   edit = false
 ) => async dispatch => {
-  console.log('CCCCCreateProfile');
-
   try {
     const config = {
       headers: {
@@ -111,8 +109,8 @@ export const createProfile = (
     //   history.push('/');
     // }
   } catch (err) {
-    console.log('err', err.response);
-    console.log('profile ERR', err);
+    // console.log('err', err.response);
+    // console.log('profile ERR', err);
 
     const errors = err.response.data.errors;
 

@@ -27,6 +27,7 @@ const Login = props => {
   if (props.isAuthenticated) {
     return <Redirect to='/' />;
   }
+  console.log(props);
 
   return (
     <Fragment>
