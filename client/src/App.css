@@ -182,11 +182,11 @@ img {
   display: inline-block;
   background: var(--light-color);
   color: #333;
-  padding: 0.4rem 1.3rem;
-  font-size: 1rem;
+  padding: 0.3rem 1.2rem;
+  font-size: 0.7rem;
   border: none;
   cursor: pointer;
-  margin-right: 0.5rem;
+  margin-right: 0.2rem;
   transition: opacity 0.2s ease-in;
   outline: none;
 }
@@ -433,7 +433,7 @@ button {
 }
 
 .profile-top img {
-  width: 250px;
+  width: 100px;
 }
 
 .profile-top .icons a {

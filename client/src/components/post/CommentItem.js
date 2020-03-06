@@ -11,7 +11,7 @@ const CommentItem = ({
   auth,
   deleteComment
 }) => {
-  console.log('CommentItem _id', _id, postId, auth);
+  // console.log('CommentItem _id', _id, postId, auth);
 
   return (
     <div className='post bg-white p-1 my-1'>

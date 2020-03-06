@@ -5,37 +5,63 @@ import Spinner from '../layout/Spinner';
 import PostItem from '../posts/PostItem';
 import { addSubscription, removeSubscription } from '../../actions/bibim.ts';
 
-import { getCurrentProfile, deleteAccount } from '../../actions/profile';
+import {
+  getCurrentProfile,
+  getProfiles,
+  deleteAccount,
+  getProfileById
+} from '../../actions/profile';
 
-const Dashboard = ({
-  addSubscription,
-  removeSubscription,
-  bibim: { bibims },
-  auth: { user },
-  profile: { profile, loading },
-  match
-}) => {
+import { getBibims } from '../../actions/bibim';
+
+import Profile from '../profile/Profile';
+import PostForm from '../posts/PostForm.js';
+
+const Dashboard = (
+  // props
+  {
+    getProfileById,
+    getBibims,
+    addSubscription,
+    removeSubscription,
+    getProfiles,
+    getCurrentProfile,
+    bibim: { bibims },
+    auth: { user },
+    profile: { profile, loading, profiles },
+    match
+  }
+) => {
+  let inintialTitle = null;
+
+  let [text, setTitle] = useState(inintialTitle);
+
   useEffect(() => {
     getCurrentProfile();
-  }, [getCurrentProfile]);
+  }, []);
+
+  useEffect(() => {
+    getProfiles();
+  }, []);
+
+  useEffect(() => {
+    getBibims();
+  }, []);
 
   const currentBibim = bibims.filter(bibim => match.params.id === bibim._id);
 
-  let inintialTitle = null;
+  // console.log('current profile', profile);
 
-  if (currentBibim.length > 0) {
+  if (currentBibim.length > 0 && profile !== null) {
     const result = currentBibim[0].subscriptions.filter(element =>
       element.profileId.includes(profile._id)
     );
-
     if (result.length === 0) {
       inintialTitle = 'Subscribe';
     } else {
       inintialTitle = 'Unsubscribe';
     }
   }
-
-  let [text, setTitle] = useState(inintialTitle);
 
   const clickAction = (_id, profile) => {
     if (text === 'Subscribe') {
@@ -49,8 +75,8 @@ const Dashboard = ({
 
   // console.log(currentBibim[0].name, currentBibim[0]._id);
 
-  return loading && profile === null ? (
-    <Spinner />
+  return loading === null ? (
+    <p>Please Go Back</p>
   ) : (
     <Fragment>
       {currentBibim.length > 0 ? (
@@ -61,13 +87,15 @@ const Dashboard = ({
           </p>
 
           <div className='profile-about bg-light p-2'>
-            <button
-              type='button'
-              className='btn btn-light m-1'
-              onClick={() => clickAction(currentBibim[0]._id, profile)}
-            >
-              {text === null ? inintialTitle : text}
-            </button>
+            {profile !== null ? (
+              <button
+                type='button'
+                className='btn btn-light m-1'
+                onClick={() => clickAction(currentBibim[0]._id, profile)}
+              >
+                {text === null ? inintialTitle : text}
+              </button>
+            ) : null}
 
             <p>{currentBibim[0].description}</p>
             <p>
@@ -82,6 +110,7 @@ const Dashboard = ({
             </p>
             <p>Total posts : {currentBibim[0].posts.length}</p>
           </div>
+          <PostForm currentBibim={currentBibim[0]}></PostForm>
 
           <div className='posts'>
             {currentBibim[0].posts.map(post => (
@@ -90,21 +119,21 @@ const Dashboard = ({
           </div>
         </div>
       ) : (
-        <p>Go back</p>
+        <Spinner></Spinner>
       )}
     </Fragment>
   );
 };
 
-Dashboard.propTypes = {
-  getCurrentProfile: PropTypes.func.isRequired,
-  deleteAccount: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired
-};
+// Dashboard.propTypes = {
+//   // getCurrentProfile: PropTypes.func.isRequired,
+//   deleteAccount: PropTypes.func.isRequired,
+//   auth: PropTypes.object.isRequired
+//   // profile: PropTypes.object.isRequired
+// };
 
 const mapStateToProps = state => {
-  // console.log('dashboard state', state);
+  // console.log('state profile', state);
 
   return {
     auth: state.auth,
@@ -117,5 +146,8 @@ export default connect(mapStateToProps, {
   addSubscription,
   removeSubscription,
   getCurrentProfile,
-  deleteAccount
+  deleteAccount,
+  getBibims,
+  getProfiles,
+  getProfileById
 })(Dashboard);

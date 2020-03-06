@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const ProfileAbout = ({
   profile: {
@@ -20,9 +21,13 @@ const ProfileAbout = ({
       )}
       <h2 className='text-primary'>Subscribed Bibim </h2>
 
-      {subscriptions.map(bibim => (
-        <p key={bibim._id}>{bibim.bibimName}</p>
-      ))}
+      {subscriptions.map(bibim => {
+        return (
+          <Link key={bibim._id} to={`../bibims/${bibim.bibimId}`}>
+            <p key={bibim._id}>{bibim.bibimName}</p>
+          </Link>
+        );
+      })}
     </div>
   );
 };

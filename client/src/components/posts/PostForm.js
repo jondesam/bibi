@@ -3,32 +3,49 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPost } from '../../actions/post';
 
-const PostForm = ({ addPost, bibim: { bibims } }) => {
-  const [formData, setFormData] = useState({
-    text: '',
-    bibim: ''
-  });
+const PostForm = ({ addPost, bibim: { bibims }, currentBibim }) => {
+  console.log('currentBibim', currentBibim);
 
-  const { text, bibim } = formData;
+  let initialData = {
+    text: '',
+    bibim: currentBibim ? currentBibim._id : ''
+  };
+
+  const [formData, setFormData] = useState(initialData);
+
+  // console.log('currentBibim', currentBibim.name);
+
+  let { text, bibim } = formData;
+
+  // if (currentBibim !== undefined) {
+  //   setFormData({ text: '', bibim: });
+  // }
+
+  console.log('bibimID', bibim);
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  // console.log('props PostForm', bibims);
+  let placeholder = '';
+  if (currentBibim) {
+    placeholder = 'Create a post in ' + currentBibim.name + ' bibim';
+  }
 
   return (
     <div className='post-form'>
-      <div className='small text-primary'>
-        <select name='bibim' size='1' value={bibim} onChange={onChange}>
-          <option value=''>Please select a Bibim -</option>
-          {bibims.map(bibim => (
-            <option key={bibim._id} value={bibim._id}>
-              {' '}
-              {bibim.name}
-            </option>
-          ))}
-        </select>
-      </div>
+      {currentBibim === undefined ? (
+        <div className='small text-primary'>
+          <select name='bibim' size='1' value={bibim} onChange={onChange}>
+            <option value=''>Please select a Bibim -</option>
+            {bibims.map(bibim => (
+              <option key={bibim._id} value={bibim._id}>
+                {' '}
+                {bibim.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      ) : null}
 
       <form
         className='form my-1'
@@ -39,7 +56,7 @@ const PostForm = ({ addPost, bibim: { bibims } }) => {
 
           setFormData({
             text: '',
-            bibim: ''
+            bibim: currentBibim ? currentBibim._id : ''
           });
         }}
       >
@@ -48,7 +65,7 @@ const PostForm = ({ addPost, bibim: { bibims } }) => {
           name='text'
           cols='30'
           rows='5'
-          placeholder='Create a post'
+          placeholder={placeholder}
           value={text}
           onChange={onChange}
           // required

@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import { addLike, removeLike, deletePost } from '../../actions/post';
 import Modal from 'react-modal';
 import Register from '../auth/Register.tsx';
-import Fake from '../auth/DammFake';
 
 Modal.setAppElement('#root');
 
@@ -28,15 +27,17 @@ const PostItem = ({
     bibimName,
     bibim
   },
-  match,
-  history,
   noReplyBtn
 }) => {
   const clickAction = (_id, value) => {
     if (auth.isAuthenticated === true) {
       if (value === 'like') {
+        console.log('like');
+
         addLike(_id);
       } else if (value === 'unlike') {
+        console.log('unlike');
+
         removeLike(_id);
       }
     } else {
