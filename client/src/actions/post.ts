@@ -113,13 +113,8 @@ export const addPost = formData => async dispatch => {
     }
   };
 
-  console.log('formData Add Post', formData);
-
   try {
     const res = await axios.post('/api/posts', formData, config);
-    // console.log('addPost res', res);
-
-    // console.log('payload addPost', res.data);
 
     dispatch({
       type: ADD_POST,
