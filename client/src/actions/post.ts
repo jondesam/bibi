@@ -12,9 +12,11 @@ import {
 } from './types';
 
 // Get posts
-export const getPosts = () => async dispatch => {
+export const getPosts = (page, limit) => async dispatch => {
   try {
-    const res = await axios.get('/api/posts');
+    console.log('page and limit', page, limit);
+
+    const res = await axios.get(`/api/posts?page=${page}&limit=${limit}`);
 
     dispatch({
       type: GET_POSTS,

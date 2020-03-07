@@ -1,15 +1,30 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 
 import { getPosts } from '../../actions/post';
+import { log } from 'util';
 
-const AllPosts = ({ getPosts, post: { posts, loading }, match }) => {
+const AllPosts = ({
+  getPosts,
+  post: { posts, loading, next, previous },
+  match
+}) => {
+  let [page, setPage] = useState(1);
+
   useEffect(() => {
-    getPosts();
-  }, [getPosts]);
+    getPosts(page, 5);
+  }, [page]);
+
+  const clickAction = value => {
+    if (value === 'pre') {
+      setPage(page - 1);
+    } else if (value === 'next') {
+      setPage(page + 1);
+    }
+  };
 
   return (
     <Fragment>
@@ -19,6 +34,24 @@ const AllPosts = ({ getPosts, post: { posts, loading }, match }) => {
             <PostItem key={post._id} post={post} />
           ))}
         </div>{' '}
+        {previous ? (
+          <button
+            className='btn btn-primary'
+            onClick={() => clickAction('pre')}
+          >
+            {' '}
+            Prevous
+          </button>
+        ) : null}
+        {next ? (
+          <button
+            className='btn btn-primary'
+            onClick={() => clickAction('next')}
+          >
+            {' '}
+            Next
+          </button>
+        ) : null}
       </div>
     </Fragment>
   );

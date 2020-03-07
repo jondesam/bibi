@@ -7,6 +7,7 @@ const Post = require('../../models/Post');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 const Bibim = require('../../models/Bibim');
+const pagination = require('../../middleware/pagination');
 
 // @route    POST api/posts
 // @desc     Create a post
@@ -65,7 +66,7 @@ router.post(
 // @route    GET api/posts
 // @desc     Get all posts
 // @access   Private
-router.get('/', async (req, res) => {
+router.get('/', pagination(Post), async (req, res) => {
   try {
     // const bibims = await Bibim.find().sort({ date: -1 });
 
@@ -82,10 +83,17 @@ router.get('/', async (req, res) => {
     // console.log('all posts', allPosts);
 
     // res.json(allPosts);
-    const posts = await Post.find().sort({ date: -1 });
+
+    console.log('req.query', req.query);
+
+    // const posts = await Post.find()
+    //   .limit(5)
+    //   .sort({ date: -1 });
     // console.log('posts', posts);
 
-    res.json(posts);
+    console.log(res.paginatedResults);
+
+    res.json(res.paginatedResults);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

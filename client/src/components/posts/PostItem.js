@@ -49,17 +49,19 @@ const PostItem = ({
 
   return (
     <div>
-      <div className='post bg-white p-1 my-1'>
+      <div className='bg-white p-1 my-1 '>
         <div>
-          <Link to={`/profile/${user}`}>
-            <img className='round-img' src={avatar} alt='' />
-            <h4>{name}</h4>
+          <p className='my-1  text-normal'>{text}</p>
+          <Link className='text-normal' to={`/profile/${user}`}>
+            <p className='inline text-normal ph'> by {name} </p>
           </Link>
-        </div>
-        <div>
-          <p className='my-1'>{text}</p>
           <Link to={`/bibims/${bibim}`}>
-            {bibimName && <h4> {bibimName} bibim</h4>}
+            {bibimName && (
+              <p className='inline text-normal ph'>
+                {' '}
+                in <span>{bibimName} </span>bibim
+              </p>
+            )}
           </Link>
 
           <p className='post-date'>

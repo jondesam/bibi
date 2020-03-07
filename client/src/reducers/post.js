@@ -14,7 +14,9 @@ const initialState = {
   post: null, //post info for comment
   loading: true,
   error: {},
-  bibim: String
+  bibim: String,
+  next: null,
+  previous: null
 };
 
 export default function(state = initialState, action) {
@@ -23,11 +25,14 @@ export default function(state = initialState, action) {
   switch (type) {
     case GET_POSTS:
       //console.log('GET_POSTS', 'posts : ', state.posts, 'post : ', state.post);
+      console.log('GET_POSTS', payload);
 
       return {
         ...state,
-        posts: payload,
-        loading: false
+        posts: payload.results,
+        loading: false,
+        next: payload.next,
+        previous: payload.previous
       };
 
     case GET_POST:

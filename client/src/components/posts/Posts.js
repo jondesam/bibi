@@ -21,7 +21,7 @@ const Posts = ({
   }, [getCurrentProfile]);
 
   useEffect(() => {
-    getPosts();
+    getPosts(2, 5);
   }, [getPosts]);
 
   useEffect(() => {
