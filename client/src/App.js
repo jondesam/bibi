@@ -29,6 +29,12 @@ const App = () => {
           <Switch>
             <Route component={Routes}></Route>
           </Switch>
+          <footer className='footer'>
+            <h5 className='bg-light p-1 text-normal'>
+              All rights reserved. | Contact : godaiys@hotmail.com
+            </h5>
+            <p></p>
+          </footer>
         </Fragment>
       </BrowserRouter>
     </Provider>

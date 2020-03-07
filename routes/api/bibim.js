@@ -52,7 +52,7 @@ router.post(
 // @route    GET api/bibim
 // @desc     Get all bibim
 // @access   Private
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const bibims = await Bibim.find().sort({ date: -1 });
     res.json(bibims);

@@ -49,7 +49,7 @@ const PostItem = ({
 
   return (
     <div>
-      <div className='bg-white p-1 my-1 '>
+      <div className='bg-white p-1 my-1 post-item'>
         <div>
           <p className='my-1  text-normal'>{text}</p>
           <Link className='text-normal' to={`/profile/${user}`}>

@@ -181,6 +181,9 @@ img {
 .my-3 {
   margin: 3rem 0;
 }
+.mt-1 {
+  margin-top: 2rem;
+}
 .inline {
   display: inline;
 }
@@ -193,6 +196,7 @@ img {
   border: none;
   cursor: pointer;
   margin-right: 0.2rem;
+  margin-top: 0.5rem;
   transition: opacity 0.2s ease-in;
   outline: none;
 }
@@ -405,6 +409,7 @@ button {
   align-items: center;
   justify-content: center;
   text-align: center;
+  max-height: 5rem;
 }
 
 /* Profiles Page */
@@ -414,28 +419,42 @@ button {
   align-items: center;
   grid-gap: 2rem;
   padding: 1rem;
-  line-height: 1.8;
-  margin-bottom: 1rem;
+
+  /* margin-bottom: 1rem; */
+
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: auto;
+  line-height: 1.8em;
+}
+
+/* Profiles */
+.profiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
 }
 
 /* Profile Page */
 .profile-grid {
   display: grid;
-  grid-template-areas:
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  /* grid-template-areas:
     'top top'
-    'about about'
-    'exp edu'
-    'github github';
+    'about about'; */
+  /* 'exp edu'
+    'github github'; */
   grid-gap: 1rem;
 }
 
 .profile-top {
-  grid-area: top;
-  display: flex;
+  /* grid-area: top; */
+  /* display: flex; */
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* text-align: center; */
 }
 
 .profile-top img {
@@ -452,8 +471,11 @@ button {
 }
 
 .profile-about {
-  grid-area: about;
-  text-align: center;
+  /* grid-area: about; */
+  /* text-align: center; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
 }
 
 .profile-about .skills {
@@ -519,13 +541,21 @@ button {
 
 .post {
   display: grid;
-  /* grid-template-columns: 1fr 4fr; */
+  grid-template-columns: 1fr 4fr;
   grid-gap: 2rem;
   align-items: center;
 }
 
+.post-item {
+  display: grid;
+  /* grid-template-columns: 6fr 4fr; */
+  /* grid-column-start: 1; */
+  /* grid-row-start: row1-start; */
+}
+
 .post > div:first-child {
   text-align: center;
+  grid-template-columns: 1fr 4fr;
 }
 
 .post img {
@@ -602,7 +632,7 @@ button {
 
   .profile-top img,
   .profile img {
-    width: 200px;
+    width: 100px;
     margin: auto;
   }
 
@@ -634,6 +664,19 @@ button {
   }
 }
 
+/* Bibim Page */
+.bibim-profile {
+  display: grid;
+  /* grid-template-columns: 6fr 4fr; */
+  grid-gap: 2rem;
+  align-items: center;
+}
+
+.bibim-intro {
+  /* grid-column-start: 2; */
+  /* grid-row-start: 1; */
+}
+
 #ddlCars {
   min-height: 290px;
   overflow-y: auto;
@@ -643,4 +686,17 @@ button {
   margin-bottom: 50px;
 
   /* display: contents; */
+}
+
+.footer {
+  display: inline;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* position: absolute; */
+  /* bottom: 0; */
+  /* width: 100%; */
+  /* height: 2.5rem; */
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
 }

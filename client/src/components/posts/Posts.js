@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import { Redirect } from 'react-router-dom';
 import PostItem from './PostItem';
 
 import { getBibims } from '../../actions/bibim.ts';
@@ -38,6 +38,7 @@ const Posts = ({
 
   let bibimToShow = [];
   bibimToShow = bibimIDs.filter(bibim => subscribedbibimIds.includes(bibim));
+  console.log('bibimToShow', bibimToShow);
 
   return (
     <Fragment>
@@ -46,11 +47,15 @@ const Posts = ({
       </div>
 
       <div className='posts'>
-        {posts.map(post =>
-          bibimToShow.includes(post.bibim) ? (
-            <PostItem key={post._id} post={post} />
-          ) : null
-        )}
+        {posts.map(post => {
+          if (bibimToShow.length === 0) {
+            return posts.map(post => <PostItem key={post._id} post={post} />);
+          } else {
+            return bibimToShow.includes(post.bibim) ? (
+              <PostItem key={post._id} post={post} />
+            ) : null;
+          }
+        })}
       </div>
     </Fragment>
   );

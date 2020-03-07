@@ -52,16 +52,16 @@ const BibimItem = ({
   };
 
   return (
-    <div className='post bg-white p-1 my-1'>
+    <div className=' bg-white p-1 my-1 '>
       <div>
         <Link to={`/bibims/${_id}`}>
-          <p className='my-1'> {name}</p>
+          <p className='my-1 ph'> {name}</p>
         </Link>
       </div>
       <div>
-        <p className='my-1'>description : {description}</p>
+        <p className='my-1 text-normal'>{description}</p>
         <Link to={`/profile/${creater}`}>
-          <h4>Creater : {createrName}</h4>
+          <p className='text-normal ph'> Created by {createrName}</p>
         </Link>
         <p className='post-date'>
           Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
@@ -70,7 +70,7 @@ const BibimItem = ({
         <Fragment>
           <button
             type='button'
-            className='btn btn-light'
+            className='btn btn-dark mt-1'
             onClick={() => clickAction(_id, profile)}
           >
             {text === null ? inintialTitle : text}

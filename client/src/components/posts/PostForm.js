@@ -32,7 +32,7 @@ const PostForm = ({ addPost, bibim: { bibims }, currentBibim }) => {
   }
 
   return (
-    <div className='post-form'>
+    <div className='post-form bg-light p-1 my-1'>
       {currentBibim === undefined ? (
         <div className='small text-primary'>
           <select name='bibim' size='1' value={bibim} onChange={onChange}>
@@ -63,12 +63,12 @@ const PostForm = ({ addPost, bibim: { bibims }, currentBibim }) => {
         <textarea
           className='form my-1'
           name='text'
-          cols='30'
-          rows='5'
+          cols='20'
+          rows='3'
           placeholder={placeholder}
           value={text}
           onChange={onChange}
-          // required
+          required
         />
         <input type='submit' className='btn btn-dark my-1' value='Submit' />
       </form>
