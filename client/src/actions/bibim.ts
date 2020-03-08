@@ -41,9 +41,9 @@ export const addBibim = formData => async dispatch => {
 };
 
 // Get Bibims
-export const getBibims = () => async dispatch => {
+export const getBibims = (page, limit) => async dispatch => {
   try {
-    const res = await axios.get('/api/bibim');
+    const res = await axios.get(`/api/bibim?page=${page}&limit=${limit}`);
 
     dispatch({
       type: GET_BIBIMS,

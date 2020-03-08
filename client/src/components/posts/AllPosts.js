@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
-
+import { pagination } from '../pagination/Pagination.js';
 import { getPosts } from '../../actions/post';
 import { log } from 'util';
 
@@ -12,10 +12,15 @@ const AllPosts = ({
   post: { posts, loading, next, previous },
   match
 }) => {
+  // let value = '';
+  // clickAction(value);
+
+  console.log('previous', previous);
+
   let [page, setPage] = useState(1);
 
   useEffect(() => {
-    getPosts(page, 5);
+    getPosts(page, 10);
   }, [page]);
 
   const clickAction = value => {
@@ -40,7 +45,7 @@ const AllPosts = ({
             onClick={() => clickAction('pre')}
           >
             {' '}
-            Prevous
+            Previous
           </button>
         ) : null}
         {next ? (

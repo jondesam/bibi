@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 
@@ -11,18 +11,28 @@ import PostForm from '../posts/PostForm.js';
 const Bibim = ({
   getBibims,
   getCurrentProfile,
-  bibim: { bibims },
+  bibim: { bibims, previous, next },
   match: {
     params: { id }
   }
 }) => {
+  let [page, setPage] = useState(1);
+
+  const clickAction = value => {
+    if (value === 'pre') {
+      setPage(page - 1);
+    } else if (value === 'next') {
+      setPage(page + 1);
+    }
+  };
+
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
 
   useEffect(() => {
-    getBibims();
-  }, [getBibims]);
+    getBibims(page, 5);
+  }, [page]);
 
   return (
     <div>
@@ -35,6 +45,18 @@ const Bibim = ({
           <BibimItem key={bibim._id} bibim={bibim} />
         ))}
       </div>
+      {previous ? (
+        <button className='btn btn-primary' onClick={() => clickAction('pre')}>
+          {' '}
+          Previous
+        </button>
+      ) : null}
+      {next ? (
+        <button className='btn btn-primary' onClick={() => clickAction('next')}>
+          {' '}
+          Next
+        </button>
+      ) : null}
     </div>
   );
 };

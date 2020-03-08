@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -12,7 +12,7 @@ const Posts = ({
   getPosts,
   getCurrentProfile,
   getBibims,
-  post: { posts, loading },
+  post: { posts, loading, next, previous },
   profile: { profile },
   bibim: { bibims }
 }) => {
@@ -20,13 +20,27 @@ const Posts = ({
     getCurrentProfile();
   }, [getCurrentProfile]);
 
-  useEffect(() => {
-    getPosts(2, 5);
-  }, [getPosts]);
+  // useEffect(() => {
+  //   getPosts(2, 10);
+  // }, [getPosts]);
 
   useEffect(() => {
     getBibims();
   }, [getBibims]);
+
+  let [page, setPage] = useState(1);
+
+  useEffect(() => {
+    getPosts(page, 10);
+  }, [page]);
+
+  const clickAction = value => {
+    if (value === 'pre') {
+      setPage(page - 1);
+    } else if (value === 'next') {
+      setPage(page + 1);
+    }
+  };
 
   let bibimIDs = [];
   bibimIDs = bibims.map(bibim => bibim._id);
@@ -56,6 +70,25 @@ const Posts = ({
             ) : null;
           }
         })}
+
+        {previous ? (
+          <button
+            className='btn btn-primary'
+            onClick={() => clickAction('pre')}
+          >
+            {' '}
+            Previous
+          </button>
+        ) : null}
+        {next ? (
+          <button
+            className='btn btn-primary'
+            onClick={() => clickAction('next')}
+          >
+            {' '}
+            Next
+          </button>
+        ) : null}
       </div>
     </Fragment>
   );

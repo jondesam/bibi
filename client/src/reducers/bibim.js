@@ -8,7 +8,9 @@ import {
 const initialState = {
   bibims: [], //list of all bibims
   bibim: null, //bibim info for post
-  error: {}
+  error: {},
+  previous: null,
+  next: null
 };
 
 export default function(state = initialState, action) {
@@ -25,7 +27,9 @@ export default function(state = initialState, action) {
     case GET_BIBIMS:
       return {
         ...state,
-        bibims: payload
+        bibims: payload.results,
+        next: payload.next,
+        previous: payload.previous
       };
 
     case POST_ERROR:

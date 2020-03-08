@@ -24,6 +24,7 @@ module.exports = model => {
     try {
       results.results = await model
         .find()
+        .sort({ date: -1 })
         .limit(limit)
         .skip(startIndex)
         .exec();

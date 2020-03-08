@@ -6,6 +6,7 @@ const auth = require('../../middleware/auth');
 const Bibim = require('../../models/Bibim');
 const User = require('../../models/User');
 const Profile = require('../../models/Profile');
+const pagination = require('../../middleware/pagination');
 
 // @route    POST api/bibims
 // @desc     Create a bibim
@@ -52,10 +53,15 @@ router.post(
 // @route    GET api/bibim
 // @desc     Get all bibim
 // @access   Private
-router.get('/', async (req, res) => {
+router.get('/', pagination(Bibim), async (req, res) => {
   try {
     const bibims = await Bibim.find().sort({ date: -1 });
-    res.json(bibims);
+
+    // res.json(bibims);
+
+    console.log(res.paginatedResults);
+
+    res.json(res.paginatedResults);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

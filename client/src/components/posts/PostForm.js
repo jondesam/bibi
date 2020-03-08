@@ -1,10 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPost } from '../../actions/post';
+import { getCurrentProfile } from '../../actions/profile';
 
-const PostForm = ({ addPost, bibim: { bibims }, currentBibim }) => {
-  console.log('currentBibim', currentBibim);
+const PostForm = ({
+  addPost,
+  bibim: { bibims },
+  currentBibim,
+  profile: { profile },
+  getCurrentProfile
+}) => {
+  // console.log('currentBibim', currentBibim);
+  useEffect(() => {
+    getCurrentProfile();
+  }, [getCurrentProfile]);
+
+  if (profile !== null) {
+    console.log('profile', profile.subscriptions);
+  }
 
   let initialData = {
     text: '',
@@ -21,7 +35,7 @@ const PostForm = ({ addPost, bibim: { bibims }, currentBibim }) => {
   //   setFormData({ text: '', bibim: });
   // }
 
-  console.log('bibimID', bibim);
+  // console.log('bibimID', bibim);
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,14 +49,29 @@ const PostForm = ({ addPost, bibim: { bibims }, currentBibim }) => {
     <div className='post-form bg-light p-1 my-1'>
       {currentBibim === undefined ? (
         <div className='small text-primary'>
-          <select name='bibim' size='1' value={bibim} onChange={onChange}>
-            <option value=''>Please select a Bibim -</option>
-            {bibims.map(bibim => (
+          <select
+            className=' custom-select'
+            name='bibim'
+            size='1'
+            value={bibim}
+            onChange={onChange}
+          >
+            <option value=''>Please select from your subscriptions </option>
+
+            {profile !== null
+              ? profile.subscriptions.map(subscription => (
+                  <option key={subscription._id} value={subscription.bibimId}>
+                    {subscription.bibimName}
+                  </option>
+                ))
+              : null}
+
+            {/* {bibims.map(bibim => (
               <option key={bibim._id} value={bibim._id}>
                 {' '}
                 {bibim.name}
               </option>
-            ))}
+            ))} */}
           </select>
         </div>
       ) : null}
@@ -81,7 +110,10 @@ PostForm.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  bibim: state.bibim
+  bibim: state.bibim,
+  profile: state.profile
 });
 
-export default connect(mapStateToProps, { addPost })(PostForm);
+export default connect(mapStateToProps, { addPost, getCurrentProfile })(
+  PostForm
+);
