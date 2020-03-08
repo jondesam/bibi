@@ -63,10 +63,12 @@ body {
 a {
   color: var(--primary-color);
   text-decoration: none;
+  /* padding: 1rem; */
 }
 
 ul {
   list-style: none;
+  padding: 0rem;
 }
 
 img {
@@ -129,8 +131,20 @@ img {
 /* Padding */
 .p {
   padding: 0.5rem;
-  /* display: inline; */
+  display: block;
 }
+.p-main {
+  padding-top: 0.1rem;
+}
+.p-nav {
+  padding: 0 0.5rem;
+  display: block;
+  white-space: nowrap;
+  font-size: 0.5rem;
+  /* overflow: hidden; */
+  /* text-overflow: ellipsis; */
+}
+
 .ph:hover {
   text-decoration: underline;
 }
@@ -242,7 +256,12 @@ img {
   color: #fff;
 }
 
-.btn-danger,
+.btn-danger {
+  background: var(--danger-color);
+  color: #fff;
+  /* font-size: 0.6rem; */
+}
+
 .bg-danger,
 .badge-danger,
 .alert-danger {
@@ -743,4 +762,3 @@ button {
 .select-css option {
   font-weight: normal;
 } */
-

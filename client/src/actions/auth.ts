@@ -12,6 +12,7 @@ import {
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 import { createProfile } from '../actions/profile';
+import { Redirect } from 'react-router-dom';
 
 // Load User
 export const loadUser = () => async dispatch => {

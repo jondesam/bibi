@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import ProfileTop from './ProfileTop';
@@ -9,12 +9,14 @@ import ProfileAbout from './ProfileAbout';
 import ProfileGithub from './ProfileGithub';
 import { getProfileById } from '../../actions/profile';
 import ProfilePosts from '../posts/ProfilePosts';
+import { logout } from '../../actions/auth';
 
 const Profile = ({
   getProfileById,
   profile: { profile, loading },
   auth,
-  match
+  match,
+  logout
 }) => {
   useEffect(() => {
     getProfileById(match.params.id);
@@ -26,9 +28,9 @@ const Profile = ({
         <Spinner />
       ) : (
         <Fragment>
-          <Link to='/profiles' className='btn btn-light'>
+          {/* <Link to='/profiles' className='btn btn-light'>
             Back To Profiles
-          </Link>
+          </Link> */}
           {auth.isAuthenticated &&
             auth.loading === false &&
             auth.user._id === profile.user._id && (
@@ -36,6 +38,19 @@ const Profile = ({
                 Edit Profile
               </Link>
             )}
+
+          {auth.isAuthenticated &&
+            auth.loading === false &&
+            auth.user._id === profile.user._id && (
+              <Link
+                to='/all-posts'
+                className='btn btn-light'
+                onClick={() => logout()}
+              >
+                Log out
+              </Link>
+            )}
+
           <div className='profile-grid my-1'>
             <ProfileTop profile={profile} />
             <ProfileAbout profile={profile} />
@@ -58,4 +73,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { getProfileById })(Profile);
+export default connect(mapStateToProps, { getProfileById, logout })(Profile);

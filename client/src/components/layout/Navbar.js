@@ -29,45 +29,63 @@ const Navbar = ({
     <Fragment>
       <ul>
         <li>
-          <Link to='/createBibim'>Create Bibim</Link>
-        </li>
-        <li>
-          <Link to='/create-post'>Create Post</Link>
-        </li>
-        <li>
-          <Link to='/profiles'>Users</Link>
-        </li>
-        <li>
-          <Link to='/all-posts'>All Posts</Link>
-        </li>
-        <li>
-          <Link to={`/profile/${userId}`}>
-            <i className='fas fa-user' />{' '}
-            <span className='hide-sm'>Profile</span>
+          <Link to='/'>
+            {' '}
+            <p className='p-nav'>Bibimi</p>
           </Link>
         </li>
         <li>
-          <a onClick={logout} href='#!'>
-            <i className='fas fa-sign-out-alt' />{' '}
-            <span className='hide-sm'>Logout</span>
-          </a>
+          {' '}
+          <Link to='/createBibim'>
+            {' '}
+            <p className='p-nav'> Create Bibim</p>
+          </Link>
+        </li>
+        <li>
+          <Link to='/create-post'>
+            {' '}
+            <p className='p-nav'>Write Post</p>
+          </Link>
+        </li>
+        {/* <li>
+          <Link to='/profiles'>
+            <p className='p'>Users</p>
+          </Link>
+        </li> */}
+        <li>
+          <Link to='/all-posts'>
+            {' '}
+            <p className='p-nav'>All Posts </p>
+          </Link>
+        </li>
+        <li>
+          <Link to={`/profile/${userId}`}>
+            {' '}
+            <p className='p-nav'>Profile</p>
+          </Link>
         </li>
       </ul>
     </Fragment>
   );
 
   const guestLinks = (
-    <ul>
-      <li>
+    <Fragment>
+      <ul>
+        <li>
+          {' '}
+          <Link to='/'> Bibimi</Link>{' '}
+        </li>
+        {/* <li>
         <Link to='/profiles'>Users</Link>
-      </li>
-      <li>
-        <Link to='/register'>Register</Link>
-      </li>
-      <li>
-        <Link to='/login'>Login</Link>
-      </li>
-    </ul>
+      </li> */}
+        <li>
+          <Link to='/register'>Register</Link>
+        </li>
+        <li>
+          <Link to='/login'>Login</Link>
+        </li>
+      </ul>
+    </Fragment>
   );
 
   const addItem = e => {
@@ -100,10 +118,8 @@ const Navbar = ({
 
   return (
     <nav className='navbar bg-dark'>
-      <h1>
-        <Link to='/'>Bibimi</Link>
-      </h1>
-      <section className='section'>
+      <Fragment>
+        {/* <section className='section'>
         <form className='form-group social-input' id='addItemForm'>
           <input
             type='text'
@@ -116,10 +132,11 @@ const Navbar = ({
             Search
           </button>
         </form>
-      </section>
-      {!auth.loading && (
-        <Fragment>{auth.isAuthenticated ? authLinks : guestLinks}</Fragment>
-      )}
+      </section> */}
+        {!auth.loading && (
+          <Fragment>{auth.isAuthenticated ? authLinks : guestLinks}</Fragment>
+        )}
+      </Fragment>
     </nav>
   );
 };
