@@ -40,7 +40,7 @@ export default function(state = initialState, action) {
       };
 
     case UPDATE_SUBSCRIPTION:
-      console.log('UPDATE_SUBSCRIPTION', payload);
+
 
       return {
         ...state,

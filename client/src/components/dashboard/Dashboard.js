@@ -22,7 +22,7 @@ const Dashboard = ({
     getCurrentProfile();
   }, [getCurrentProfile]);
 
-  console.log('profile', profile);
+
 
   return (
     <Fragment>

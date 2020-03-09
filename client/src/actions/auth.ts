@@ -12,7 +12,6 @@ import {
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 import { createProfile } from '../actions/profile';
-import { Redirect } from 'react-router-dom';
 
 // Load User
 export const loadUser = () => async dispatch => {
@@ -49,7 +48,7 @@ export const register = ({ name, email, password }) => async dispatch => {
   try {
     const res = await axios.post('/api/users', body, config);
 
-    console.log('res.data in register action', res.data); //token received
+    // console.log('res.data in register action', res.data); //token received
 
     dispatch({
       type: REGISTER_SUCCESS,
@@ -110,6 +109,9 @@ export const login = (email, password) => async dispatch => {
 
     // console.log('errors /api/auth', err.response);
 
+    dispatch(
+      setAlert('Invalid email, or password. Please try again!', 'danger')
+    );
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }

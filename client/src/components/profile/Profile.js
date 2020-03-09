@@ -1,12 +1,11 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
 
-import ProfileGithub from './ProfileGithub';
 import { getProfileById } from '../../actions/profile';
 import ProfilePosts from '../posts/ProfilePosts';
 import { logout } from '../../actions/auth';

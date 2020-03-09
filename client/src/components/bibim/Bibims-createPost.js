@@ -32,7 +32,7 @@ const Bibim = ({
 
   useEffect(() => {
     getBibims(page, 5);
-  }, [page]);
+  }, [page, getBibims]);
 
   return (
     <div>

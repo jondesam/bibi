@@ -91,7 +91,7 @@ router.post(
 
       //   res.send('User resistered');
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
 
       res.status(500).send('Server error');
     }

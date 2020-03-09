@@ -31,7 +31,8 @@ const App = () => {
           </Switch>
           <footer className='footer'>
             <h5 className='bg-light p-1 text-normal'>
-              All rights reserved. | Contact : godaiys@hotmail.com
+              All rights reserved. | Privacy Policy | Contact :
+              godaiys@hotmail.com
             </h5>
             <p></p>
           </footer>

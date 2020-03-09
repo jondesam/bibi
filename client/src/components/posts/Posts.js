@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+
 import PostItem from './PostItem';
 
 import { getBibims } from '../../actions/bibim.ts';
@@ -32,7 +32,7 @@ const Posts = ({
 
   useEffect(() => {
     getPosts(page, 10);
-  }, [page]);
+  }, [page, getPosts]);
 
   const clickAction = value => {
     if (value === 'pre') {
@@ -52,7 +52,6 @@ const Posts = ({
 
   let bibimToShow = [];
   bibimToShow = bibimIDs.filter(bibim => subscribedbibimIds.includes(bibim));
-  console.log('bibimToShow', bibimToShow);
 
   return (
     <Fragment>

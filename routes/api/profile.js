@@ -20,7 +20,7 @@ router.get('/me', auth, async (req, res) => {
     }).populate('user', ['name', 'avatar']);
 
     if (!profile) {
-      console.log('No profile!!!');
+      // console.log('No profile!!!');
 
       return res
         .status(400)
@@ -194,8 +194,8 @@ router.post('/', auth, async (req, res) => {
     );
     res.json(profile);
   } catch (err) {
-    console.error(err.message);
-    console.log('profile generate ERR', err);
+    // console.error(err.message);
+    // console.log('profile generate ERR', err);
 
     res.status(500).send('Server Error');
   }

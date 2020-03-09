@@ -10,7 +10,7 @@ import CreateProfile from '../profile-forms/CreateProfile';
 import EditProfile from '../profile-forms/EditProfile';
 import AddExperience from '../profile-forms/AddExperience';
 import AddEducation from '../profile-forms/AddEducation';
-import Profiles from '../profiles/Profiles';
+// import Profiles from '../profiles/Profiles';
 import Profile from '../profile/Profile';
 import Posts from '../posts/Posts';
 import AllPosts from '../posts/AllPosts';
@@ -48,7 +48,7 @@ const Routes = ({ profile: { _id }, auth: { isAuthenticated } }) => {
 
         <Route exact path='/bibims/:id' component={BibimProfile} />
 
-        <PrivateRoute exact path='/createBibim' component={CreateBibim} />
+        <PrivateRoute exact path='/create-Bibim' component={CreateBibim} />
 
         <Route component={NotFound} />
       </Switch>

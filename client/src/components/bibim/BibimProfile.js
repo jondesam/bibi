@@ -15,7 +15,6 @@ import {
 
 import { getBibims } from '../../actions/bibim';
 
-import Profile from '../profile/Profile';
 import PostForm from '../posts/PostForm.js';
 
 const BibimProfile = ({
@@ -27,14 +26,10 @@ const BibimProfile = ({
   getCurrentProfile,
   bibim: { bibims },
   auth: { user },
-  profile: { profile, loading, profiles },
+  profile: { profile, loading },
   match
 }) => {
-  console.log('profiel', profile);
-
   const currentBibim = bibims.filter(bibim => match.params.id === bibim._id);
-
-  //  if currentBibim.filter(bibim => bibim.bibimId === )
 
   let inintialTitle = null;
 
@@ -42,35 +37,27 @@ const BibimProfile = ({
 
   useEffect(() => {
     getCurrentProfile();
-  }, []);
+  }, [getCurrentProfile]);
 
   useEffect(() => {
     getProfiles();
-  }, []);
+  }, [getProfiles]);
 
   useEffect(() => {
     getBibims();
-  }, []);
-
-  console.log('bibims', bibims);
-
-  // console.log('current profile', profile);
+  }, [getBibims]);
 
   if (currentBibim.length > 0 && profile !== null) {
     const result = currentBibim[0].subscriptions.filter(element =>
       element.profileId.includes(profile._id)
     );
-    console.log('result', result);
 
     if (result.length === 0) {
       inintialTitle = 'Subscribe';
     } else {
       inintialTitle = 'Unsubscribe';
     }
-    console.log('inintialTitle 1', inintialTitle);
   }
-
-  console.log('inintialTitle 2', inintialTitle);
 
   const clickAction = (_id, profile) => {
     if (text === 'Subscribe') {
@@ -84,9 +71,9 @@ const BibimProfile = ({
 
   // console.log(currentBibim[0].name, currentBibim[0]._id);
 
-  console.log('currentBibim', currentBibim);
+  // console.log('currentBibim', currentBibim[0]);
 
-  console.log('profile', profile);
+  // console.log('profile', profile);
 
   return loading === null ? (
     <p>Please Go Back</p>
@@ -109,7 +96,7 @@ const BibimProfile = ({
 
               <p>
                 Created by {'  '}
-                <Link to={`/profile/${currentBibim.creater}`}>
+                <Link to={`/profile/${currentBibim[0].creater}`}>
                   <span>{currentBibim[0].createrName}</span>{' '}
                 </Link>
               </p>
@@ -145,12 +132,12 @@ const BibimProfile = ({
   );
 };
 
-// BibimProfile.propTypes = {
-//   // getCurrentProfile: PropTypes.func.isRequired,
-//   deleteAccount: PropTypes.func.isRequired,
-//   auth: PropTypes.object.isRequired
-//   // profile: PropTypes.object.isRequired
-// };
+BibimProfile.propTypes = {
+  // getCurrentProfile: PropTypes.func.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+  // profile: PropTypes.object.isRequired
+};
 
 const mapStateToProps = state => {
   // console.log('state profile', state);

@@ -14,7 +14,7 @@ import {
 // Get posts
 export const getPosts = (page, limit) => async dispatch => {
   try {
-    console.log('page and limit', page, limit);
+    // console.log('page and limit', page, limit);
 
     const res = await axios.get(`/api/posts?page=${page}&limit=${limit}`);
 
@@ -23,7 +23,7 @@ export const getPosts = (page, limit) => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    console.log('getPosts ERR', err);
+
 
     dispatch({
       type: POST_ERROR,

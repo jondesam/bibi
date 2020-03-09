@@ -23,9 +23,6 @@ const Register = ({
     password2: ''
   });
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  console.log('match', match);
-
   const { name, email, password, password2 } = formData;
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

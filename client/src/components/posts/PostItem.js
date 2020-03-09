@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from 'react';
-import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
@@ -26,17 +25,16 @@ const PostItem = ({
     date,
     bibimName,
     bibim
-  },
-  noReplyBtn
+  }
 }) => {
   const clickAction = (_id, value) => {
     if (auth.isAuthenticated === true) {
       if (value === 'like') {
-        console.log('like');
+        // console.log('like');
 
         addLike(_id);
       } else if (value === 'unlike') {
-        console.log('unlike');
+        // console.log('unlike');
 
         removeLike(_id);
       }

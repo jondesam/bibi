@@ -25,7 +25,7 @@ export default function(state = initialState, action) {
   switch (type) {
     case GET_POSTS:
       //console.log('GET_POSTS', 'posts : ', state.posts, 'post : ', state.post);
-      console.log('GET_POSTS', payload);
+
 
       return {
         ...state,

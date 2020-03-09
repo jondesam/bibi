@@ -51,7 +51,7 @@ const Login = props => {
             name='password'
             value={password}
             onChange={onChange}
-            minLength={6}
+            minLength={6} 
           />
         </div>
         <input type='submit' className='btn btn-primary' value='Login' />

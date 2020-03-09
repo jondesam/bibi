@@ -28,8 +28,6 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    console.log('req posts', req.body);
-
     try {
       const user = await User.findById(req.user.id).select('-password');
       // console.log('req.params.id', req.params.id);
@@ -70,8 +68,6 @@ router.get('/', pagination(Post), async (req, res) => {
   try {
     // const bibims = await Bibim.find().sort({ date: -1 });
 
-    // console.log('get posts api', bibims);
-
     // const allPosts = [];
 
     // bibims.map(item => {
@@ -80,18 +76,14 @@ router.get('/', pagination(Post), async (req, res) => {
     //   }
     // });
 
-    // console.log('all posts', allPosts);
-
     // res.json(allPosts);
 
-    console.log('req.query', req.query);
+    // console.log('req.query', req.query);
 
     // const posts = await Post.find()
     //   .limit(5)
     //   .sort({ date: -1 });
     // console.log('posts', posts);
-
-    console.log(res.paginatedResults);
 
     res.json(res.paginatedResults);
   } catch (err) {
@@ -170,7 +162,7 @@ router.put('/like/:id', auth, async (req, res) => {
       //     'dddd',
       //     post.likes.filter(like => like.user.toString() === req.user.id)
       //   );
-      console.log('Post already liked');
+      // console.log('Post already liked');
 
       return res.status(400).json({ msg: 'Post already liked' });
     }
@@ -198,7 +190,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
       post.likes.filter(like => like.user.toString() === req.user.id).length ===
       0
     ) {
-      console.log('Post has not yet been liked');
+      // console.log('Post has not yet been liked');
       return res.status(400).json({ msg: 'Post has not yet been liked' });
     }
 

@@ -59,7 +59,7 @@ router.get('/', pagination(Bibim), async (req, res) => {
 
     // res.json(bibims);
 
-    console.log(res.paginatedResults);
+
 
     res.json(res.paginatedResults);
   } catch (err) {
@@ -106,7 +106,7 @@ router.put('/subscription/:id', auth, async (req, res) => {
         subscription => subscription.profileId.toString() === req.body._id
       ).length > 0
     ) {
-      console.log('Bibim already subscribed');
+      // console.log('Bibim already subscribed');
 
       return res.status(400).json({ msg: 'Post already liked' });
     }
@@ -145,7 +145,7 @@ router.put('/unsubscription/:id', auth, async (req, res) => {
         subscription => subscription.userId.toString() === req.user.id
       ).length === 0
     ) {
-      console.log('Bibim has not been subscribed');
+      // console.log('Bibim has not been subscribed');
       return res.status(400).json({ msg: 'Post has not yet been liked' });
     }
 

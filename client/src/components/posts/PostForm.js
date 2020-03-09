@@ -11,14 +11,12 @@ const PostForm = ({
   profile: { profile },
   getCurrentProfile
 }) => {
-  // console.log('currentBibim', currentBibim);
+
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
 
-  if (profile !== null) {
-    console.log('profile', profile.subscriptions);
-  }
+
 
   let initialData = {
     text: '',
@@ -35,7 +33,7 @@ const PostForm = ({
   //   setFormData({ text: '', bibim: });
   // }
 
-  // console.log('bibimID', bibim);
+
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -50,13 +48,13 @@ const PostForm = ({
       {currentBibim === undefined ? (
         <div className='small text-primary'>
           <select
-            className=' custom-select'
+            className=' select-css'
             name='bibim'
             size='1'
             value={bibim}
             onChange={onChange}
           >
-            <option value=''>Please select from your subscriptions </option>
+            <option value=''>Select from subscriptions </option>
 
             {profile !== null
               ? profile.subscriptions.map(subscription => (

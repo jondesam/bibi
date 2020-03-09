@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -29,40 +29,25 @@ const Navbar = ({
     <Fragment>
       <ul>
         <li>
-          <Link to='/'>
-            {' '}
-            <p className='p-nav'>Bibimi</p>
-          </Link>
+          <Link to='/'> Bibimi</Link>
         </li>
-        <li>
+        <li className='p-nav  hide-sm'>
           {' '}
-          <Link to='/createBibim'>
-            {' '}
-            <p className='p-nav'> Create Bibim</p>
-          </Link>
+          <Link to='/create-bibim'> Create Bibim</Link>
         </li>
-        <li>
-          <Link to='/create-post'>
-            {' '}
-            <p className='p-nav'>Write Post</p>
-          </Link>
+        <li className='p-nav'>
+          <Link to='/create-post'> Write Post</Link>
         </li>
         {/* <li>
           <Link to='/profiles'>
             <p className='p'>Users</p>
           </Link>
         </li> */}
-        <li>
-          <Link to='/all-posts'>
-            {' '}
-            <p className='p-nav'>All Posts </p>
-          </Link>
+        <li className='p-nav'>
+          <Link to='/all-posts'> All Posts</Link>
         </li>
-        <li>
-          <Link to={`/profile/${userId}`}>
-            {' '}
-            <p className='p-nav'>Profile</p>
-          </Link>
+        <li className='p-nav'>
+          <Link to={`/profile/${userId}`}> Profile</Link>
         </li>
       </ul>
     </Fragment>
@@ -88,33 +73,33 @@ const Navbar = ({
     </Fragment>
   );
 
-  const addItem = e => {
-    // Prevent button click from submitting form
-    e.preventDefault();
+  // const addItem = e => {
+  // Prevent button click from submitting form
+  // e.preventDefault();
 
-    console.log(`Search pressed`);
+  // console.log(`Search pressed`);
 
-    // Create variables for our list, the item to add, and our form
-    // let list = this.state.list;
-    // const newItem = document.getElementById('addInput');
-    // const form = document.getElementById('addItemForm');
+  // Create variables for our list, the item to add, and our form
+  // let list = this.state.list;
+  // const newItem = document.getElementById('addInput');
+  // const form = document.getElementById('addItemForm');
 
-    // If our input has a value
-    // if (newItem.value != '') {
-    //   // Add the new item to the end of our list array
-    //   list.push(newItem.value);
-    //   // Then we use that to set the state for list
-    //   this.setState({
-    //     list: list
-    //   });
-    //   // Finally, we need to reset the form
-    //   newItem.classList.remove('is-danger');
-    //   form.reset();
-    // } else {
-    //   // If the input doesn't have a value, make the border red since it's required
-    //   newItem.classList.add('is-danger');
-    // }
-  };
+  // If our input has a value
+  // if (newItem.value != '') {
+  //   // Add the new item to the end of our list array
+  //   list.push(newItem.value);
+  //   // Then we use that to set the state for list
+  //   this.setState({
+  //     list: list
+  //   });
+  //   // Finally, we need to reset the form
+  //   newItem.classList.remove('is-danger');
+  //   form.reset();
+  // } else {
+  //   // If the input doesn't have a value, make the border red since it's required
+  //   newItem.classList.add('is-danger');
+  // }
+  // };
 
   return (
     <nav className='navbar bg-dark'>

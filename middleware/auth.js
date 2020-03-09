@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
 
   //Check if not token
   if (!token) {
-    console.log('No token');
+    // console.log('No token middleware auth');
     return res.status(401).json({ msg: 'No token, authorization denied' });
   }
 

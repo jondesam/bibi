@@ -5,6 +5,7 @@ const bycrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const config = require('config');
+// const setAlert = require('../../client/src/actions/alert');
 
 const User = require('../../models/User');
 
@@ -20,9 +21,9 @@ router.get('/', auth, async (req, res) => {
     res.json(user);
   } catch (error) {
     //   res.status(500).json({msg:''})
-    console.log('error', error);
+    // console.log('error', error);
 
-    console.log(error.message);
+    // console.log(error.message);
 
     res.status(500).send('Server err');
   }
@@ -50,8 +51,6 @@ router.post(
     try {
       // See if user exists in
       let user = await User.findOne({ email });
-
-      console.log('user', user);
 
       if (!user) {
         return res
@@ -92,7 +91,7 @@ router.post(
 
       //   res.send('User resistered');
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
 
       res.status(500).send('Server error');
     }

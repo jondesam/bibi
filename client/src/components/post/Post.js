@@ -23,11 +23,10 @@ const Post = ({ getPost, post: { post, loading }, match, auth }) => {
   const clickAction = value => {
     if (value === 'register') {
       setActiveModal('register');
-      console.log('register');
     } else if (value === 'login') {
       setActiveModal('login');
 
-      console.log('login');
+
     }
   };
   return post === null ? (

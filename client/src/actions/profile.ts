@@ -96,7 +96,7 @@ export const createProfile = (
     };
 
     const res = await axios.post('/api/profile', formData, config);
-    console.log('res createPRofile', res);
+
 
     dispatch({
       type: GET_PROFILE,

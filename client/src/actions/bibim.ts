@@ -90,14 +90,14 @@ export const addSubscription = (bibimId, profile) => async dispatch => {
       profile,
       config
     );
-    console.log('res addSubscription ', res);
+
 
     dispatch({
       type: UPDATE_SUBSCRIPTION,
       payload: { bibimId, subscriptions: res.data }
     });
   } catch (err) {
-    console.log('addSubscription ERR');
+    // console.log('addSubscription ERR');
 
     dispatch({
       type: POST_ERROR,
