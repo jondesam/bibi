@@ -11,12 +11,9 @@ const PostForm = ({
   profile: { profile },
   getCurrentProfile
 }) => {
-
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
-
-
 
   let initialData = {
     text: '',
@@ -33,14 +30,12 @@ const PostForm = ({
   //   setFormData({ text: '', bibim: });
   // }
 
-
-
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   let placeholder = '';
   if (currentBibim) {
-    placeholder = 'Create a post in ' + currentBibim.name + ' bibim';
+    placeholder = 'Create a post in ' + currentBibim.name + ' bibip';
   }
 
   return (
@@ -54,7 +49,7 @@ const PostForm = ({
             value={bibim}
             onChange={onChange}
           >
-            <option value=''>Select from subscriptions </option>
+            <option value=''>Select from your Bibips </option>
 
             {profile !== null
               ? profile.subscriptions.map(subscription => (

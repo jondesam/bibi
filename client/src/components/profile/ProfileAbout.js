@@ -19,7 +19,7 @@ const ProfileAbout = ({
           <div className='line' />
         </Fragment>
       )}
-      <h2 className='text-primary'>Subscribed Bibim </h2>
+      <h2 className='text-primary'>Subscribed Bibip </h2>
 
       {subscriptions.map(bibim => {
         return (

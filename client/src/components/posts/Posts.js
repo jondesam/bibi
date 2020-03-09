@@ -56,8 +56,9 @@ const Posts = ({
   return (
     <Fragment>
       <div className='lead'>
-        <h1 className='mid text-primary'>Welcome to Bibimi</h1>
+        <h1 className='mid text-primary'>Welcome to Bibips</h1>
       </div>
+      {/* <div className='bg-primary p'></div> */}
 
       <div className='posts'>
         {posts.map(post => {

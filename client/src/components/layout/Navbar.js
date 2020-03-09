@@ -29,11 +29,11 @@ const Navbar = ({
     <Fragment>
       <ul>
         <li>
-          <Link to='/'> Bibimi</Link>
+          <Link to='/'> Bibips</Link>
         </li>
         <li className='p-nav  hide-sm'>
           {' '}
-          <Link to='/create-bibim'> Create Bibim</Link>
+          <Link to='/create-bibim'> Create Bibip</Link>
         </li>
         <li className='p-nav'>
           <Link to='/create-post'> Write Post</Link>
@@ -58,7 +58,7 @@ const Navbar = ({
       <ul>
         <li>
           {' '}
-          <Link to='/'> Bibimi</Link>{' '}
+          <Link to='/'> Bibips</Link>{' '}
         </li>
         {/* <li>
         <Link to='/profiles'>Users</Link>

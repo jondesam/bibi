@@ -29,7 +29,7 @@ export const addBibim = formData => async dispatch => {
       payload: res.data
     });
 
-    dispatch(setAlert('Bibim Created', 'success'));
+    dispatch(setAlert('Bibip Created', 'success'));
   } catch (err) {
     // console.log(err);
 
@@ -90,7 +90,6 @@ export const addSubscription = (bibimId, profile) => async dispatch => {
       profile,
       config
     );
-
 
     dispatch({
       type: UPDATE_SUBSCRIPTION,

@@ -30,7 +30,7 @@ const Dashboard = ({
         <i className='fas fa-user' /> Welcome {user && user.name}
       </p>
       <Fragment>
-        <p>Subscribed Bibim </p>
+        <p>Subscribed Bibip </p>
 
         {profile !== null
           ? profile.subscriptions.map(bibim => (

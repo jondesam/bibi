@@ -16,9 +16,7 @@ const BibimForm = ({ addBibim }) => {
 
   return (
     <div className='post-form'>
-      <div className='bg-primary p'>
-        <h3>Create New Bibim</h3>
-      </div>
+      {/* <div className='bg-primary p'><h3>Create New Bibip</h3></div> */}
 
       <form
         className='form my-1'
@@ -27,7 +25,7 @@ const BibimForm = ({ addBibim }) => {
           // console.log(name, description);
 
           addBibim(formData);
-          
+
           setFormData({
             name: '',
             description: ''

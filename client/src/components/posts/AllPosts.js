@@ -27,6 +27,9 @@ const AllPosts = ({ getPosts, post: { posts, loading, next, previous } }) => {
 
   return (
     <Fragment>
+      <div className='lead'>
+        <h1 className='mid text-primary'>All Posts</h1>
+      </div>
       <div>
         <div className='posts'>
           {posts.map(post => (

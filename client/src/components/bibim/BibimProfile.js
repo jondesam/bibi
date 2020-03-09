@@ -83,7 +83,7 @@ const BibimProfile = ({
         <div>
           <p className='lead'>
             <i className='fas fa-window-maximize' /> {currentBibim[0].name}{' '}
-            Bibim
+            Bibip
           </p>
 
           <div className='bibim-profile'>

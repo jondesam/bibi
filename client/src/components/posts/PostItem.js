@@ -57,7 +57,7 @@ const PostItem = ({
             {bibimName && (
               <p className='inline text-normal ph'>
                 {' '}
-                in <span>{bibimName} </span>bibim
+                in <span>{bibimName} </span>bibip
               </p>
             )}
           </Link>

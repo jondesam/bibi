@@ -36,10 +36,13 @@ const Bibim = ({
 
   return (
     <div>
-      <h1 className='mid text-primary'>Create Post</h1>
-      <h2>{id}</h2>
+      <h1 className='mid text-primary'>Write Post</h1>
+      {/* <div className='bg-primary p'></div> */}
+      {/* <h2>{id}</h2> */}
       <PostForm></PostForm>
-      <h2 className='mid text-primary'>Recent Bibims</h2>
+      <h2 className='mid text-primary'>Recent Bibips</h2>
+      <div className='bg-primary p'></div>
+
       <div className='posts'>
         {bibims.map(bibim => (
           <BibimItem key={bibim._id} bibim={bibim} />
