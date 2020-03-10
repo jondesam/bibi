@@ -12,28 +12,26 @@ const CommentItem = ({
   deleteComment
 }) => {
   // console.log('CommentItem _id', _id, postId, auth);
+  console.log('auth', auth);
 
   return (
-    <div className='post bg-white p-1 my-1'>
+    <div className=' bg-white p-05 my-05  post-item'>
       <div>
-        <Link to={`/profile/${user}`}>
-          <img className='round-img' src={avatar} alt='' />
-          <h4>{name}</h4>
+        <p className='mbottom-025  text-normal'>{text}</p>
+        <Link className='text-normal xsmall' to={`/profile/${user}`}>
+          <p className='inline ph'>by {name} </p>
         </Link>
-      </div>
-      <div>
-        <p className='my-1'>{text}</p>
-        <p className='post-date'>
-          Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
-        </p>
+        <p className='post-date inline my-1 xsmall'>
+          on <Moment format='MM/DD/YYYY'>{date}</Moment>
+        </p>{' '}
         {auth.isAuthenticated === true
           ? user === auth.user._id && (
               <button
                 onClick={() => deleteComment(postId, _id)}
                 type='button'
-                className='btn btn-danger'
+                className='btn-side   '
               >
-                <i className='fas fa-times' />
+                <p className='xxsmall '> Delete</p>
               </button>
             )
           : null}

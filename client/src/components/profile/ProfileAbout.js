@@ -11,7 +11,7 @@ const ProfileAbout = ({
   }
 }) => {
   return (
-    <div className='profile-about bg-light p-2'>
+    <div className='profile-about bg-light p-1'>
       {bio && (
         <Fragment>
           <h2 className='text-primary'>{name}'s Bio</h2>
@@ -19,7 +19,8 @@ const ProfileAbout = ({
           <div className='line' />
         </Fragment>
       )}
-      <h2 className='text-primary'>Subscribed Bibip </h2>
+
+      <h2 className='text-primary'>Bibips </h2>
 
       {subscriptions.map(bibim => {
         return (

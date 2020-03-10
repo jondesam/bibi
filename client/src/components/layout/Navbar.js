@@ -31,11 +31,11 @@ const Navbar = ({
         <li>
           <Link to='/'> Bibips</Link>
         </li>
-        <li className='p-nav  hide-sm'>
+        <li className='  hide-sm'>
           {' '}
           <Link to='/create-bibim'> Create Bibip</Link>
         </li>
-        <li className='p-nav'>
+        <li className=''>
           <Link to='/create-post'> Write Post</Link>
         </li>
         {/* <li>
@@ -43,10 +43,10 @@ const Navbar = ({
             <p className='p'>Users</p>
           </Link>
         </li> */}
-        <li className='p-nav'>
+        <li className=''>
           <Link to='/all-posts'> All Posts</Link>
         </li>
-        <li className='p-nav'>
+        <li className=''>
           <Link to={`/profile/${userId}`}> Profile</Link>
         </li>
       </ul>

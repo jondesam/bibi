@@ -86,13 +86,13 @@ const BibimProfile = ({
             Bibip
           </p>
 
-          <div className='bibim-profile'>
+          <div className='bibim-profile '>
             {user !== null ? (
               <PostForm currentBibim={currentBibim[0]}></PostForm>
             ) : null}
 
-            <div className=' bg-light p-1 bibim-intro '>
-              <p>{currentBibim[0].description}</p>
+            <div className=' bg-light p-05  bibim-intro '>
+              <p className='mbottom-025'>{currentBibim[0].description}</p>
 
               <p>
                 Created by {'  '}

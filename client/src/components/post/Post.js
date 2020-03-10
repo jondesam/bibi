@@ -25,8 +25,6 @@ const Post = ({ getPost, post: { post, loading }, match, auth }) => {
       setActiveModal('register');
     } else if (value === 'login') {
       setActiveModal('login');
-
-
     }
   };
   return post === null ? (
@@ -43,21 +41,21 @@ const Post = ({ getPost, post: { post, loading }, match, auth }) => {
         {auth.isAuthenticated === true ? (
           <CommentForm postId={post._id} />
         ) : (
-          <div className='bg-white p-1 '>
-            <p className={'small text-primary'}>
+          <div className='bg-white p-05 '>
+            <p className={'small-nomargin text-primary'}>
               Log in or sign up to leave a comment
             </p>
             <button
               onClick={() => clickAction('register')}
               type='button'
-              className='btn btn-light'
+              className='btn btn-light p-025-1'
             >
               Register
             </button>
             <button
               onClick={() => clickAction('login')}
               type='button'
-              className='btn btn-light'
+              className='btn btn-light p-025-1'
             >
               Login
             </button>

@@ -12,7 +12,7 @@ const CommentForm = ({ postId, addComment }) => {
         <h3>Leave a Comment</h3>
       </div>
       <form
-        className='form my-1'
+        className='form my-05 '
         onSubmit={e => {
           e.preventDefault();
           addComment(postId, { text });
@@ -21,12 +21,13 @@ const CommentForm = ({ postId, addComment }) => {
       >
         <textarea
           name='text'
-          cols='30'
-          rows='5'
+          cols='10'
+          rows='3'
           placeholder='Comment the post'
           value={text}
           onChange={e => setText(e.target.value)}
           required
+          className='small-nomargin '
         />
         <input type='submit' className='btn btn-dark my-1' value='Submit' />
       </form>

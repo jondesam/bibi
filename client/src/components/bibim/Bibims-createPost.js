@@ -40,7 +40,7 @@ const Bibim = ({
       {/* <div className='bg-primary p'></div> */}
       {/* <h2>{id}</h2> */}
       <PostForm></PostForm>
-      <h2 className='mid text-primary'>Recent Bibips</h2>
+      <h2 className='mid text-primary my-1'>Recent Bibips</h2>
       <div className='bg-primary p'></div>
 
       <div className='posts'>

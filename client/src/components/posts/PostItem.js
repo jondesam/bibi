@@ -47,79 +47,83 @@ const PostItem = ({
 
   return (
     <div>
-      <div className='bg-white p-1 my-1 post-item'>
+      <div className='bg-white p-05 my-05 post-item'>
         <div>
-          <p className='my-1  text-normal'>{text}</p>
-          <Link className='text-normal' to={`/profile/${user}`}>
-            <p className='inline text-normal ph'> by {name} </p>
-          </Link>
-          <Link to={`/bibims/${bibim}`}>
-            {bibimName && (
-              <p className='inline text-normal ph'>
-                {' '}
-                in <span>{bibimName} </span>bibip
-              </p>
-            )}
-          </Link>
+          <p className='mbottom-025  text-normal'>{text}</p>
+          <div className=''>
+            <Link className='text-normal xsmall' to={`/profile/${user}`}>
+              <p className='inline text-normal ph'> {name} </p>
+            </Link>
+            <Link to={`/bibims/${bibim}`}>
+              {bibimName && (
+                <p className='inline text-normal ph my-1 xsmall'>
+                  {' '}
+                  in <span>{bibimName} </span>bibip
+                </p>
+              )}
+            </Link>
 
-          <p className='post-date'>
-            Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
-          </p>
+            <p className='post-date inline my-1 xsmall'>
+              {' '}
+              on <Moment format='MM/DD/YYYY'>{date}</Moment>
+            </p>
+          </div>
+          <div>
+            {_id !== null ? (
+              <Fragment>
+                <button
+                  onClick={() => clickAction(_id, 'like')}
+                  type='button'
+                  className='btn btn-light'
+                >
+                  <i className='fas fa-thumbs-up' />{' '}
+                  <span>
+                    {likes.length > 0 ? <span>{likes.length}</span> : null}
+                  </span>
+                </button>
 
-          {_id !== null ? (
-            <Fragment>
-              <button
-                onClick={() => clickAction(_id, 'like')}
-                type='button'
-                className='btn btn-light'
-              >
-                <i className='fas fa-thumbs-up' />{' '}
-                <span>
-                  {likes.length > 0 ? <span>{likes.length}</span> : null}
-                </span>
-              </button>
+                <button
+                  onClick={() => clickAction(_id, 'unlike')}
+                  type='button'
+                  className='btn btn-light'
+                >
+                  <i className='fas fa-thumbs-down' />
+                </button>
 
-              <button
-                onClick={() => clickAction(_id, 'unlike')}
-                type='button'
-                className='btn btn-light'
-              >
-                <i className='fas fa-thumbs-down' />
-              </button>
+                {_id ? (
+                  <Link to={`/posts/${_id}`} className='btn btn-primary'>
+                    {comments.length > 1 ? (
+                      <p>
+                        <span className='comment-count'>{comments.length}</span>{' '}
+                        commnets
+                      </p>
+                    ) : comments.length === 1 ? (
+                      <p>
+                        <span className='comment-count'>{comments.length}</span>{' '}
+                        comment
+                      </p>
+                    ) : (
+                      <p>Reply</p>
+                    )}
+                  </Link>
+                ) : null}
 
-              {_id ? (
-                <Link to={`/posts/${_id}`} className='btn btn-primary'>
-                  {comments.length > 1 ? (
-                    <p>
-                      <span className='comment-count'>{comments.length}</span>{' '}
-                      commnets
-                    </p>
-                  ) : comments.length === 1 ? (
-                    <p>
-                      <span className='comment-count'>{comments.length}</span>{' '}
-                      comment
-                    </p>
-                  ) : (
-                    <p>Reply</p>
-                  )}
-                </Link>
-              ) : null}
+                {auth.user
+                  ? user === auth.user._id && (
+                      <button
+                        onClick={() => deletePost(_id)}
+                        type='button'
+                        className='btn'
+                      >
+                        <p> Delete</p>
+                      </button>
+                    )
+                  : null}
 
-              {auth.user
-                ? user === auth.user._id && (
-                    <button
-                      onClick={() => deletePost(_id)}
-                      type='button'
-                      className='btn btn-danger'
-                    >
-                      <i className='fas fa-times' />
-                    </button>
-                  )
-                : null}
-
-              {/* postuser === logged in user */}
-            </Fragment>
-          ) : null}
+                {/* postuser === logged in user */}
+              </Fragment>
+            ) : null}
+          </div>
 
           <Modal
             isOpen={modalIsOpen}

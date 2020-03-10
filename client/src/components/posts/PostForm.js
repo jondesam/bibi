@@ -39,7 +39,7 @@ const PostForm = ({
   }
 
   return (
-    <div className='post-form bg-light p-1 my-1'>
+    <div className='post-form bg-light p-1 '>
       {currentBibim === undefined ? (
         <div className='small text-primary'>
           <select
@@ -70,7 +70,7 @@ const PostForm = ({
       ) : null}
 
       <form
-        className='form my-1'
+        className='form '
         onSubmit={e => {
           e.preventDefault();
 
@@ -83,7 +83,7 @@ const PostForm = ({
         }}
       >
         <textarea
-          className='form my-1'
+          className='form '
           name='text'
           cols='20'
           rows='3'
@@ -92,7 +92,7 @@ const PostForm = ({
           onChange={onChange}
           required
         />
-        <input type='submit' className='btn btn-dark my-1' value='Submit' />
+        <input type='submit' className='btn btn-dark ' value='Submit' />
       </form>
     </div>
   );

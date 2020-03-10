@@ -22,15 +22,13 @@ const Dashboard = ({
     getCurrentProfile();
   }, [getCurrentProfile]);
 
-
-
   return (
     <Fragment>
       <p className='lead'>
         <i className='fas fa-user' /> Welcome {user && user.name}
       </p>
       <Fragment>
-        <p>Subscribed Bibip </p>
+        <p> Bibips </p>
 
         {profile !== null
           ? profile.subscriptions.map(bibim => (
