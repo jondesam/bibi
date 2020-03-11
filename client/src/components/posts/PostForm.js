@@ -83,10 +83,10 @@ const PostForm = ({
         }}
       >
         <textarea
-          className='form '
+          className='form small '
           name='text'
           cols='20'
-          rows='3'
+          rows='5'
           placeholder={placeholder}
           value={text}
           onChange={onChange}

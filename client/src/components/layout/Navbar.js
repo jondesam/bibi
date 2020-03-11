@@ -29,14 +29,22 @@ const Navbar = ({
     <Fragment>
       <ul>
         <li>
-          <Link to='/'> Bibips</Link>
+          <p className='p-nav'>
+            {' '}
+            <Link to='/'> Bibips</Link>
+          </p>
         </li>
         <li className='  hide-sm'>
           {' '}
-          <Link to='/create-bibim'> Create Bibip</Link>
+          <p className='p-nav'>
+            <Link to='/create-bibim'> Create Bibip</Link>
+          </p>
         </li>
+
         <li className=''>
-          <Link to='/create-post'> Write Post</Link>
+          <p className='p-nav'>
+            <Link to='/create-post'> Write Post</Link>
+          </p>
         </li>
         {/* <li>
           <Link to='/profiles'>
@@ -44,7 +52,9 @@ const Navbar = ({
           </Link>
         </li> */}
         <li className=''>
-          <Link to='/all-posts'> All Posts</Link>
+          <p className='p-nav'>
+            <Link to='/all-posts'> All</Link>
+          </p>
         </li>
         <li className=''>
           <Link to={`/profile/${userId}`}> Profile</Link>

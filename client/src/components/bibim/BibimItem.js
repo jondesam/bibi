@@ -33,21 +33,21 @@ const BibimItem = ({
       element.profileId.includes(profile._id)
     );
     if (result.length === 0) {
-      inintialTitle = 'Subscribe';
+      inintialTitle = 'Join';
     } else {
-      inintialTitle = 'Unsubscribe';
+      inintialTitle = 'Joined';
     }
   }
 
   let [text, setTitle] = useState(inintialTitle);
 
   const clickAction = (_id, profile) => {
-    if (text === 'Subscribe') {
+    if (text === 'Join') {
       addSubscription(_id, profile);
-      setTitle('Unsubscribe');
+      setTitle('Joined');
     } else {
       removeSubscription(_id, profile);
-      setTitle('Subscribe');
+      setTitle('Join');
     }
   };
 

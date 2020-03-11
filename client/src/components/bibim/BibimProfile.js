@@ -53,19 +53,19 @@ const BibimProfile = ({
     );
 
     if (result.length === 0) {
-      inintialTitle = 'Subscribe';
+      inintialTitle = 'Join';
     } else {
-      inintialTitle = 'Unsubscribe';
+      inintialTitle = 'Joined';
     }
   }
 
   const clickAction = (_id, profile) => {
-    if (text === 'Subscribe') {
+    if (text === 'Join') {
       addSubscription(_id, profile);
-      setTitle('Unsubscribe');
+      setTitle('Joined');
     } else {
       removeSubscription(_id, profile);
-      setTitle('Subscribe');
+      setTitle('Join');
     }
   };
 
@@ -91,7 +91,7 @@ const BibimProfile = ({
               <PostForm currentBibim={currentBibim[0]}></PostForm>
             ) : null}
 
-            <div className=' bg-light p-05  bibim-intro '>
+            <div className=' bg-light p-1  bibim-intro '>
               <p className='mbottom-025'>{currentBibim[0].description}</p>
 
               <p>

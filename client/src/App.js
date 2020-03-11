@@ -24,19 +24,20 @@ const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Fragment>
-          <Navbar />
-          <Switch>
-            <Route component={Routes}></Route>
-          </Switch>
-          <footer className='footer'>
-            <h5 className='bg-light p-1 text-normal'>
-              All rights reserved. | Privacy Policy | Contact :
-              godaiys@hotmail.com
-            </h5>
-            <p></p>
-          </footer>
-        </Fragment>
+        <body>
+          <Fragment>
+            <Navbar />
+            <Switch>
+              <Route component={Routes}></Route>
+            </Switch>
+            <footer className='footer'>
+              <p className='bg-light p text-footer xxsmall'>
+                {' '}
+                All rights reserved. | Contact : godaiys@hotmail.com{' '}
+              </p>
+            </footer>
+          </Fragment>
+        </body>
       </BrowserRouter>
     </Provider>
   );

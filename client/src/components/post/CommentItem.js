@@ -15,7 +15,7 @@ const CommentItem = ({
   console.log('auth', auth);
 
   return (
-    <div className=' bg-white p-05 my-05  post-item'>
+    <div className=' bg-white p-1 my-05  post-item'>
       <div>
         <p className='mbottom-025  text-normal'>{text}</p>
         <Link className='text-normal xsmall' to={`/profile/${user}`}>

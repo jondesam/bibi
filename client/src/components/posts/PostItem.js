@@ -47,7 +47,7 @@ const PostItem = ({
 
   return (
     <div>
-      <div className='bg-white p-05 my-05 post-item'>
+      <div className='bg-white p-1 my-05 post-item'>
         <div>
           <p className='mbottom-025  text-normal'>{text}</p>
           <div className=''>

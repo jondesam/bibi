@@ -33,7 +33,7 @@ const Profile = ({
           {auth.isAuthenticated &&
             auth.loading === false &&
             auth.user._id === profile.user._id && (
-              <Link to='/edit-profile' className='btn btn-dark'>
+              <Link to='/edit-profile' className='btn-margin-bottom btn-dark'>
                 Edit Profile
               </Link>
             )}
@@ -43,14 +43,14 @@ const Profile = ({
             auth.user._id === profile.user._id && (
               <Link
                 to='/all-posts'
-                className='btn btn-light'
+                className='btn-margin-bottom btn-light'
                 onClick={() => logout()}
               >
                 Log out
               </Link>
             )}
 
-          <div className='profile-grid my-1'>
+          <div className='profile-grid mtop-01'>
             <ProfileTop profile={profile} />
             <ProfileAbout profile={profile} />
           </div>
