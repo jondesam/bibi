@@ -57,7 +57,9 @@ const Navbar = ({
           </p>
         </li>
         <li className=''>
-          <Link to={`/profile/${userId}`}> Profile</Link>
+          <p className='p-nav'>
+            <Link to={`/profile/${userId}`}> Profile</Link>
+          </p>
         </li>
       </ul>
     </Fragment>
