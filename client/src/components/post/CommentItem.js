@@ -12,7 +12,6 @@ const CommentItem = ({
   deleteComment
 }) => {
   // console.log('CommentItem _id', _id, postId, auth);
-  console.log('auth', auth);
 
   return (
     <div className=' bg-white p-1 my-05  post-item'>
@@ -24,7 +23,7 @@ const CommentItem = ({
         <p className='post-date inline my-1 xsmall'>
           on <Moment format='MM/DD/YYYY'>{date}</Moment>
         </p>{' '}
-        {auth.isAuthenticated === true
+        {auth.isAuthenticated === true && null !== auth.user
           ? user === auth.user._id && (
               <button
                 onClick={() => deleteComment(postId, _id)}
