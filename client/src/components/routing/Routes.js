@@ -3,8 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from '../routing/PrivateRoute';
 import { connect } from 'react-redux';
 
-import Register from '../auth/Register';
-import Login from '../auth/Login';
+import Register from '../auth/Register-';
+import Login from '../auth/Log-in';
 import Alert from '../layout/Alert';
 import CreateProfile from '../profile-forms/CreateProfile';
 import EditProfile from '../profile-forms/EditProfile';

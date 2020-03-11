@@ -8,8 +8,8 @@ import CommentForm from '../post/CommentForm';
 import CommentItem from '../post/CommentItem';
 import { getPost } from '../../actions/post';
 import Modal from 'react-modal';
-import Register from '../auth/Register.tsx';
-import Login from '../auth/Login';
+import Register from '../auth/Register-.js';
+import Login from '../auth/Log-in';
 
 const Post = ({ getPost, post: { post, loading }, match, auth }) => {
   useEffect(() => {

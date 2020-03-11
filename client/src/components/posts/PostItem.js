@@ -5,7 +5,7 @@ import Moment from 'react-moment';
 import { connect } from 'react-redux';
 import { addLike, removeLike, deletePost } from '../../actions/post';
 import Modal from 'react-modal';
-import Register from '../auth/Register.tsx';
+import Register from '../auth/Register-.js';
 
 Modal.setAppElement('#root');
 

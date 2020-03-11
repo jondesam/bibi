@@ -12,10 +12,10 @@ const Login = props => {
 
   const { email, password } = formData;
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = async (e: any) => {
+  const onSubmit = async e => {
     e.preventDefault();
     // console.log('email and password', email, password);
     // console.log('props', props);
@@ -33,7 +33,7 @@ const Login = props => {
     <Fragment>
       <h1 className='mid text-primary'>Sign Into Your Account</h1>
 
-      <form className='form' onSubmit={onSubmit}>
+      <form className='form' onSubmit={onSubmit} autoComplete='on'>
         <div className='form-group'>
           <input
             type='email'
@@ -41,6 +41,7 @@ const Login = props => {
             name='email'
             value={email}
             onChange={e => onChange(e)}
+
             // required
           />
         </div>
@@ -51,7 +52,8 @@ const Login = props => {
             name='password'
             value={password}
             onChange={onChange}
-            minLength={6} 
+            minLength={6}
+            autoComplete='on'
           />
         </div>
         <input type='submit' className='btn btn-primary' value='Login' />

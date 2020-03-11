@@ -25,13 +25,13 @@ const Register = ({
 
   const { name, email, password, password2 } = formData;
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = e => {
     // console.log('e.target is', e.target);
 
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = async (e: any) => {
+  const onSubmit = async e => {
     e.preventDefault();
     // console.log('props', props);
 
@@ -61,6 +61,7 @@ const Register = ({
             name='name'
             value={name}
             onChange={onChange}
+            autoComplete='on'
             // required
           />
         </div>
@@ -71,6 +72,7 @@ const Register = ({
             name='email'
             value={email}
             onChange={onChange}
+            autoComplete='on'
           />
           <small className='form-text'>
             This site uses Gravatar so if you want a profile image, use a
@@ -85,6 +87,7 @@ const Register = ({
             value={password}
             onChange={onChange}
             minLength={6}
+            autoComplete='on'
           />
         </div>
         <div className='form-group'>
@@ -95,6 +98,7 @@ const Register = ({
             value={password2}
             onChange={onChange}
             minLength={6}
+            autoComplete='on'
           />
         </div>
         <input type='submit' className='btn btn-primary' value='Register' />
