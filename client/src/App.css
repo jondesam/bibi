@@ -58,6 +58,14 @@ body {
   line-height: 1.6;
   background-color: #fff;
   color: #333;
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+.body1 {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
 }
 
 a {
@@ -778,11 +786,6 @@ button {
 }
 html {
   height: 100%;
-}
-body {
-  min-height: 100%;
-  display: grid;
-  grid-template-rows: 1fr auto;
 }
 
 .footer {

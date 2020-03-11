@@ -24,20 +24,12 @@ const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <body>
-          <Fragment>
-            <Navbar />
-            <Switch>
-              <Route component={Routes}></Route>
-            </Switch>
-            <footer className='footer'>
-              <p className='bg-light p text-footer xxsmall'>
-                {' '}
-                All rights reserved. | Contact : godaiys@hotmail.com{' '}
-              </p>
-            </footer>
-          </Fragment>
-        </body>
+        <Fragment>
+          <Navbar />
+          <Switch>
+            <Route component={Routes}></Route>
+          </Switch>
+        </Fragment>
       </BrowserRouter>
     </Provider>
   );
