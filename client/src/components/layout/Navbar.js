@@ -69,17 +69,22 @@ const Navbar = ({
     <Fragment>
       <ul>
         <li>
-          {' '}
-          <Link to='/'> Bibips</Link>{' '}
+          <p className='p-nav'>
+            <Link to='/'> Bibips</Link>
+          </p>
         </li>
         {/* <li>
         <Link to='/profiles'>Users</Link>
       </li> */}
         <li>
-          <Link to='/register'>Register</Link>
+          <p className='p-nav'>
+            <Link to='/register'>Register</Link>
+          </p>
         </li>
         <li>
-          <Link to='/login'>Login</Link>
+          <p className='p-nav'>
+            <Link to='/login'>Login</Link>
+          </p>
         </li>
       </ul>
     </Fragment>
