@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPost } from '../../actions/post';
 import { getCurrentProfile } from '../../actions/profile';
+import { convertLinks } from '../utils/utils';
+import { log } from 'util';
 
 const PostForm = ({
   addPost,
@@ -22,16 +24,15 @@ const PostForm = ({
 
   const [formData, setFormData] = useState(initialData);
 
-  // console.log('currentBibim', currentBibim.name);
-
   let { text, bibim } = formData;
 
   // if (currentBibim !== undefined) {
   //   setFormData({ text: '', bibim: });
   // }
 
-  const onChange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = e => {
+    return setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   let placeholder = '';
   if (currentBibim) {
@@ -75,7 +76,6 @@ const PostForm = ({
           e.preventDefault();
 
           addPost(formData);
-
           setFormData({
             text: '',
             bibim: currentBibim ? currentBibim._id : ''

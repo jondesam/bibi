@@ -14,8 +14,6 @@ import {
 // Get posts
 export const getPosts = (page, limit) => async dispatch => {
   try {
-    // console.log('page and limit', page, limit);
-
     const res = await axios.get(`/api/posts?page=${page}&limit=${limit}`);
 
     dispatch({
@@ -23,8 +21,6 @@ export const getPosts = (page, limit) => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-
-
     dispatch({
       type: POST_ERROR,
       payload: { msg: err.response, status: err.response }
@@ -36,7 +32,6 @@ export const getPosts = (page, limit) => async dispatch => {
 export const getPost = id => async dispatch => {
   try {
     const res = await axios.get(`/api/posts/${id}`);
-    // console.log('getPsost res', res);
 
     dispatch({
       type: GET_POST,
@@ -114,6 +109,9 @@ export const addPost = formData => async dispatch => {
       'Content-Type': 'application/json'
     }
   };
+  if (!formData.bibim) {
+    dispatch(setAlert('Please select your bibip!', 'danger'));
+  }
 
   try {
     const res = await axios.post('/api/posts', formData, config);

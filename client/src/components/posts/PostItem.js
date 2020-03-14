@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { addLike, removeLike, deletePost } from '../../actions/post';
 import Modal from 'react-modal';
 import Register from '../auth/Register-.js';
+import Linkify from 'react-linkify';
 
 Modal.setAppElement('#root');
 
@@ -14,28 +15,13 @@ const PostItem = ({
   removeLike,
   deletePost,
   auth,
-  post: {
-    _id,
-    text,
-    name,
-    avatar,
-    user,
-    likes,
-    comments,
-    date,
-    bibimName,
-    bibim
-  }
+  post: { _id, text, name, user, likes, comments, date, bibimName, bibim }
 }) => {
   const clickAction = (_id, value) => {
     if (auth.isAuthenticated === true) {
       if (value === 'like') {
-        // console.log('like');
-
         addLike(_id);
       } else if (value === 'unlike') {
-        // console.log('unlike');
-
         removeLike(_id);
       }
     } else {
@@ -45,29 +31,40 @@ const PostItem = ({
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  const componentDecorator = (href, text, key) => (
+    <a href={href} key={key} target='_blank' rel='noopener noreferrer'>
+      {text}
+    </a>
+  );
+
   return (
     <div>
       <div className='bg-white p-1 my-05 post-item'>
-        <div>
-          <p className='mbottom-025  text-normal'>{text}</p>
-          <div className=''>
-            <Link className='text-normal xsmall' to={`/profile/${user}`}>
-              <p className='inline text-normal ph'> {name} </p>
-            </Link>
-            <Link to={`/bibims/${bibim}`}>
-              {bibimName && (
-                <p className='inline text-normal ph my-1 xsmall'>
-                  {' '}
-                  in <span>{bibimName} </span>bibip
-                </p>
-              )}
-            </Link>
+        <Linkify
+          componentDecorator={componentDecorator}
+          className='mbottom-025  text-normal'
+        >
+          {text}
+        </Linkify>
 
-            <p className='post-date inline my-1 xsmall'>
-              {' '}
-              on <Moment format='MM/DD/YYYY'>{date}</Moment>
-            </p>
-          </div>
+        <div className=''>
+          <Link className='text-normal xsmall' to={`/profile/${user}`}>
+            <p className='inline text-normal ph'> {name} </p>
+          </Link>
+          <Link to={`/bibims/${bibim}`}>
+            {bibimName && (
+              <p className='inline text-normal ph my-1 xsmall'>
+                {' '}
+                in <span>{bibimName} </span>bibip
+              </p>
+            )}
+          </Link>
+
+          <p className='post-date inline my-1 xsmall'>
+            {' '}
+            on <Moment format='MM/DD/YYYY'>{date}</Moment>
+          </p>
+
           <div>
             {_id !== null ? (
               <Fragment>
