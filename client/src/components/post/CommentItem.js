@@ -1,39 +1,185 @@
-import React from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
-import { deleteComment } from '../../actions/post';
+import Linkify from 'react-linkify';
+
+import {
+  addComment,
+  deleteComment,
+  addLike,
+  removeLike,
+  deletePost
+} from '../../actions/post';
 
 const CommentItem = ({
   postId,
-  comment: { _id, text, name, avatar, user, date },
+  comment: { _id, text, name, avatar, user, date, likes, comments },
+  post: { parentPost, bibimName },
   auth,
   deleteComment
 }) => {
   // console.log('CommentItem _id', _id, postId, auth);
+  const componentDecorator = (href, text, key) => (
+    <a href={href} key={key} target='_blank' rel='noopener noreferrer'>
+      {text}
+    </a>
+  );
+
+  const clickAction = (_id, value) => {
+    if (auth.isAuthenticated === true) {
+      if (value === 'like') {
+        addLike(_id);
+      } else if (value === 'unlike') {
+        removeLike(_id);
+      }
+    } else {
+      setModalIsOpen(true);
+    }
+  };
+
+  console.log('comments', comments);
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  //comment form///
+  useEffect(() => {
+    setFormData(initialData);
+  }, []);
+
+  // let parentPost = postId;
+  let initialData = {
+    commentText: '',
+    bibimName,
+    parentPost
+  };
+
+  const [formData, setFormData] = useState(initialData);
+
+  let { commentText } = formData;
+
+  const onChange = e => {
+    return setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const [openBox, setOpenBox] = useState(false);
+
+  const clcikReply = () => {
+    setOpenBox(!openBox);
+  };
+
+  console.log('text comment', text);
 
   return (
     <div className=' bg-white p-1 my-05  post-item'>
+      <Linkify
+        componentDecorator={componentDecorator}
+        className='mbottom-025  text-normal'
+      >
+        {text}
+      </Linkify>
+      {/* <p className='mbottom-025  text-normal'>{text}</p> */}
       <div>
-        <p className='mbottom-025  text-normal'>{text}</p>
         <Link className='text-normal xsmall' to={`/profile/${user}`}>
           <p className='inline ph'>by {name} </p>
         </Link>
         <p className='post-date inline my-1 xsmall'>
           on <Moment format='MM/DD/YYYY'>{date}</Moment>
         </p>{' '}
-        {auth.isAuthenticated === true && null !== auth.user
-          ? user === auth.user._id && (
+        <div>
+          {_id !== null ? (
+            <Fragment>
               <button
-                onClick={() => deleteComment(postId, _id)}
+                onClick={() => clickAction(_id, 'like')}
                 type='button'
-                className='btn-side   '
+                className='btn btn-light'
               >
-                <p className='xxsmall '> Delete</p>
+                <i className='fas fa-thumbs-up' />{' '}
+                <span>
+                  {likes ? (
+                    likes.length > 0 ? (
+                      <span>{likes.length}</span>
+                    ) : null
+                  ) : null}
+                </span>
               </button>
-            )
-          : null}
+              <button
+                onClick={() => clickAction(_id, 'unlike')}
+                type='button'
+                className='btn btn-light'
+              >
+                <i className='fas fa-thumbs-down' />
+              </button>
+              <div className='btn btn-primary'>
+                <p
+                  onClick={() => {
+                    clcikReply();
+                  }}
+                >
+                  Reply
+                </p>
+              </div>
+
+              {/* {auth.user
+                ? user === auth.user._id && (
+                    <button
+                      onClick={() => deletePost(_id)}
+                      type='button'
+                      className='btn'
+                    >
+                      <p> Delete</p>
+                    </button>
+                  )
+                : null} */}
+              {auth.isAuthenticated === true && null !== auth.user
+                ? user === auth.user._id && (
+                    <button
+                      onClick={() => deleteComment(postId, _id)}
+                      type='button'
+                      className='btn   '
+                    >
+                      <p> Delete</p>
+                    </button>
+                  )
+                : null}
+              {/* comment form */}
+              {openBox ? (
+                <div className='post-form'>
+                  <div className='bg-primary p'>
+                    <h3>Leave a Comment</h3>
+                  </div>
+                  <form
+                    className='form my-05 '
+                    onSubmit={e => {
+                      e.preventDefault();
+                      addComment(formData);
+                      setFormData(initialData);
+                    }}
+                  >
+                    <textarea
+                      name='text'
+                      cols='10'
+                      rows='5'
+                      placeholder='Comment the post'
+                      value={commentText}
+                      onChange={onChange}
+                      required
+                      className='small-nomargin '
+                    />
+                    <input
+                      type='submit'
+                      className='btn btn-dark my-1'
+                      value='Submit'
+                    />
+                  </form>
+                </div>
+              ) : null}
+
+              {/* postuser === logged in user */}
+            </Fragment>
+          ) : null}
+        </div>
       </div>
     </div>
   );

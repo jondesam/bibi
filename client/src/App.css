@@ -671,6 +671,12 @@ button {
   margin-bottom: 0.5rem;
 }
 
+/*comment-dent*/
+.comment-dent {
+  margin-left: 1rem;
+  color: red;
+}
+
 /* Mobile Styles */
 @media (max-width: 700px) {
   .container {

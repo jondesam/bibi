@@ -42,16 +42,17 @@ router.post(
         avatar: user.avatar,
         user: req.user.id,
         bibim: req.body.bibim,
-        bibimName: bibim.name
+        bibimName: bibim.name,
+        parentId: null
       });
       // console.log('newPost PostCreate', newPost);
       // console.log('res posts', res);
 
       bibim.posts.unshift(newPost);
 
-      const post = await newPost.save();
-
       await bibim.save();
+
+      const post = await newPost.save();
 
       res.json(post);
     } catch (err) {
@@ -84,6 +85,8 @@ router.get('/', pagination(Post), async (req, res) => {
     //   .limit(5)
     //   .sort({ date: -1 });
     // console.log('posts', posts);
+
+    console.log('res', res.paginatedResults);
 
     res.json(res.paginatedResults);
   } catch (err) {
@@ -152,7 +155,6 @@ router.delete('/:id', auth, async (req, res) => {
 router.put('/like/:id', auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
-    //    console.log('post', post);
 
     // Check if the post has already been liked
     if (
@@ -170,7 +172,7 @@ router.put('/like/:id', auth, async (req, res) => {
     post.likes.unshift({ user: req.user.id });
 
     await post.save();
-
+    console.log('post', post);
     res.json(post.likes);
   } catch (err) {
     console.error(err.message);
@@ -202,7 +204,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
     post.likes.splice(removeIndex, 1);
 
     await post.save();
-
+    console.log('post', post);
     res.json(post.likes);
   } catch (err) {
     console.error(err.message);
@@ -235,20 +237,24 @@ router.post(
       // console.log('req.params.id', req.params.id);
       const post = await Post.findById(req.params.id);
 
-      // console.log('req post comment', req);
-
-      const newComment = {
+      const newComment = new Post({
         text: req.body.text,
         name: user.name,
         avatar: user.avatar,
-        user: req.user.id
-      };
+        user: req.user.id,
+        parentId: req.body.parentPost,
+        bibimName: req.body.bibimName,
+        comments: null
+      });
 
       post.comments.unshift(newComment);
 
       await post.save();
 
+      await newComment.save();
+
       res.json(post.comments);
+      // res.json(post.comments);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');

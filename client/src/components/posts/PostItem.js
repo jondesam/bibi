@@ -15,7 +15,18 @@ const PostItem = ({
   removeLike,
   deletePost,
   auth,
-  post: { _id, text, name, user, likes, comments, date, bibimName, bibim }
+  post: {
+    _id,
+    text,
+    name,
+    user,
+    likes,
+    comments,
+    date,
+    bibimName,
+    bibim,
+    parentPost
+  }
 }) => {
   const clickAction = (_id, value) => {
     if (auth.isAuthenticated === true) {
@@ -36,6 +47,7 @@ const PostItem = ({
       {text}
     </a>
   );
+  console.log('text post', text);
 
   return (
     <div>
@@ -75,7 +87,11 @@ const PostItem = ({
                 >
                   <i className='fas fa-thumbs-up' />{' '}
                   <span>
-                    {likes.length > 0 ? <span>{likes.length}</span> : null}
+                    {likes ? (
+                      likes.length > 0 ? (
+                        <span>{likes.length}</span>
+                      ) : null
+                    ) : null}
                   </span>
                 </button>
 
@@ -86,7 +102,11 @@ const PostItem = ({
                 >
                   <i className='fas fa-thumbs-down' />
                 </button>
-
+                {parentPost ? (
+                  <div className='comment-dent'>
+                    <p>adfdfd</p>
+                  </div>
+                ) : null}
                 {_id ? (
                   <Link to={`/posts/${_id}`} className='btn btn-primary'>
                     {comments.length > 1 ? (

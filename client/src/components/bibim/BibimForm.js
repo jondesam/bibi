@@ -7,6 +7,7 @@ const BibimForm = ({ addBibim }) => {
   const [formData, setFormData] = useState({
     name: '',
     description: ''
+    // subscriptions:[{profileId: , userId:}]
   });
 
   const { name, description } = formData;

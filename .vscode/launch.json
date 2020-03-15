@@ -7,7 +7,7 @@
     {
       "type": "node",
       "request": "attach",
-      "name": "Attach",
+      "name": "Node Attach",
       "port": 9229,
       "skipFiles": ["<node_internals>/**"],
       "restart": true

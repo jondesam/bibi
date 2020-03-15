@@ -6,20 +6,13 @@ import Spinner from '../layout/Spinner';
 import PostItem from '../posts/PostItem';
 import CommentForm from '../post/CommentForm';
 import CommentItem from '../post/CommentItem';
+
 import { getPost } from '../../actions/post';
 import Modal from 'react-modal';
 import Register from '../auth/Register-.js';
 import Login from '../auth/Log-in';
 
 const Post = ({ getPost, post: { post, loading }, match, auth }) => {
-  useEffect(() => {
-    getPost(match.params.id);
-  }, [getPost, match.params.id]);
-
-  const [activeModal, setActiveModal] = useState('');
-
-  // console.log(loading, post, auth);
-
   const clickAction = value => {
     if (value === 'register') {
       setActiveModal('register');
@@ -27,9 +20,19 @@ const Post = ({ getPost, post: { post, loading }, match, auth }) => {
       setActiveModal('login');
     }
   };
+
+  useEffect(() => {
+    getPost(match.params.id);
+  }, [getPost, match.params.id]);
+
+  const [activeModal, setActiveModal] = useState('');
+
+  // console.log(loading, post, auth);
+  console.log('post :', post);
+
   return post === null ? (
     <Spinner />
-  ) : (
+  ) : post._id !== match.params.id ? null : (
     <Fragment>
       <Link to='/' className='btn'>
         Back To Post
@@ -39,7 +42,7 @@ const Post = ({ getPost, post: { post, loading }, match, auth }) => {
 
       <div>
         {auth.isAuthenticated === true ? (
-          <CommentForm postId={post._id} />
+          <CommentForm postId={post._id} bibimName={post.bibimName} />
         ) : (
           <div className='bg-white p-05 '>
             <p className={'small-nomargin text-primary'}>
@@ -64,15 +67,16 @@ const Post = ({ getPost, post: { post, loading }, match, auth }) => {
       </div>
 
       <div className='comments'>
-        {post.comments.length > 0
-          ? post.comments.map(comment => (
+        {post.comments === undefined || post.comments.length === 0
+          ? null
+          : post.comments.map(comment => (
               <CommentItem
+                post={post}
                 key={comment._id}
                 comment={comment}
                 postId={post._id}
               />
-            ))
-          : null}
+            ))}
       </div>
       <Modal
         isOpen={activeModal === 'register'}

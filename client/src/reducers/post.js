@@ -26,7 +26,6 @@ export default function(state = initialState, action) {
     case GET_POSTS:
       //console.log('GET_POSTS', 'posts : ', state.posts, 'post : ', state.post);
 
-
       return {
         ...state,
         posts: payload.results,
@@ -36,7 +35,7 @@ export default function(state = initialState, action) {
       };
 
     case GET_POST:
-      // console.log('posts : ', state.posts, 'post : ', state.post);
+      console.log('posts : ', state.posts, 'post : ', state.post);
       return {
         ...state,
         post: payload,
@@ -44,18 +43,6 @@ export default function(state = initialState, action) {
       };
 
     case ADD_POST:
-      // console.log('posts array reducer', state.posts);
-
-      // console.log(
-      //   'ADD POST',
-      //   'posts : ',
-      //   state.posts,
-      //   'post : ',
-      //   state.post,
-      //   'PAYLOAD',
-      //   payload
-      // );
-
       return {
         ...state,
         posts: [payload, ...state.posts],
@@ -84,18 +71,13 @@ export default function(state = initialState, action) {
       };
 
     case ADD_COMMENT:
-      // console.log(
-      //   'posts : ',
-      //   state.posts,
-      //   'post : ',
-      //   state.post,
-      //   'payload: ',
-      //   payload
-      // );
-
       return {
         ...state,
-        post: { ...state.post, comments: payload },
+        post: {
+          ...state.post,
+          comments: payload,
+          parentId: payload.parentPost
+        },
         loading: false
       };
 

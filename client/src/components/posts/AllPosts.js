@@ -5,12 +5,9 @@ import { connect } from 'react-redux';
 import PostItem from './PostItem';
 
 import { getPosts } from '../../actions/post';
-// import { log } from 'util';
+import { logout } from '../../actions/auth.ts';
 
 const AllPosts = ({ getPosts, post: { posts, loading, next, previous } }) => {
-  // let value = '';
-  // clickAction(value);
-
   let [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -25,6 +22,8 @@ const AllPosts = ({ getPosts, post: { posts, loading, next, previous } }) => {
     }
   };
 
+  const postsToShow = posts.filter(post => post.parentId === null);
+
   return (
     <Fragment>
       <div className='lead'>
@@ -32,7 +31,7 @@ const AllPosts = ({ getPosts, post: { posts, loading, next, previous } }) => {
       </div>
       <div>
         <div className='posts'>
-          {posts.map(post => (
+          {postsToShow.map(post => (
             <PostItem key={post._id} post={post} />
           ))}
         </div>{' '}

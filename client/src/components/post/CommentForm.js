@@ -1,10 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addComment } from '../../actions/post';
+import { getPost } from '../../actions/post';
+import post from '../../reducers/post';
 
-const CommentForm = ({ postId, addComment }) => {
-  const [text, setText] = useState('');
+const CommentForm = ({ postId, addComment, bibimName }) => {
+  useEffect(() => {
+    setFormData(initialData);
+  }, [getPost]);
+
+  let parentPost = postId;
+  let initialData = {
+    text: '',
+    bibimName,
+    parentPost
+  };
+
+  const [formData, setFormData] = useState(initialData);
+
+  let { text } = formData;
+
+  const onChange = e => {
+    return setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   return (
     <div className='post-form'>
@@ -15,8 +34,8 @@ const CommentForm = ({ postId, addComment }) => {
         className='form my-05 '
         onSubmit={e => {
           e.preventDefault();
-          addComment(postId, { text });
-          setText('');
+          addComment(formData);
+          setFormData(initialData);
         }}
       >
         <textarea
@@ -25,9 +44,9 @@ const CommentForm = ({ postId, addComment }) => {
           rows='5'
           placeholder='Comment the post'
           value={text}
-          onChange={e => setText(e.target.value)}
+          onChange={onChange}
           required
-          className='small-nomargin '
+          // className='small-nomargin '
         />
         <input type='submit' className='btn btn-dark my-1' value='Submit' />
       </form>

@@ -50,7 +50,7 @@ export const getPost = id => async dispatch => {
 export const addLike = id => async dispatch => {
   try {
     const res = await axios.put(`/api/posts/like/${id}`);
-    // console.log('res add like', res);
+    console.log('res add like', res.data);
 
     dispatch({
       type: UPDATE_LIKES,
@@ -70,7 +70,7 @@ export const addLike = id => async dispatch => {
 export const removeLike = id => async dispatch => {
   try {
     const res = await axios.put(`/api/posts/unlike/${id}`);
-
+    console.log('res remove like', res.data);
     dispatch({
       type: UPDATE_LIKES,
       payload: { id, likes: res.data }
@@ -131,7 +131,7 @@ export const addPost = formData => async dispatch => {
 };
 
 // Add comment
-export const addComment = (postId, formData) => async dispatch => {
+export const addComment = formData => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -140,7 +140,7 @@ export const addComment = (postId, formData) => async dispatch => {
 
   try {
     const res = await axios.post(
-      `/api/posts/comment/${postId}`,
+      `/api/posts/comment/${formData.parentPost}`,
       formData,
       config
     );
