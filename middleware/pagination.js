@@ -8,7 +8,7 @@ module.exports = model => {
 
     const results = {};
 
-    if (endIndex < (await model.countDocuments().exec())) {
+    if (endIndex < (await model.countDocuments({ parentId: null }).exec())) {
       results.next = {
         page: page + 1,
         limit: limit
@@ -31,7 +31,6 @@ module.exports = model => {
         .exec();
 
       res.paginatedResults = results;
-      console.log('results.results', results.results);
 
       next();
     } catch (e) {

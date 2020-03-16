@@ -42,7 +42,7 @@ router.post(
         avatar: user.avatar,
         user: req.user.id,
         bibim: req.body.bibim,
-        bibimName: bibim.name,
+        bibimName: bibim.name || req.body.bibimName,
         parentId: null
       });
       // console.log('newPost PostCreate', newPost);
@@ -234,8 +234,7 @@ router.post(
     try {
       const user = await User.findById(req.user.id).select('-password');
 
-      // console.log('req.params.id', req.params.id);
-      const post = await Post.findById(req.params.id);
+      const post = await Post.findById(req.body.parentPost);
 
       const newComment = new Post({
         text: req.body.text,
@@ -246,6 +245,8 @@ router.post(
         bibimName: req.body.bibimName,
         comments: null
       });
+      console.log('newComment', newComment);
+      console.log('post', post);
 
       post.comments.unshift(newComment);
 
@@ -268,11 +269,14 @@ router.post(
 router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
+    console.log('post', post);
 
     // Pull out comment
     const comment = post.comments.find(
       comment => comment.id === req.params.comment_id
     );
+
+    console.log('comment', comment);
 
     // Make sure comment exists
     if (!comment) {
@@ -288,10 +292,12 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
     const removeIndex = post.comments
       .map(comment => comment.id)
       .indexOf(req.params.comment_id);
+    console.log('removeIndex', removeIndex);
 
     post.comments.splice(removeIndex, 1);
 
     await post.save();
+    console.log('post after', post);
 
     res.json(post.comments);
   } catch (err) {

@@ -22,6 +22,7 @@ const PostSchema = new Schema({
   avatar: {
     type: String
   },
+  parentId: { type: String },
   likes: [
     {
       user: {
@@ -30,7 +31,7 @@ const PostSchema = new Schema({
       }
     }
   ],
-  parentId: { type: String },
+  //maybe no parentPost
   parentPost: {
     user: {
       type: Schema.Types.ObjectId,

@@ -10,23 +10,24 @@ import Linkify from 'react-linkify';
 
 Modal.setAppElement('#root');
 
+// : {
+//   text: textC,
+//   name: nameC,
+//   use: userC,
+//   date: dateC,
+//   likes: likesC,
+//   comments: commentsC
+// },
+
 const PostItem = ({
   addLike,
   removeLike,
   deletePost,
   auth,
-  post: {
-    _id,
-    text,
-    name,
-    user,
-    likes,
-    comments,
-    date,
-    bibimName,
-    bibim,
-    parentPost
-  }
+
+  post: { _id, text, name, user, likes, comments, date, bibimName, bibim },
+  // comment: { _id: _idC, text: textC, name: nameC },
+  parentId
 }) => {
   const clickAction = (_id, value) => {
     if (auth.isAuthenticated === true) {
@@ -47,7 +48,6 @@ const PostItem = ({
       {text}
     </a>
   );
-  console.log('text post', text);
 
   return (
     <div>
@@ -102,11 +102,7 @@ const PostItem = ({
                 >
                   <i className='fas fa-thumbs-down' />
                 </button>
-                {parentPost ? (
-                  <div className='comment-dent'>
-                    <p>adfdfd</p>
-                  </div>
-                ) : null}
+
                 {_id ? (
                   <Link to={`/posts/${_id}`} className='btn btn-primary'>
                     {comments.length > 1 ? (

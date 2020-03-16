@@ -137,6 +137,7 @@ export const addComment = formData => async dispatch => {
       'Content-Type': 'application/json'
     }
   };
+  console.log('CALL');
 
   try {
     const res = await axios.post(
@@ -144,7 +145,7 @@ export const addComment = formData => async dispatch => {
       formData,
       config
     );
-    // console.log('res addComment', res);
+    console.log('res addComment', res);
 
     dispatch({
       type: ADD_COMMENT,

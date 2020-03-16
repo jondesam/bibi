@@ -24,6 +24,7 @@ const AllPosts = ({ getPosts, post: { posts, loading, next, previous } }) => {
 
   const postsToShow = posts.filter(post => post.parentId === null);
 
+  logout();
   return (
     <Fragment>
       <div className='lead'>

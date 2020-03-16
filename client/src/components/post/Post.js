@@ -12,7 +12,7 @@ import Modal from 'react-modal';
 import Register from '../auth/Register-.js';
 import Login from '../auth/Log-in';
 
-const Post = ({ getPost, post: { post, loading }, match, auth }) => {
+const Post = ({ getPost, post: { post, loading, comment }, match, auth }) => {
   const clickAction = value => {
     if (value === 'register') {
       setActiveModal('register');
@@ -38,7 +38,12 @@ const Post = ({ getPost, post: { post, loading }, match, auth }) => {
         Back To Post
       </Link>
 
-      <PostItem post={post} showActions={false} noReplyBtn={true} />
+      <CommentItem
+        post={post}
+        showActions={false}
+        noReplyBtn={true}
+        comment={comment}
+      />
 
       <div>
         {auth.isAuthenticated === true ? (
@@ -70,11 +75,12 @@ const Post = ({ getPost, post: { post, loading }, match, auth }) => {
         {post.comments === undefined || post.comments.length === 0
           ? null
           : post.comments.map(comment => (
-              <CommentItem
+              <PostItem
                 post={post}
                 key={comment._id}
                 comment={comment}
                 postId={post._id}
+                parentId={post.parentId}
               />
             ))}
       </div>

@@ -10,20 +10,24 @@ import {
   deleteComment,
   addLike,
   removeLike,
-  deletePost
+  deletePost,
+  addPost
 } from '../../actions/post';
+import { log } from 'util';
 
 const CommentItem = ({
   postId,
-  comment: { _id, text, name, avatar, user, date, likes, comments },
-  post: { parentPost, bibimName },
+  comment: { _id, text: textOri, name, avatar, user, date, likes, comments },
+  post,
   auth,
-  deleteComment
+  deleteComment,
+  deletePost,
+  addComment,
+  addPost
 }) => {
-  // console.log('CommentItem _id', _id, postId, auth);
-  const componentDecorator = (href, text, key) => (
+  const componentDecorator = (href, textOri, key) => (
     <a href={href} key={key} target='_blank' rel='noopener noreferrer'>
-      {text}
+      {textOri}
     </a>
   );
 
@@ -39,8 +43,6 @@ const CommentItem = ({
     }
   };
 
-  console.log('comments', comments);
-
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   //comment form///
@@ -48,16 +50,16 @@ const CommentItem = ({
     setFormData(initialData);
   }, []);
 
-  // let parentPost = postId;
   let initialData = {
-    commentText: '',
-    bibimName,
-    parentPost
+    text: '',
+    bibimName: post.bibimName,
+    parentPost: _id,
+    bibim: post.bibim
   };
 
   const [formData, setFormData] = useState(initialData);
 
-  let { commentText } = formData;
+  let { text } = formData;
 
   const onChange = e => {
     return setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -65,11 +67,27 @@ const CommentItem = ({
 
   const [openBox, setOpenBox] = useState(false);
 
+  console.log(formData, post);
+
   const clcikReply = () => {
     setOpenBox(!openBox);
   };
 
-  console.log('text comment', text);
+  // const deleteBoth = (postId, _id) => {
+  //   console.log('deleteBoth');
+
+  //   deleteComment(postId, _id);
+  //   deletePost(_id);
+  // };
+
+  const addBoth = e => {
+    e.preventDefault();
+    addPost(formData);
+    addComment(formData);
+
+    setFormData(initialData);
+    console.log('CALLED');
+  };
 
   return (
     <div className=' bg-white p-1 my-05  post-item'>
@@ -77,7 +95,7 @@ const CommentItem = ({
         componentDecorator={componentDecorator}
         className='mbottom-025  text-normal'
       >
-        {text}
+        {textOri}
       </Linkify>
       {/* <p className='mbottom-025  text-normal'>{text}</p> */}
       <div>
@@ -121,21 +139,10 @@ const CommentItem = ({
                 </p>
               </div>
 
-              {/* {auth.user
-                ? user === auth.user._id && (
-                    <button
-                      onClick={() => deletePost(_id)}
-                      type='button'
-                      className='btn'
-                    >
-                      <p> Delete</p>
-                    </button>
-                  )
-                : null} */}
               {auth.isAuthenticated === true && null !== auth.user
                 ? user === auth.user._id && (
                     <button
-                      onClick={() => deleteComment(postId, _id)}
+                      // onClick={() => deleteBoth(postId, _id)}
                       type='button'
                       className='btn   '
                     >
@@ -143,18 +150,13 @@ const CommentItem = ({
                     </button>
                   )
                 : null}
-              {/* comment form */}
+
               {openBox ? (
                 <div className='post-form'>
-                  <div className='bg-primary p'>
-                    <h3>Leave a Comment</h3>
-                  </div>
                   <form
                     className='form my-05 '
                     onSubmit={e => {
-                      e.preventDefault();
-                      addComment(formData);
-                      setFormData(initialData);
+                      addBoth(e);
                     }}
                   >
                     <textarea
@@ -162,11 +164,12 @@ const CommentItem = ({
                       cols='10'
                       rows='5'
                       placeholder='Comment the post'
-                      value={commentText}
+                      value={text}
                       onChange={onChange}
                       required
                       className='small-nomargin '
                     />
+
                     <input
                       type='submit'
                       className='btn btn-dark my-1'
@@ -175,6 +178,7 @@ const CommentItem = ({
                   </form>
                 </div>
               ) : null}
+              {comments ? <p>comemnt here</p> : <p>none</p>}
 
               {/* postuser === logged in user */}
             </Fragment>
@@ -196,4 +200,23 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { deleteComment })(CommentItem);
+export default connect(mapStateToProps, {
+  deleteComment,
+  deletePost,
+  addComment,
+  addPost
+})(CommentItem);
+
+{
+  /* {auth.user
+                ? user === auth.user._id && (
+                    <button
+                      onClick={() => deletePost(_id)}
+                      type='button'
+                      className='btn'
+                    >
+                      <p> Delete</p>
+                    </button>
+                  )
+                : null} */
+}
