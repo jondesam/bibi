@@ -109,7 +109,7 @@ export const addPost = formData => async dispatch => {
       'Content-Type': 'application/json'
     }
   };
-  if (!formData.bibim) {
+  if (!formData.bibimId) {
     dispatch(setAlert('Please select your bibip!', 'danger'));
   }
 
@@ -137,14 +137,16 @@ export const addComment = formData => async dispatch => {
       'Content-Type': 'application/json'
     }
   };
+  console.log('formdata', formData.parentId);
 
   try {
     const res = await axios.post(
-      `/api/posts/comment/${formData.parentPost}`,
+      `/api/posts/comment/${formData.parentId}`,
       formData,
       config
     );
-    // console.log('res addComment', res);
+
+    console.log('res addComment', res.data);
 
     dispatch({
       type: ADD_COMMENT,
@@ -153,6 +155,8 @@ export const addComment = formData => async dispatch => {
 
     dispatch(setAlert('Comment Added', 'success'));
   } catch (err) {
+    console.log('err', err);
+
     dispatch({
       type: POST_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }

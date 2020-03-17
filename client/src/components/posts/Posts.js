@@ -66,7 +66,7 @@ const Posts = ({
             if (bibimToShow.length === 0) {
               return null;
             } else {
-              return bibimToShow.includes(post.bibim) ? (
+              return bibimToShow.includes(post.bibimId) ? (
                 <PostItem key={post._id} post={post} />
               ) : null;
             }

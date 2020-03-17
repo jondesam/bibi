@@ -10,7 +10,7 @@ export const convertLinks = input => {
         replace = 'http://' + linksFound[i];
       }
       let linkText = replace.split('/')[2];
-      if (linkText.substring(0, 3) == 'www') {
+      if (linkText.substring(0, 3) === 'www') {
         linkText = linkText.replace('www.', '');
       }
       if (linkText.match(/youtu/)) {

@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import Linkify from 'react-linkify';
-
+import PostItem from '../posts/PostItem';
+import CommentForm from './CommentForm';
 import {
   addComment,
   deleteComment,
@@ -16,11 +17,10 @@ import {
 const CommentItem = ({
   postId,
   comment: { _id, text, name, avatar, user, date, likes, comments },
-  post: { parentPost, bibimName },
+  post,
   auth,
   deleteComment
 }) => {
-  // console.log('CommentItem _id', _id, postId, auth);
   const componentDecorator = (href, text, key) => (
     <a href={href} key={key} target='_blank' rel='noopener noreferrer'>
       {text}
@@ -39,37 +39,14 @@ const CommentItem = ({
     }
   };
 
-  console.log('comments', comments);
-
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  //comment form///
-  useEffect(() => {
-    setFormData(initialData);
-  }, []);
-
-  // let parentPost = postId;
-  let initialData = {
-    commentText: '',
-    bibimName,
-    parentPost
-  };
-
-  const [formData, setFormData] = useState(initialData);
-
-  let { commentText } = formData;
-
-  const onChange = e => {
-    return setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
+  //Click 'Reply' to open comment box
   const [openBox, setOpenBox] = useState(false);
 
   const clcikReply = () => {
     setOpenBox(!openBox);
   };
-
-  console.log('text comment', text);
 
   return (
     <div className=' bg-white p-1 my-05  post-item'>
@@ -79,7 +56,7 @@ const CommentItem = ({
       >
         {text}
       </Linkify>
-      {/* <p className='mbottom-025  text-normal'>{text}</p> */}
+
       <div>
         <Link className='text-normal xsmall' to={`/profile/${user}`}>
           <p className='inline ph'>by {name} </p>
@@ -144,41 +121,12 @@ const CommentItem = ({
                   )
                 : null}
               {/* comment form */}
-              {openBox ? (
-                <div className='post-form'>
-                  <div className='bg-primary p'>
-                    <h3>Leave a Comment</h3>
-                  </div>
-                  <form
-                    className='form my-05 '
-                    onSubmit={e => {
-                      e.preventDefault();
-                      addComment(formData);
-                      setFormData(initialData);
-                    }}
-                  >
-                    <textarea
-                      name='text'
-                      cols='10'
-                      rows='5'
-                      placeholder='Comment the post'
-                      value={commentText}
-                      onChange={onChange}
-                      required
-                      className='small-nomargin '
-                    />
-                    <input
-                      type='submit'
-                      className='btn btn-dark my-1'
-                      value='Submit'
-                    />
-                  </form>
-                </div>
-              ) : null}
+              {openBox ? <CommentForm></CommentForm> : null}
 
               {/* postuser === logged in user */}
             </Fragment>
           ) : null}
+          <PostItem post={post}></PostItem>
         </div>
       </div>
     </div>
@@ -197,3 +145,32 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { deleteComment })(CommentItem);
+
+{
+  /* <div className='post-form'>
+                  <form
+                    className='form my-05 '
+                    onSubmit={e => {
+                      e.preventDefault();
+                      addComment(formData);
+                      setFormData(initialData);
+                    }}
+                  >
+                    <textarea
+                      name='commentText'
+                      cols='10'
+                      rows='5'
+                      placeholder='Comment the post'
+                      value={commentText}
+                      onChange={onChange}
+                      required
+                      className='small-nomargin '
+                    />
+                    <input
+                      type='submit'
+                      className='btn btn-dark my-1'
+                      value='Submit'
+                    />
+                  </form>
+                </div> */
+}

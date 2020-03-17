@@ -31,8 +31,9 @@ router.post(
     try {
       const user = await User.findById(req.user.id).select('-password');
       // console.log('req.params.id', req.params.id);
+      console.log('user', user);
 
-      const bibim = await Bibim.findById(req.body.bibim);
+      const bibim = await Bibim.findById(req.body.bibimId);
 
       // console.log('bibim PostCreate', bibim);
 
@@ -41,9 +42,10 @@ router.post(
         name: user.name,
         avatar: user.avatar,
         user: req.user.id,
-        bibim: req.body.bibim,
+        bibimId: req.body.bibimId,
         bibimName: bibim.name,
         parentId: null
+        // comments: null
       });
       // console.log('newPost PostCreate', newPost);
       // console.log('res posts', res);
@@ -86,7 +88,7 @@ router.get('/', pagination(Post), async (req, res) => {
     //   .sort({ date: -1 });
     // console.log('posts', posts);
 
-    console.log('res', res.paginatedResults);
+    // console.log('res', res.paginatedResults);
 
     res.json(res.paginatedResults);
   } catch (err) {
@@ -220,7 +222,7 @@ router.post(
   [
     auth,
     [
-      check('text', 'Text is required')
+      check('commentText', 'Text is required')
         .not()
         .isEmpty()
     ]
@@ -230,6 +232,7 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
+    console.log('called');
 
     try {
       const user = await User.findById(req.user.id).select('-password');
@@ -237,13 +240,16 @@ router.post(
       // console.log('req.params.id', req.params.id);
       const post = await Post.findById(req.params.id);
 
+      console.log('post :', post);
+
       const newComment = new Post({
-        text: req.body.text,
+        text: req.body.commentText,
         name: user.name,
         avatar: user.avatar,
         user: req.user.id,
-        parentId: req.body.parentPost,
+        parentId: req.body.parentId,
         bibimName: req.body.bibimName,
+        bibimId: req.body.bibimId,
         comments: null
       });
 

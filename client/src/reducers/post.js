@@ -14,7 +14,7 @@ const initialState = {
   post: null, //post info for comment
   loading: true,
   error: {},
-  bibim: String,
+  bibimId: String,
   next: null,
   previous: null
 };
@@ -35,7 +35,6 @@ export default function(state = initialState, action) {
       };
 
     case GET_POST:
-      console.log('posts : ', state.posts, 'post : ', state.post);
       return {
         ...state,
         post: payload,
@@ -46,7 +45,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         posts: [payload, ...state.posts],
-        bibim: payload.bibim,
+        bibimId: payload.bibimId,
         loading: false
       };
     case DELETE_POST:
@@ -76,7 +75,7 @@ export default function(state = initialState, action) {
         post: {
           ...state.post,
           comments: payload,
-          parentId: payload.parentPost
+          parentId: payload.parentId
         },
         loading: false
       };

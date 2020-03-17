@@ -31,7 +31,7 @@ module.exports = model => {
         .exec();
 
       res.paginatedResults = results;
-      console.log('results.results', results.results);
+      // console.log('results.results', results.results);
 
       next();
     } catch (e) {

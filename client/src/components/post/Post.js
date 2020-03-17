@@ -28,7 +28,6 @@ const Post = ({ getPost, post: { post, loading }, match, auth }) => {
   const [activeModal, setActiveModal] = useState('');
 
   // console.log(loading, post, auth);
-  console.log('post :', post);
 
   return post === null ? (
     <Spinner />
@@ -67,16 +66,16 @@ const Post = ({ getPost, post: { post, loading }, match, auth }) => {
       </div>
 
       <div className='comments'>
-        {post.comments === undefined || post.comments.length === 0
-          ? null
-          : post.comments.map(comment => (
+        {post.comments !== null
+          ? post.comments.map(comment => (
               <CommentItem
                 post={post}
                 key={comment._id}
                 comment={comment}
                 postId={post._id}
               />
-            ))}
+            ))
+          : null}
       </div>
       <Modal
         isOpen={activeModal === 'register'}

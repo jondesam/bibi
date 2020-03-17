@@ -19,12 +19,12 @@ const PostForm = ({
 
   let initialData = {
     text: '',
-    bibim: currentBibim ? currentBibim._id : ''
+    bibimId: currentBibim ? currentBibim._id : ''
   };
 
   const [formData, setFormData] = useState(initialData);
 
-  let { text, bibim } = formData;
+  let { text, bibimId } = formData;
 
   // if (currentBibim !== undefined) {
   //   setFormData({ text: '', bibim: });
@@ -45,9 +45,9 @@ const PostForm = ({
         <div className='small text-primary'>
           <select
             className=' select-css'
-            name='bibim'
+            name='bibimId'
             size='1'
-            value={bibim}
+            value={bibimId}
             onChange={onChange}
           >
             <option value=''>Select from your Bibips </option>
@@ -78,7 +78,7 @@ const PostForm = ({
           addPost(formData);
           setFormData({
             text: '',
-            bibim: currentBibim ? currentBibim._id : ''
+            bibimId: currentBibim ? currentBibim._id : ''
           });
         }}
       >

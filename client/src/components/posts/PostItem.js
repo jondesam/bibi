@@ -24,8 +24,8 @@ const PostItem = ({
     comments,
     date,
     bibimName,
-    bibim,
-    parentPost
+    bibimId,
+    parentId
   }
 }) => {
   const clickAction = (_id, value) => {
@@ -47,7 +47,6 @@ const PostItem = ({
       {text}
     </a>
   );
-  console.log('text post', text);
 
   return (
     <div>
@@ -63,7 +62,7 @@ const PostItem = ({
           <Link className='text-normal xsmall' to={`/profile/${user}`}>
             <p className='inline text-normal ph'> {name} </p>
           </Link>
-          <Link to={`/bibims/${bibim}`}>
+          <Link to={`/bibims/${bibimId}`}>
             {bibimName && (
               <p className='inline text-normal ph my-1 xsmall'>
                 {' '}
@@ -102,11 +101,7 @@ const PostItem = ({
                 >
                   <i className='fas fa-thumbs-down' />
                 </button>
-                {parentPost ? (
-                  <div className='comment-dent'>
-                    <p>adfdfd</p>
-                  </div>
-                ) : null}
+
                 {_id ? (
                   <Link to={`/posts/${_id}`} className='btn btn-primary'>
                     {comments.length > 1 ? (
@@ -176,7 +171,7 @@ PostItem.defaultProps = {
 };
 
 PostItem.propTypes = {
-  post: PropTypes.object.isRequired,
+  // post: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   addLike: PropTypes.func.isRequired,
   removeLike: PropTypes.func.isRequired,

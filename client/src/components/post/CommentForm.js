@@ -10,16 +10,15 @@ const CommentForm = ({ postId, addComment, bibimName }) => {
     setFormData(initialData);
   }, [getPost]);
 
-  let parentPost = postId;
   let initialData = {
-    text: '',
+    commentText: '',
     bibimName,
-    parentPost
+    parentId: postId
   };
 
   const [formData, setFormData] = useState(initialData);
 
-  let { text } = formData;
+  let { commentText } = formData;
 
   const onChange = e => {
     return setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,15 +34,16 @@ const CommentForm = ({ postId, addComment, bibimName }) => {
         onSubmit={e => {
           e.preventDefault();
           addComment(formData);
+          console.log('aaaa');
           setFormData(initialData);
         }}
       >
         <textarea
-          name='text'
+          name='commentText'
           cols='10'
           rows='5'
           placeholder='Comment the post'
-          value={text}
+          value={commentText}
           onChange={onChange}
           required
           // className='small-nomargin '
