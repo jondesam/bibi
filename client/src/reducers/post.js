@@ -6,7 +6,8 @@ import {
   ADD_POST,
   GET_POST,
   ADD_COMMENT,
-  REMOVE_COMMENT
+  REMOVE_COMMENT,
+  GET_COMMENTS
 } from '../actions/types';
 
 const initialState = {
@@ -16,7 +17,8 @@ const initialState = {
   error: {},
   bibimId: String,
   next: null,
-  previous: null
+  previous: null,
+  comments: []
 };
 
 export default function(state = initialState, action) {
@@ -91,6 +93,16 @@ export default function(state = initialState, action) {
         },
         loading: false
       };
+
+    case GET_COMMENTS:
+      return {
+        ...state,
+        comments: payload.results,
+        loading: false,
+        next: payload.next,
+        previous: payload.previous
+      };
+
     default:
       return state;
   }

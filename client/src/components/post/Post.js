@@ -27,7 +27,7 @@ const Post = ({ getPost, post: { post, loading }, match, auth }) => {
 
   const [activeModal, setActiveModal] = useState('');
 
-  // console.log(loading, post, auth);
+  console.log('post : ', post);
 
   return post === null ? (
     <Spinner />
@@ -69,10 +69,11 @@ const Post = ({ getPost, post: { post, loading }, match, auth }) => {
         {post.comments !== null
           ? post.comments.map(comment => (
               <CommentItem
-                post={post}
                 key={comment._id}
-                comment={comment}
-                postId={post._id}
+                postId={comment._id}
+                post={comment}
+
+                //there is no comments here when it loads
               />
             ))
           : null}

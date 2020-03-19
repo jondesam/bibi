@@ -8,6 +8,7 @@ const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 const Bibim = require('../../models/Bibim');
 const pagination = require('../../middleware/pagination');
+const paginationC = require('../../middleware/paginationC');
 
 // @route    POST api/posts
 // @desc     Create a post
@@ -31,7 +32,6 @@ router.post(
     try {
       const user = await User.findById(req.user.id).select('-password');
       // console.log('req.params.id', req.params.id);
-      console.log('user', user);
 
       const bibim = await Bibim.findById(req.body.bibimId);
 
@@ -89,6 +89,8 @@ router.get('/', pagination(Post), async (req, res) => {
     // console.log('posts', posts);
 
     // console.log('res', res.paginatedResults);
+
+    console.log('adfadfasdf');
 
     res.json(res.paginatedResults);
   } catch (err) {
@@ -174,7 +176,7 @@ router.put('/like/:id', auth, async (req, res) => {
     post.likes.unshift({ user: req.user.id });
 
     await post.save();
-    console.log('post', post);
+    // console.log('post', post);
     res.json(post.likes);
   } catch (err) {
     console.error(err.message);
@@ -232,15 +234,15 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    console.log('called');
 
     try {
       const user = await User.findById(req.user.id).select('-password');
 
       // console.log('req.params.id', req.params.id);
-      const post = await Post.findById(req.params.id);
+      console.log('req.body.parentId', req.body.parentId);
 
-      console.log('post :', post);
+      const post = await Post.findById(req.body.parentId);
+      console.log('post for comment', post);
 
       const newComment = new Post({
         text: req.body.commentText,
@@ -249,12 +251,14 @@ router.post(
         user: req.user.id,
         parentId: req.body.parentId,
         bibimName: req.body.bibimName,
-        bibimId: req.body.bibimId,
-        comments: null
+        bibimId: req.body.bibimId
+        // comments: null
       });
+      console.log(' post.comments', post.comments);
 
       post.comments.unshift(newComment);
 
+      console.log('adf');
       await post.save();
 
       await newComment.save();
@@ -305,5 +309,21 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+// @route    GET api/comments
+// @desc     Get all comments
+// @access   Public
+// router.get('/c', paginationC(Post), async (req, res) => {
+//   console.log('GGGGGG');
+
+//   try {
+//     res.json(res.paginatedResults);
+//   } catch (err) {
+//     console.log('errrr', err);
+
+//     console.error(err.message);
+//     res.status(500).send('Server Error');
+//   }
+// });
 
 module.exports = router;

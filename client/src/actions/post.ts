@@ -8,8 +8,10 @@ import {
   ADD_POST,
   GET_POST,
   ADD_COMMENT,
-  REMOVE_COMMENT
+  REMOVE_COMMENT,
+  GET_COMMENTS
 } from './types';
+var qs = require('qs');
 
 // Get posts
 export const getPosts = (page, limit) => async dispatch => {
@@ -21,6 +23,39 @@ export const getPosts = (page, limit) => async dispatch => {
       payload: res.data
     });
   } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response, status: err.response }
+    });
+  }
+};
+
+// Get comments
+export const getComments = (
+  page,
+  limit,
+  cm,
+  postIdsToCheck
+) => async dispatch => {
+  console.log('jjjjjjjj', page, limit, cm, postIdsToCheck);
+
+  try {
+    // const res = await axios.get(`/api/posts/com`);
+    const res = await axios.get(
+      `/api/posts?page=${page}&limit=${limit}&cm=${cm}`,
+      {
+        params: { jsonData: postIdsToCheck }
+      }
+    );
+    console.log('res', res);
+
+    dispatch({
+      type: GET_COMMENTS,
+      payload: res.data
+    });
+  } catch (err) {
+    console.log('rrrr', err);
+
     dispatch({
       type: POST_ERROR,
       payload: { msg: err.response, status: err.response }

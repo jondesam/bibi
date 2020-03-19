@@ -5,32 +5,29 @@ import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import Linkify from 'react-linkify';
 import PostItem from '../posts/PostItem';
+import CommnetItem from '../post/CommentItem';
 import CommentForm from './CommentForm';
-import CcItem from './CcItem';
 import {
   getPost,
-  getComments,
   addComment,
   deleteComment,
   addLike,
   removeLike,
   deletePost
 } from '../../actions/post';
-var qs = require('qs');
 
-const CommentItem = ({
-  getPost,
-  getComments,
+const CcItem = ({
   postId,
-  post,
-  post: { _id, text, name, avatar, user, date, likes }, //post to show from Post.js
-  commentsFromState,
+
+  postFromState: {},
+  post: { _id, text, name, avatar, user, date, likes },
   auth,
-  deleteComment
+  deleteComment,
+  getPost
 }) => {
-  // useEffect(() => {
-  //   getPost(postId);
-  // }, []);
+  //   useEffect(() => {
+  //     getPost();
+  //   }, [getPost]);
   const componentDecorator = (href, text, key) => (
     <a href={href} key={key} target='_blank' rel='noopener noreferrer'>
       {text}
@@ -57,37 +54,7 @@ const CommentItem = ({
   const clcikReply = () => {
     setOpenBox(!openBox);
   };
-  const postIdsToCheck = [];
-
-  commentsFromState.post.comments.map(comment => {
-    postIdsToCheck.push(comment._id);
-    // postIdsToCheck.map(String);
-  });
-
-  console.log('posts', post);
-
-  console.log('postIdsToCheck', postIdsToCheck);
-
-  useEffect(() => {
-    getComments(1, 10, true, postIdsToCheck);
-    console.log('popopo');
-  }, [getComments]);
-
-  // commentsFromState.comments.map(comment.)
-
-  let postToShow = [];
-  // postFromState.filter(comment => {
-  //   console.log(comment.text);
-
-  //   postToShow.push(comment._id);
-  // });
-
-  // let postToShow = [];
-  // postToShow = postBelow.filter(post => post._id);
-
-  console.log('comments', commentsFromState);
-
-  console.log(postToShow, postId);
+  //   console.log('post :', post);
 
   return (
     <div className=' bg-white p-1 my-05  post-item'>
@@ -150,52 +117,19 @@ const CommentItem = ({
                     </button>
                   )
                 : null}
-              {/* comment form */}
-              {openBox ? <CommentForm postId={_id}></CommentForm> : null}
 
-              {/* postuser === logged in user */}
+              {openBox ? <CommentForm></CommentForm> : null}
             </Fragment>
           ) : null}
-
-          {commentsFromState.comments.map(post => {
-            return postIdsToCheck.includes(post.parentId) &&
-              post.parentId === postId ? (
-              <CcItem post={post}></CcItem>
-            ) : null;
-          })}
-
-          {/* <div className='comments'>
-            {postFromState.post.comments
-              ? postFromState.post.comments.map(comment => (
-                  <CcItem
-                    // post={post}
-                    key={comment._id}
-                    post={comment}
-                    postId={_id}
-                  />
-                ))
-              : null}
-          </div> */}
         </div>
       </div>
     </div>
   );
 };
 
-CommentItem.propTypes = {
-  postId: PropTypes.string.isRequired,
-
-  auth: PropTypes.object.isRequired,
-  deleteComment: PropTypes.func.isRequired
-};
-
 const mapStateToProps = state => ({
   auth: state.auth,
-  commentsFromState: state.post
+  postFromState: state.post
 });
 
-export default connect(mapStateToProps, {
-  deleteComment,
-  getPost,
-  getComments
-})(CommentItem);
+export default connect(mapStateToProps, { deleteComment, getPost })(CcItem);
