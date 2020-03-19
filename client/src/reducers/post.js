@@ -18,7 +18,8 @@ const initialState = {
   bibimId: String,
   next: null,
   previous: null,
-  comments: []
+  comments: [],
+  tick: false
 };
 
 export default function(state = initialState, action) {
@@ -79,7 +80,8 @@ export default function(state = initialState, action) {
           comments: payload,
           parentId: payload.parentId
         },
-        loading: false
+        loading: false,
+        tick: !state.tick
       };
 
     case REMOVE_COMMENT:

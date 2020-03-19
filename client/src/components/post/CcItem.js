@@ -5,34 +5,71 @@ import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import Linkify from 'react-linkify';
 import PostItem from '../posts/PostItem';
-import CommnetItem from '../post/CommentItem';
+import CommentItem from '../post/CommentItem';
 import CommentForm from './CommentForm';
 import {
   getPost,
+  getComments,
   addComment,
   deleteComment,
   addLike,
   removeLike,
   deletePost
 } from '../../actions/post';
+import { strictEqual } from 'assert';
+import { stringify } from 'querystring';
 
 const CcItem = ({
   postId,
 
-  postFromState: {},
-  post: { _id, text, name, avatar, user, date, likes },
+  commentsFromState,
+  post: { _id, text, name, avatar, user, date, likes, bibimName },
   auth,
   deleteComment,
-  getPost
+  getPost,
+  getComments
 }) => {
-  //   useEffect(() => {
-  //     getPost();
-  //   }, [getPost]);
+  const parentPostsThatHasComments = [];
+
+  commentsFromState.post.comments.map(comment => {
+    parentPostsThatHasComments.push(comment._id);
+  });
+
+  console.log('parentPostsThatHasComments CC', parentPostsThatHasComments);
+
+  useEffect(() => {
+    getComments(1, 10, true, parentPostsThatHasComments);
+    console.log('HHH');
+  }, [getComments]);
+
   const componentDecorator = (href, text, key) => (
     <a href={href} key={key} target='_blank' rel='noopener noreferrer'>
       {text}
     </a>
   );
+
+  let str = postId.toString();
+
+  console.log('postId', postId);
+
+  console.log('commentFromState', commentsFromState);
+
+  let commentsShowedHere = [];
+  commentsFromState.comments.map(comment => {
+    commentsShowedHere.push(comment);
+  });
+
+  console.log('commentsShowedHere', commentsShowedHere);
+
+  let postsThatHaveCommentsToShow = [];
+
+  commentsShowedHere.map(comment => {
+    if (comment.comments.length > 0) {
+      postsThatHaveCommentsToShow.push(comment.comments);
+    }
+  });
+
+  console.log('postsThatHaveCommentsToShow', postsThatHaveCommentsToShow);
 
   const clickAction = (_id, value) => {
     if (auth.isAuthenticated === true) {
@@ -105,7 +142,6 @@ const CcItem = ({
                   Reply
                 </p>
               </div>
-
               {auth.isAuthenticated === true && null !== auth.user
                 ? user === auth.user._id && (
                     <button
@@ -117,8 +153,39 @@ const CcItem = ({
                     </button>
                   )
                 : null}
+              {openBox ? (
+                <CommentForm postId={_id} bibimName={bibimName}></CommentForm>
+              ) : null}
 
-              {openBox ? <CommentForm></CommentForm> : null}
+              {commentsShowedHere.map(post =>
+                post.comments.length > 0 && postId === post._id
+                  ? post.comments.map(comment => (
+                      <CommentItem
+                        post={comment}
+                        key={comment._id}
+                        postId={comment._id}
+                      ></CommentItem>
+                    ))
+                  : null
+              )}
+
+              {/* {commentsShowedHere.map(post =>
+                post._id === postId && post.comments ? (
+                  <CommentItem></CommentItem>
+                ) : null
+              )} */}
+
+              {/* {commentsFromState.comments.map(post =>
+                parentPostsThatHasComments.includes(post.parentId) &&
+                post._id === postId ? (
+                  <CommentItem
+                    post={post.comments}
+                    key={post._id}
+                  ></CommentItem>
+                ) : (
+                  <p>aaa</p>
+                )
+              )} */}
             </Fragment>
           ) : null}
         </div>
@@ -129,7 +196,11 @@ const CcItem = ({
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  postFromState: state.post
+  commentsFromState: state.post
 });
 
-export default connect(mapStateToProps, { deleteComment, getPost })(CcItem);
+export default connect(mapStateToProps, {
+  deleteComment,
+  getPost,
+  getComments
+})(CcItem);

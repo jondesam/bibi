@@ -22,8 +22,20 @@ const CommentItem = ({
   getPost,
   getComments,
   postId,
-  post,
-  post: { _id, text, name, avatar, user, date, likes }, //post to show from Post.js
+
+  post: {
+    _id,
+    text,
+    name,
+    avatar,
+    user,
+    date,
+    likes,
+    tick,
+    bibimName,
+    posts,
+    post
+  }, //post to show from Post.js
   commentsFromState,
   auth,
   deleteComment
@@ -57,6 +69,7 @@ const CommentItem = ({
   const clcikReply = () => {
     setOpenBox(!openBox);
   };
+  
   const postIdsToCheck = [];
 
   commentsFromState.post.comments.map(comment => {
@@ -64,14 +77,14 @@ const CommentItem = ({
     // postIdsToCheck.map(String);
   });
 
-  console.log('posts', post);
+  // console.log('posts CommentItem', posts, post);
 
   console.log('postIdsToCheck', postIdsToCheck);
 
   useEffect(() => {
     getComments(1, 10, true, postIdsToCheck);
     console.log('popopo');
-  }, [getComments]);
+  }, [getComments, tick]);
 
   // commentsFromState.comments.map(comment.)
 
@@ -85,9 +98,9 @@ const CommentItem = ({
   // let postToShow = [];
   // postToShow = postBelow.filter(post => post._id);
 
-  console.log('comments', commentsFromState);
+  console.log('commentsFromState CommentItem', commentsFromState);
 
-  console.log(postToShow, postId);
+  // console.log(postToShow, postId);
 
   return (
     <div className=' bg-white p-1 my-05  post-item'>
@@ -151,18 +164,20 @@ const CommentItem = ({
                   )
                 : null}
               {/* comment form */}
-              {openBox ? <CommentForm postId={_id}></CommentForm> : null}
+              {openBox ? (
+                <CommentForm postId={_id} bibimName={bibimName}></CommentForm>
+              ) : null}
 
               {/* postuser === logged in user */}
             </Fragment>
           ) : null}
 
-          {commentsFromState.comments.map(post => {
-            return postIdsToCheck.includes(post.parentId) &&
-              post.parentId === postId ? (
-              <CcItem post={post}></CcItem>
-            ) : null;
-          })}
+          {commentsFromState.comments.map(post =>
+            postIdsToCheck.includes(post.parentId) &&
+            post.parentId === postId ? (
+              <CcItem post={post} postId={post._id} key={post._id}></CcItem>
+            ) : null
+          )}
 
           {/* <div className='comments'>
             {postFromState.post.comments

@@ -70,7 +70,7 @@ const BibimItem = ({
         <div>
           <button
             type='button'
-            className='btn btn-dark mt-1'
+            className='btn-page btn-dark mt-1'
             onClick={() => clickAction(_id, profile)}
           >
             {text === null ? inintialTitle : text}

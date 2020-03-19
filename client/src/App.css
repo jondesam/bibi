@@ -255,6 +255,20 @@ mtop-1 {
   display: inline-block;
   background: var(--light-color);
   color: #333;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.5rem;
+  border: none;
+  cursor: pointer;
+  margin-right: 0.2rem;
+  margin-top: 0.5rem;
+  transition: opacity 0.2s ease-in;
+  outline: none;
+}
+
+.btn-page {
+  display: inline-block;
+  background: var(--light-color);
+  color: #333;
   padding: 0.3rem 1.2rem;
   font-size: 0.7rem;
   border: none;
@@ -264,6 +278,7 @@ mtop-1 {
   transition: opacity 0.2s ease-in;
   outline: none;
 }
+
 .btn-margin-bottom {
   display: inline-block;
   background: var(--light-color);

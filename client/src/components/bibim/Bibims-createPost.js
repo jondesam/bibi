@@ -55,7 +55,10 @@ const Bibim = ({
         </button>
       ) : null}
       {next ? (
-        <button className='btn btn-primary' onClick={() => clickAction('next')}>
+        <button
+          className='btn-page btn-primary'
+          onClick={() => clickAction('next')}
+        >
           {' '}
           Next
         </button>

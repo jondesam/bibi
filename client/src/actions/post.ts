@@ -37,7 +37,7 @@ export const getComments = (
   cm,
   postIdsToCheck
 ) => async dispatch => {
-  console.log('jjjjjjjj', page, limit, cm, postIdsToCheck);
+  // console.log('jjjjjjjj', page, limit, cm, postIdsToCheck);
 
   try {
     // const res = await axios.get(`/api/posts/com`);
@@ -172,7 +172,7 @@ export const addComment = formData => async dispatch => {
       'Content-Type': 'application/json'
     }
   };
-  console.log('formdata', formData.parentId);
+  // console.log('formdata', formData.parentId);
 
   try {
     const res = await axios.post(
@@ -181,7 +181,7 @@ export const addComment = formData => async dispatch => {
       config
     );
 
-    console.log('res addComment', res.data);
+    // console.log('res addComment', res.data);
 
     dispatch({
       type: ADD_COMMENT,

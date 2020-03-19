@@ -12,7 +12,7 @@ import Modal from 'react-modal';
 import Register from '../auth/Register-.js';
 import Login from '../auth/Log-in';
 
-const Post = ({ getPost, post: { post, loading }, match, auth }) => {
+const Post = ({ getPost, post: { post, loading, tick }, match, auth }) => {
   const clickAction = value => {
     if (value === 'register') {
       setActiveModal('register');
@@ -21,13 +21,15 @@ const Post = ({ getPost, post: { post, loading }, match, auth }) => {
     }
   };
 
+  console.log('tick', tick);
+
   useEffect(() => {
     getPost(match.params.id);
-  }, [getPost, match.params.id]);
+  }, [getPost, match.params.id, tick]);
 
   const [activeModal, setActiveModal] = useState('');
 
-  console.log('post : ', post);
+  // console.log('post : ', post);
 
   return post === null ? (
     <Spinner />

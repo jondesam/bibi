@@ -84,7 +84,7 @@ const Posts = ({
         ) : null}
         {next ? (
           <button
-            className='btn btn-primary'
+            className='btn-page btn-primary'
             onClick={() => clickAction('next')}
           >
             {' '}
