@@ -35,11 +35,8 @@ const CcItem = ({
     parentPostsThatHasComments.push(comment._id);
   });
 
-  console.log('parentPostsThatHasComments CC', parentPostsThatHasComments);
-
   useEffect(() => {
     getComments(1, 10, true, parentPostsThatHasComments);
-    console.log('HHH');
   }, [getComments]);
 
   const componentDecorator = (href, text, key) => (
@@ -50,16 +47,10 @@ const CcItem = ({
 
   let str = postId.toString();
 
-  console.log('postId', postId);
-
-  console.log('commentFromState', commentsFromState);
-
   let commentsShowedHere = [];
   commentsFromState.comments.map(comment => {
     commentsShowedHere.push(comment);
   });
-
-  console.log('commentsShowedHere', commentsShowedHere);
 
   let postsThatHaveCommentsToShow = [];
 
@@ -68,8 +59,6 @@ const CcItem = ({
       postsThatHaveCommentsToShow.push(comment.comments);
     }
   });
-
-  console.log('postsThatHaveCommentsToShow', postsThatHaveCommentsToShow);
 
   const clickAction = (_id, value) => {
     if (auth.isAuthenticated === true) {
@@ -91,7 +80,6 @@ const CcItem = ({
   const clcikReply = () => {
     setOpenBox(!openBox);
   };
-  //   console.log('post :', post);
 
   return (
     <div className=' bg-white p-1 my-05  post-item'>

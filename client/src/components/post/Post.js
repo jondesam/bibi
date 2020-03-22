@@ -21,15 +21,11 @@ const Post = ({ getPost, post: { post, loading, tick }, match, auth }) => {
     }
   };
 
-  console.log('tick', tick);
-
   useEffect(() => {
     getPost(match.params.id);
   }, [getPost, match.params.id, tick]);
 
   const [activeModal, setActiveModal] = useState('');
-
-  // console.log('post : ', post);
 
   return post === null ? (
     <Spinner />

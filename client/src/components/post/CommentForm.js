@@ -34,7 +34,7 @@ const CommentForm = ({ postId, addComment, bibimName }) => {
         onSubmit={e => {
           e.preventDefault();
           addComment(formData);
-          console.log('aaaa');
+
           setFormData(initialData);
         }}
       >

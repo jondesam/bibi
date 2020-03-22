@@ -21,7 +21,6 @@ module.exports = model => {
         limit: limit
       };
     }
-    console.log('PCPCPCPCPC');
 
     try {
       results.results = await model

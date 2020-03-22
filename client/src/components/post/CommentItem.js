@@ -69,7 +69,7 @@ const CommentItem = ({
   const clcikReply = () => {
     setOpenBox(!openBox);
   };
-  
+
   const postIdsToCheck = [];
 
   commentsFromState.post.comments.map(comment => {
@@ -77,13 +77,8 @@ const CommentItem = ({
     // postIdsToCheck.map(String);
   });
 
-  // console.log('posts CommentItem', posts, post);
-
-  console.log('postIdsToCheck', postIdsToCheck);
-
   useEffect(() => {
     getComments(1, 10, true, postIdsToCheck);
-    console.log('popopo');
   }, [getComments, tick]);
 
   // commentsFromState.comments.map(comment.)
@@ -97,10 +92,6 @@ const CommentItem = ({
 
   // let postToShow = [];
   // postToShow = postBelow.filter(post => post._id);
-
-  console.log('commentsFromState CommentItem', commentsFromState);
-
-  // console.log(postToShow, postId);
 
   return (
     <div className=' bg-white p-1 my-05  post-item'>

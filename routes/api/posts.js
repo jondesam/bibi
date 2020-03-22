@@ -90,8 +90,6 @@ router.get('/', pagination(Post), async (req, res) => {
 
     // console.log('res', res.paginatedResults);
 
-    console.log('adfadfasdf');
-
     res.json(res.paginatedResults);
   } catch (err) {
     console.error(err.message);
@@ -208,7 +206,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
     post.likes.splice(removeIndex, 1);
 
     await post.save();
-    console.log('post', post);
+
     res.json(post.likes);
   } catch (err) {
     console.error(err.message);
@@ -238,11 +236,7 @@ router.post(
     try {
       const user = await User.findById(req.user.id).select('-password');
 
-      // console.log('req.params.id', req.params.id);
-      console.log('req.body.parentId', req.body.parentId);
-
       const post = await Post.findById(req.body.parentId);
-      console.log('post for comment', post);
 
       const newComment = new Post({
         text: req.body.commentText,
@@ -254,11 +248,9 @@ router.post(
         bibimId: req.body.bibimId
         // comments: null
       });
-      console.log(' post.comments', post.comments);
 
       post.comments.unshift(newComment);
 
-      console.log('adf');
       await post.save();
 
       await newComment.save();

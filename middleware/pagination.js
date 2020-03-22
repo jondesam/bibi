@@ -4,11 +4,6 @@ module.exports = model => {
     const limit = parseInt(req.query.limit);
     const cm = req.query.cm;
     // let postIdsToCheck = req.query.postIdsToCheck.json_data;
-    console.log('req', req.query);
-
-    // let postIdsToCheck = [];
-
-    // postIdsToCheck.push(parseInt(req.query.postIdsToCheck));
 
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
@@ -28,12 +23,9 @@ module.exports = model => {
         limit: limit
       };
     }
-    // console.log('WWW', page, limit, cm, postIdsToCheck);
 
     if (cm === 'true') {
       try {
-        // console.log('postIdsToCheck VV : ', req.query.postIdsToCheck);
-
         results.results = await model
           .find({
             parentId: {
@@ -44,8 +36,6 @@ module.exports = model => {
           .exec();
 
         res.paginatedResults = results;
-
-        console.log('results.results', results.results);
 
         next();
       } catch (e) {
@@ -61,7 +51,6 @@ module.exports = model => {
           .exec();
 
         res.paginatedResults = results;
-        // console.log('results.results', results.results);
 
         next();
       } catch (e) {

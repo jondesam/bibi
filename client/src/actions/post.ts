@@ -37,8 +37,6 @@ export const getComments = (
   cm,
   postIdsToCheck
 ) => async dispatch => {
-  // console.log('jjjjjjjj', page, limit, cm, postIdsToCheck);
-
   try {
     // const res = await axios.get(`/api/posts/com`);
     const res = await axios.get(
@@ -47,15 +45,12 @@ export const getComments = (
         params: { jsonData: postIdsToCheck }
       }
     );
-    console.log('res', res);
 
     dispatch({
       type: GET_COMMENTS,
       payload: res.data
     });
   } catch (err) {
-    console.log('rrrr', err);
-
     dispatch({
       type: POST_ERROR,
       payload: { msg: err.response, status: err.response }
@@ -85,7 +80,7 @@ export const getPost = id => async dispatch => {
 export const addLike = id => async dispatch => {
   try {
     const res = await axios.put(`/api/posts/like/${id}`);
-    console.log('res add like', res.data);
+
 
     dispatch({
       type: UPDATE_LIKES,
@@ -105,7 +100,7 @@ export const addLike = id => async dispatch => {
 export const removeLike = id => async dispatch => {
   try {
     const res = await axios.put(`/api/posts/unlike/${id}`);
-    console.log('res remove like', res.data);
+
     dispatch({
       type: UPDATE_LIKES,
       payload: { id, likes: res.data }
@@ -190,7 +185,7 @@ export const addComment = formData => async dispatch => {
 
     dispatch(setAlert('Comment Added', 'success'));
   } catch (err) {
-    console.log('err', err);
+    //console.log('err', err);
 
     dispatch({
       type: POST_ERROR,
