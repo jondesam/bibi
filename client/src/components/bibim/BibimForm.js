@@ -5,12 +5,12 @@ import { addBibim } from '../../actions/bibim';
 
 const BibimForm = ({ addBibim }) => {
   const [formData, setFormData] = useState({
-    name: '',
+    bibimName: '',
     description: ''
     // subscriptions:[{profileId: , userId:}]
   });
 
-  const { name, description } = formData;
+  const { bibimName, description } = formData;
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,12 +23,11 @@ const BibimForm = ({ addBibim }) => {
         className='form my-1'
         onSubmit={e => {
           e.preventDefault();
-          // console.log(name, description);
 
           addBibim(formData);
 
           setFormData({
-            name: '',
+            bibimName: '',
             description: ''
           });
         }}
@@ -36,8 +35,8 @@ const BibimForm = ({ addBibim }) => {
         <div className='form-group'>
           <input
             type='text'
-            name='name'
-            value={name}
+            name='bibimName'
+            value={bibimName}
             placeholder='Bibim Name'
             onChange={onChange}
           />

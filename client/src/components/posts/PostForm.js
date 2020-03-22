@@ -35,8 +35,9 @@ const PostForm = ({
   };
 
   let placeholder = '';
+
   if (currentBibim) {
-    placeholder = 'Create a post in ' + currentBibim.name + ' bibip';
+    placeholder = 'Create a post in ' + currentBibim.bibimName + ' bibip';
   }
 
   return (
@@ -59,13 +60,6 @@ const PostForm = ({
                   </option>
                 ))
               : null}
-
-            {/* {bibims.map(bibim => (
-              <option key={bibim._id} value={bibim._id}>
-                {' '}
-                {bibim.name}
-              </option>
-            ))} */}
           </select>
         </div>
       ) : null}

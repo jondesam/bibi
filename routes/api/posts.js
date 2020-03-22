@@ -35,20 +35,17 @@ router.post(
 
       const bibim = await Bibim.findById(req.body.bibimId);
 
-      // console.log('bibim PostCreate', bibim);
-
       const newPost = new Post({
         text: req.body.text,
-        name: user.name,
+        userName: user.userName,
         avatar: user.avatar,
         user: req.user.id,
         bibimId: req.body.bibimId,
-        bibimName: bibim.name,
+        bibimName: bibim.bibimName,
         parentId: null
         // comments: null
       });
       // console.log('newPost PostCreate', newPost);
-      // console.log('res posts', res);
 
       bibim.posts.unshift(newPost);
 
@@ -240,7 +237,7 @@ router.post(
 
       const newComment = new Post({
         text: req.body.commentText,
-        name: user.name,
+        userName: user.userName,
         avatar: user.avatar,
         user: req.user.id,
         parentId: req.body.parentId,
@@ -256,7 +253,6 @@ router.post(
       await newComment.save();
 
       res.json(post.comments);
-      // res.json(post.comments);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');

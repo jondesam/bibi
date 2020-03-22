@@ -14,7 +14,7 @@ const User = require('../../models/User');
 router.post(
   '/',
   [
-    check('name', 'Name is required')
+    check('userName', 'Name is required')
       .not()
       .isEmpty(),
     check('email', 'Please include a valid email').isEmail(),
@@ -32,7 +32,7 @@ router.post(
 
     // console.log('req post api/', req);
 
-    const { name, email, password } = req.body;
+    const { userName, email, password } = req.body;
 
     try {
       // See if user exists
@@ -51,7 +51,7 @@ router.post(
       });
 
       user = new User({
-        name,
+        userName,
         email,
         avatar,
         password

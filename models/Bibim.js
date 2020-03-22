@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const BibimSchema = new Schema({
-  name: {
+  bibimName: {
     type: String,
     required: true
   },
@@ -43,7 +43,7 @@ const BibimSchema = new Schema({
         type: String,
         required: true
       },
-      name: {
+      userName: {
         type: String
       },
       avatar: {
@@ -67,7 +67,7 @@ const BibimSchema = new Schema({
             type: String,
             required: true
           },
-          name: {
+          userName: {
             type: String
           },
           avatar: {

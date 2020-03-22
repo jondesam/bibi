@@ -23,7 +23,7 @@ const CcItem = ({
   postId,
 
   commentsFromState,
-  post: { _id, text, name, avatar, user, date, likes, bibimName },
+  post: { _id, text, userName, avatar, user, date, likes, bibimName },
   auth,
   deleteComment,
   getPost,
@@ -92,7 +92,7 @@ const CcItem = ({
 
       <div>
         <Link className='text-normal xsmall' to={`/profile/${user}`}>
-          <p className='inline ph'>by {name} </p>
+          <p className='inline ph'>by {userName} </p>
         </Link>
         <p className='post-date inline my-1 xsmall'>
           on <Moment format='MM/DD/YYYY'>{date}</Moment>

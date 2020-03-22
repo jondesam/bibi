@@ -16,7 +16,7 @@ const PostSchema = new Schema({
     type: String,
     required: true
   },
-  name: {
+  userName: {
     type: String
   },
   avatar: {
@@ -37,12 +37,12 @@ const PostSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'users'
       },
+      userName: {
+        type: String
+      },
       text: {
         type: String,
         required: true
-      },
-      name: {
-        type: String
       },
       date: {
         type: Date,

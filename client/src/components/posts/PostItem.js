@@ -18,7 +18,7 @@ const PostItem = ({
   post: {
     _id,
     text,
-    name,
+    userName,
     user,
     likes,
     comments,
@@ -60,7 +60,7 @@ const PostItem = ({
 
         <div className=''>
           <Link className='text-normal xsmall' to={`/profile/${user}`}>
-            <p className='inline text-normal ph'> {name} </p>
+            <p className='inline text-normal ph'> {userName} </p>
           </Link>
           <Link to={`/bibims/${bibimId}`}>
             {bibimName && (

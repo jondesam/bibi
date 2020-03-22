@@ -69,8 +69,6 @@ const BibimProfile = ({
     }
   };
 
-  // console.log(currentBibim[0].name, currentBibim[0]._id);
-
   // console.log('currentBibim', currentBibim[0]);
 
   // console.log('profile', profile);
@@ -82,7 +80,7 @@ const BibimProfile = ({
       {currentBibim.length > 0 ? (
         <div>
           <p className='lead'>
-            <i className='fas fa-window-maximize' /> {currentBibim[0].name}{' '}
+            <i className='fas fa-window-maximize' /> {currentBibim[0].BibimName}{' '}
             Bibip
           </p>
 

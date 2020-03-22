@@ -6,15 +6,15 @@ import { getPost } from '../../actions/post';
 import post from '../../reducers/post';
 
 const CommentForm = ({ postId, addComment, bibimName }) => {
-  useEffect(() => {
-    setFormData(initialData);
-  }, [getPost]);
-
   let initialData = {
     commentText: '',
     bibimName,
     parentId: postId
   };
+
+  useEffect(() => {
+    setFormData(initialData);
+  }, [getPost]);
 
   const [formData, setFormData] = useState(initialData);
 

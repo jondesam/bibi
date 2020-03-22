@@ -17,7 +17,7 @@ router.post(
   [
     auth,
     [
-      check('name', 'name is required')
+      check('bibimName', 'bibimName is required')
         .not()
         .isEmpty()
     ]
@@ -27,16 +27,17 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
+    console.log('BBB', req.body);
 
     try {
       const user = await User.findById(req.user.id).select('-password');
 
-      // console.log('found user', user);
+      console.log('found user', user);
 
       const newBibim = new Bibim({
-        name: req.body.name,
+        bibimName: req.body.bibimName,
         creater: user._id,
-        createrName: user.name,
+        createrName: user.userName,
         description: req.body.description
       });
 
@@ -44,6 +45,8 @@ router.post(
 
       res.json(bibim);
     } catch (err) {
+      console.log('AAA', err);
+
       console.error(err.message);
       res.status(500).send('Server Error!!');
     }
@@ -58,8 +61,6 @@ router.get('/', pagination(Bibim), async (req, res) => {
     const bibims = await Bibim.find().sort({ date: -1 });
 
     // res.json(bibims);
-
-
 
     res.json(res.paginatedResults);
   } catch (err) {
@@ -113,7 +114,7 @@ router.put('/subscription/:id', auth, async (req, res) => {
 
     profile.subscriptions.unshift({
       bibimId: req.params.id,
-      bibimName: bibim.name
+      bibimName: bibim.bibimName
     });
 
     bibim.subscriptions.unshift({

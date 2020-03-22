@@ -16,7 +16,6 @@ import {
   removeLike,
   deletePost
 } from '../../actions/post';
-var qs = require('qs');
 
 const CommentItem = ({
   getPost,
@@ -26,7 +25,7 @@ const CommentItem = ({
   post: {
     _id,
     text,
-    name,
+    userName,
     avatar,
     user,
     date,
@@ -83,7 +82,7 @@ const CommentItem = ({
 
   // commentsFromState.comments.map(comment.)
 
-  let postToShow = [];
+  // let postToShow = [];
   // postFromState.filter(comment => {
   //   console.log(comment.text);
 
@@ -104,7 +103,7 @@ const CommentItem = ({
 
       <div>
         <Link className='text-normal xsmall' to={`/profile/${user}`}>
-          <p className='inline ph'>by {name} </p>
+          <p className='inline ph'>by {userName} </p>
         </Link>
         <p className='post-date inline my-1 xsmall'>
           on <Moment format='MM/DD/YYYY'>{date}</Moment>

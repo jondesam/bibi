@@ -17,13 +17,13 @@ const Register = ({
   match
 }) => {
   const [formData, setFormData] = useState({
-    name: '',
+    userName: '',
     email: '',
     password: '',
     password2: ''
   });
 
-  const { name, email, password, password2 } = formData;
+  const { userName, email, password, password2 } = formData;
 
   const onChange = e => {
     // console.log('e.target is', e.target);
@@ -41,7 +41,7 @@ const Register = ({
 
       //   setAlert('Passwords do not match', 'danger');
     } else {
-      register({ name, email, password });
+      register({ userName, email, password });
     }
   };
 
@@ -58,8 +58,8 @@ const Register = ({
           <input
             type='text'
             placeholder='Name'
-            name='name'
-            value={name}
+            name='userName'
+            value={userName}
             onChange={onChange}
             autoComplete='on'
             // required
