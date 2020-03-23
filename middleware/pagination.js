@@ -10,7 +10,7 @@ module.exports = model => {
 
     const results = {};
 
-    if (endIndex < (await model.countDocuments().exec())) {
+    if (endIndex < (await model.countDocuments({ parentId: null }).exec())) {
       results.next = {
         page: page + 1,
         limit: limit
@@ -44,6 +44,7 @@ module.exports = model => {
     } else {
       try {
         results.results = await model
+          .find()
           .find({ parentId: null })
           .sort({ date: -1 })
           .limit(limit)

@@ -9,7 +9,8 @@ import {
   GET_POST,
   ADD_COMMENT,
   REMOVE_COMMENT,
-  GET_COMMENTS
+  GET_COMMENTS,
+  GET_COMMENT
 } from './types';
 var qs = require('qs');
 
@@ -75,20 +76,34 @@ export const getPost = id => async dispatch => {
   }
 };
 
+// Get comment
+export const getComment = id => async dispatch => {
+  try {
+    const res = await axios.get(`/api/posts/${id}`);
+
+    dispatch({
+      type: GET_COMMENT,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
 // Add like
 //id : postId
 export const addLike = id => async dispatch => {
   try {
     const res = await axios.put(`/api/posts/like/${id}`);
 
-
     dispatch({
       type: UPDATE_LIKES,
       payload: { id, likes: res.data }
     });
   } catch (err) {
-    // console.log('Already liked');
-
     dispatch({
       type: POST_ERROR,
       payload: { msg: err.response.data.msg, status: err.response.status }
@@ -167,7 +182,6 @@ export const addComment = formData => async dispatch => {
       'Content-Type': 'application/json'
     }
   };
-  // console.log('formdata', formData.parentId);
 
   try {
     const res = await axios.post(
@@ -176,8 +190,6 @@ export const addComment = formData => async dispatch => {
       config
     );
 
-    // console.log('res addComment', res.data);
-
     dispatch({
       type: ADD_COMMENT,
       payload: res.data
@@ -185,8 +197,6 @@ export const addComment = formData => async dispatch => {
 
     dispatch(setAlert('Comment Added', 'success'));
   } catch (err) {
-    //console.log('err', err);
-
     dispatch({
       type: POST_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }

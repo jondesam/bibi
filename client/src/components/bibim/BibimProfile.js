@@ -69,10 +69,6 @@ const BibimProfile = ({
     }
   };
 
-  // console.log('currentBibim', currentBibim[0]);
-
-  // console.log('profile', profile);
-
   return loading === null ? (
     <p>Please Go Back</p>
   ) : (
@@ -138,8 +134,6 @@ BibimProfile.propTypes = {
 };
 
 const mapStateToProps = state => {
-  // console.log('state profile', state);
-
   return {
     auth: state.auth,
     profile: state.profile,

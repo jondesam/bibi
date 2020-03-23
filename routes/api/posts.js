@@ -31,7 +31,6 @@ router.post(
 
     try {
       const user = await User.findById(req.user.id).select('-password');
-      // console.log('req.params.id', req.params.id);
 
       const bibim = await Bibim.findById(req.body.bibimId);
 
@@ -45,7 +44,6 @@ router.post(
         parentId: null
         // comments: null
       });
-      // console.log('newPost PostCreate', newPost);
 
       bibim.posts.unshift(newPost);
 
@@ -66,27 +64,6 @@ router.post(
 // @access   Private
 router.get('/', pagination(Post), async (req, res) => {
   try {
-    // const bibims = await Bibim.find().sort({ date: -1 });
-
-    // const allPosts = [];
-
-    // bibims.map(item => {
-    //   if (item.posts.length !== 0) {
-    //     item.posts.map(post => allPosts.push(post));
-    //   }
-    // });
-
-    // res.json(allPosts);
-
-    // console.log('req.query', req.query);
-
-    // const posts = await Post.find()
-    //   .limit(5)
-    //   .sort({ date: -1 });
-    // console.log('posts', posts);
-
-    // console.log('res', res.paginatedResults);
-
     res.json(res.paginatedResults);
   } catch (err) {
     console.error(err.message);
@@ -123,6 +100,7 @@ router.get('/:id', async (req, res) => {
 router.delete('/:id', auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
+    const bibim = await Bibim.findById(post.bibimId);
 
     // Check for ObjectId format and post
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !post) {
@@ -134,6 +112,9 @@ router.delete('/:id', auth, async (req, res) => {
       return res.status(401).json({ msg: 'User not authorized' });
     }
 
+    bibim.posts.pull(post._id);
+
+    await bibim.save();
     await post.remove();
 
     res.json({ msg: 'Post removed' });
@@ -159,19 +140,13 @@ router.put('/like/:id', auth, async (req, res) => {
     if (
       post.likes.filter(like => like.user.toString() === req.user.id).length > 0
     ) {
-      //   console.log(
-      //     'dddd',
-      //     post.likes.filter(like => like.user.toString() === req.user.id)
-      //   );
-      // console.log('Post already liked');
-
       return res.status(400).json({ msg: 'Post already liked' });
     }
 
     post.likes.unshift({ user: req.user.id });
 
     await post.save();
-    // console.log('post', post);
+
     res.json(post.likes);
   } catch (err) {
     console.error(err.message);
@@ -191,7 +166,6 @@ router.put('/unlike/:id', auth, async (req, res) => {
       post.likes.filter(like => like.user.toString() === req.user.id).length ===
       0
     ) {
-      // console.log('Post has not yet been liked');
       return res.status(400).json({ msg: 'Post has not yet been liked' });
     }
 
@@ -302,13 +276,9 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
 // @desc     Get all comments
 // @access   Public
 // router.get('/c', paginationC(Post), async (req, res) => {
-//   console.log('GGGGGG');
-
 //   try {
 //     res.json(res.paginatedResults);
 //   } catch (err) {
-//     console.log('errrr', err);
-
 //     console.error(err.message);
 //     res.status(500).send('Server Error');
 //   }

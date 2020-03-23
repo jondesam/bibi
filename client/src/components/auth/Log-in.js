@@ -17,17 +17,13 @@ const Login = props => {
 
   const onSubmit = async e => {
     e.preventDefault();
-    // console.log('email and password', email, password);
-    // console.log('props', props);
 
     props.login(email, password);
-    // console.log('login');
   };
 
   if (props.isAuthenticated) {
     return <Redirect to='/' />;
   }
-  // console.log(props);
 
   return (
     <Fragment>
@@ -71,8 +67,6 @@ Login.propTypes = {
 };
 
 const mapStateToProps = state => {
-  // console.log('state aaa', state);
-
   return {
     isAuthenticated: state.auth.isAuthenticated
   };

@@ -31,7 +31,6 @@ const Posts = ({
   let postsToShow = [];
 
   postsToShow = posts.filter(post => post.user === userId);
-  console.log('CC', userId, postsToShow);
 
   return (
     <Fragment>

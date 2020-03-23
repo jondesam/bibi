@@ -51,7 +51,6 @@ export const getProfiles = () => async dispatch => {
 export const getProfileById = userId => async dispatch => {
   try {
     const res = await axios.get(`/api/profile/user/${userId}`);
-    // console.log('getProfileById', res);
 
     dispatch({
       type: GET_PROFILE,
@@ -64,8 +63,6 @@ export const getProfileById = userId => async dispatch => {
     });
   }
 };
-
-
 
 // Create or update profile
 export const createProfile = (
@@ -93,9 +90,6 @@ export const createProfile = (
     //   history.push('/');
     // }
   } catch (err) {
-    // console.log('err', err.response);
-    // console.log('profile ERR', err);
-
     const errors = err.response.data.errors;
 
     if (errors) {
@@ -108,7 +102,6 @@ export const createProfile = (
     });
   }
 };
-
 
 // // Delete account & profile
 export const deleteAccount = () => async dispatch => {

@@ -17,12 +17,8 @@ export const addBibim = formData => async dispatch => {
     }
   };
 
-  // console.log('Create Bibim');
-
   try {
     const res = await axios.post('/api/bibim/create', formData, config);
-
-    // console.log('res addPost', res);
 
     dispatch({
       type: ADD_BIBIM,
@@ -31,8 +27,6 @@ export const addBibim = formData => async dispatch => {
 
     dispatch(setAlert('Bibip Created', 'success'));
   } catch (err) {
-    // console.log(err);
-
     dispatch({
       type: POST_ERROR,
       payload: { msg: err.response.data.msg, status: err.response.status }
@@ -77,7 +71,6 @@ export const getBibim = id => async dispatch => {
 // Add Subscription
 //id : bibimId
 export const addSubscription = (bibimId, profile) => async dispatch => {
-  // console.log(bibimId, profile._id);
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -96,8 +89,6 @@ export const addSubscription = (bibimId, profile) => async dispatch => {
       payload: { bibimId, subscriptions: res.data }
     });
   } catch (err) {
-    // console.log('addSubscription ERR');
-
     dispatch({
       type: POST_ERROR,
       payload: { msg: err.response.data.msg, status: err.response.status }

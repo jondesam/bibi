@@ -16,7 +16,6 @@ module.exports = (req, res, next) => {
     // console.log('decoded in middleware auth backend', decoded);
 
     req.user = decoded.user;
-    // console.log('req.user', req.user);
 
     next();
   } catch (err) {

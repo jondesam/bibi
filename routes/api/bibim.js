@@ -27,12 +27,9 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    console.log('BBB', req.body);
 
     try {
       const user = await User.findById(req.user.id).select('-password');
-
-      console.log('found user', user);
 
       const newBibim = new Bibim({
         bibimName: req.body.bibimName,
@@ -45,8 +42,6 @@ router.post(
 
       res.json(bibim);
     } catch (err) {
-      console.log('AAA', err);
-
       console.error(err.message);
       res.status(500).send('Server Error!!');
     }
@@ -107,8 +102,6 @@ router.put('/subscription/:id', auth, async (req, res) => {
         subscription => subscription.profileId.toString() === req.body._id
       ).length > 0
     ) {
-      // console.log('Bibim already subscribed');
-
       return res.status(400).json({ msg: 'Post already liked' });
     }
 
@@ -146,7 +139,6 @@ router.put('/unsubscription/:id', auth, async (req, res) => {
         subscription => subscription.userId.toString() === req.user.id
       ).length === 0
     ) {
-      // console.log('Bibim has not been subscribed');
       return res.status(400).json({ msg: 'Post has not yet been liked' });
     }
 

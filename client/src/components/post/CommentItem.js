@@ -10,6 +10,7 @@ import CcItem from './CcItem';
 import {
   getPost,
   getComments,
+  getComment,
   addComment,
   deleteComment,
   addLike,
@@ -21,27 +22,53 @@ const CommentItem = ({
   getPost,
   getComments,
   postId,
-
-  post: {
-    _id,
-    text,
-    userName,
-    avatar,
-    user,
-    date,
-    likes,
-    tick,
-    bibimName,
-    posts,
-    post
-  }, //post to show from Post.js
-  commentsFromState,
+  postState: { comment: childComments, comments },
+  postState,
+  getComment,
+  post: { text, date, userName, bibimName, user, _id, tick },
+  comment,
+  post,
   auth,
   deleteComment
 }) => {
+  let ok = null;
+  if (childComments) {
+    ok = true;
+  } else {
+    ok = false;
+  }
+
+  // let postIdsToCheck = [];
+  // if (ok === ok) {
+  //   postState.post.comments.map(comment => {
+  //     postIdsToCheck.push(comment._id);
+  //     // postIdsToCheck.map(String);
+  //   });
+  // }
+
   // useEffect(() => {
-  //   getPost(postId);
-  // }, []);
+  //   getComments(1, 10, true, postIdsToCheck);
+  // }, [getComments, tick]);
+
+  useEffect(() => {
+    // let mounted = true;
+
+    // if (tadan) {
+    getComment(_id);
+
+    // setTadan(!tadan);
+    // kk = false;
+    // }
+
+    // return () => {
+    //   setTadan(false);
+    //   // mounted = false;
+    //   // childComments = null;
+    //   // kk = false;
+    // };
+  }, [post]);
+
+  // console.log('childComments', tadan, childComments);
   const componentDecorator = (href, text, key) => (
     <a href={href} key={key} target='_blank' rel='noopener noreferrer'>
       {text}
@@ -69,120 +96,108 @@ const CommentItem = ({
     setOpenBox(!openBox);
   };
 
-  const postIdsToCheck = [];
-
-  commentsFromState.post.comments.map(comment => {
-    postIdsToCheck.push(comment._id);
-    // postIdsToCheck.map(String);
-  });
-
-  useEffect(() => {
-    getComments(1, 10, true, postIdsToCheck);
-  }, [getComments, tick]);
-
-  // commentsFromState.comments.map(comment.)
-
-  // let postToShow = [];
-  // postFromState.filter(comment => {
-  //   console.log(comment.text);
-
-  //   postToShow.push(comment._id);
-  // });
-
-  // let postToShow = [];
-  // postToShow = postBelow.filter(post => post._id);
+  // console.log('postState', postState);
+  // console.log('post', post);
 
   return (
-    <div className=' bg-white p-1 my-05  post-item'>
-      <Linkify
-        componentDecorator={componentDecorator}
-        className='mbottom-025  text-normal'
-      >
-        {text}
-      </Linkify>
+    <div>
+      {ok === true ? (
+        <div className=' bg-white p-1 my-05  post-item'>
+          <Linkify
+            componentDecorator={componentDecorator}
+            className='mbottom-025  text-normal'
+          >
+            {text}
+          </Linkify>
 
-      <div>
-        <Link className='text-normal xsmall' to={`/profile/${user}`}>
-          <p className='inline ph'>by {userName} </p>
-        </Link>
-        <p className='post-date inline my-1 xsmall'>
-          on <Moment format='MM/DD/YYYY'>{date}</Moment>
-        </p>{' '}
-        <div>
-          {_id !== null ? (
-            <Fragment>
-              <button
-                onClick={() => clickAction(_id, 'like')}
-                type='button'
-                className='btn btn-light'
-              >
-                <i className='fas fa-thumbs-up' />{' '}
-                <span>
-                  {likes ? (
-                    likes.length > 0 ? (
-                      <span>{likes.length}</span>
-                    ) : null
-                  ) : null}
-                </span>
-              </button>
-              <button
-                onClick={() => clickAction(_id, 'unlike')}
-                type='button'
-                className='btn btn-light'
-              >
-                <i className='fas fa-thumbs-down' />
-              </button>
-              <div className='btn btn-primary'>
-                <p
-                  onClick={() => {
-                    clcikReply();
-                  }}
-                >
-                  Reply
-                </p>
-              </div>
-
-              {auth.isAuthenticated === true && null !== auth.user
-                ? user === auth.user._id && (
-                    <button
-                      onClick={() => deleteComment(postId, _id)}
-                      type='button'
-                      className='btn   '
+          <div>
+            <Link className='text-normal xsmall' to={`/profile/${user}`}>
+              <p className='inline ph'>by {userName} </p>
+            </Link>
+            <p className='post-date inline my-1 xsmall'>
+              on <Moment format='MM/DD/YYYY'>{date}</Moment>
+            </p>{' '}
+            <p>{_id}</p>
+            <div>
+              {_id !== null ? (
+                <Fragment>
+                  <button
+                    onClick={() => clickAction(_id, 'like')}
+                    type='button'
+                    className='btn btn-light'
+                  >
+                    <i className='fas fa-thumbs-up' />{' '}
+                    <span>
+                      {/* {likes ? (
+                likes.length > 0 ? (
+                  <span>{likes.length}</span>
+                ) : null
+              ) : null} */}
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => clickAction(_id, 'unlike')}
+                    type='button'
+                    className='btn btn-light'
+                  >
+                    <i className='fas fa-thumbs-down' />
+                  </button>
+                  {/* <div className='btn btn-primary'>
+                    <p
+                      onClick={() => {
+                        clcikReply();
+                      }}
                     >
-                      <p> Delete</p>
-                    </button>
-                  )
-                : null}
-              {/* comment form */}
-              {openBox ? (
-                <CommentForm postId={_id} bibimName={bibimName}></CommentForm>
+                      Reply
+                    </p>
+                  </div> */}
+
+                  {auth.isAuthenticated === true && null !== auth.user
+                    ? user === auth.user._id && (
+                        <button
+                          onClick={() => deleteComment(postId, _id)}
+                          type='button'
+                          className='btn   '
+                        >
+                          <p> Delete</p>
+                        </button>
+                      )
+                    : null}
+
+                  {/* {openBox ? (
+                    <CommentForm
+                      postId={_id}
+                      bibimName={bibimName}
+                    ></CommentForm>
+                  ) : null} */}
+
+                  {/* postuser === logged in user */}
+                </Fragment>
               ) : null}
-
-              {/* postuser === logged in user */}
-            </Fragment>
-          ) : null}
-
-          {commentsFromState.comments.map(post =>
-            postIdsToCheck.includes(post.parentId) &&
-            post.parentId === postId ? (
-              <CcItem post={post} postId={post._id} key={post._id}></CcItem>
-            ) : null
-          )}
+            </div>
+          </div>
 
           {/* <div className='comments'>
-            {postFromState.post.comments
-              ? postFromState.post.comments.map(comment => (
+            {childComments.comments
+              ? childComments.comments.map(comment => (
                   <CcItem
                     // post={post}
                     key={comment._id}
                     post={comment}
-                    postId={_id}
+                    postId={comment._id}
                   />
                 ))
               : null}
           </div> */}
+
+          {/* {postState.comments.map(post =>
+            postIdsToCheck.includes(post.parentId) &&
+            post.parentId === postId ? (
+              <CcItem post={post} postId={post._id} key={post._id}></CcItem>
+            ) : null
+          )} */}
         </div>
-      </div>
+      ) : null}
     </div>
   );
 };
@@ -196,11 +211,35 @@ CommentItem.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  commentsFromState: state.post
+  postState: state.post
 });
 
 export default connect(mapStateToProps, {
   deleteComment,
   getPost,
-  getComments
+  getComments,
+  getComment
 })(CommentItem);
+
+{
+  /* {.comments.map(post =>
+        postIdsToCheck.includes(post.parentId) &&
+        post.parentId === postId ? (
+          <CcItem post={post} postId={post._id} key={post._id}></CcItem>
+        ) : null
+      )} */
+}
+
+{
+}
+
+{
+  /* <p>{text}</p>
+
+      <div className='comments'>
+        {childComments.comments !== null
+          ? childComments.comments.map(comment => <p>{comment.text}</p>)
+          : null}
+      </div>
+    </div> */
+}

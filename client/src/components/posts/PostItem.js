@@ -1,9 +1,9 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
-import { addLike, removeLike, deletePost } from '../../actions/post';
+import { addLike, removeLike, deletePost, getPost } from '../../actions/post';
 import Modal from 'react-modal';
 import Register from '../auth/Register-.js';
 import Linkify from 'react-linkify';
@@ -11,6 +11,7 @@ import Linkify from 'react-linkify';
 Modal.setAppElement('#root');
 
 const PostItem = ({
+  getPost,
   addLike,
   removeLike,
   deletePost,
@@ -47,6 +48,7 @@ const PostItem = ({
       {text}
     </a>
   );
+
 
   return (
     <div>
@@ -184,6 +186,9 @@ const mapStateToProps = state => ({
   bibim: state.bibim
 });
 
-export default connect(mapStateToProps, { addLike, removeLike, deletePost })(
-  PostItem
-);
+export default connect(mapStateToProps, {
+  addLike,
+  removeLike,
+  deletePost,
+  getPost
+})(PostItem);

@@ -7,7 +7,8 @@ import {
   GET_POST,
   ADD_COMMENT,
   REMOVE_COMMENT,
-  GET_COMMENTS
+  GET_COMMENTS,
+  GET_COMMENT
 } from '../actions/types';
 
 const initialState = {
@@ -19,7 +20,8 @@ const initialState = {
   next: null,
   previous: null,
   comments: [],
-  tick: false
+  tick: false,
+  comment: null
 };
 
 export default function(state = initialState, action) {
@@ -27,8 +29,6 @@ export default function(state = initialState, action) {
 
   switch (type) {
     case GET_POSTS:
-      //console.log('GET_POSTS', 'posts : ', state.posts, 'post : ', state.post);
-
       return {
         ...state,
         posts: payload.results,
@@ -41,6 +41,13 @@ export default function(state = initialState, action) {
       return {
         ...state,
         post: payload,
+        loading: false
+      };
+
+    case GET_COMMENT:
+      return {
+        ...state,
+        comment: payload,
         loading: false
       };
 

@@ -7,12 +7,17 @@ import PostItem from '../posts/PostItem';
 import CommentForm from '../post/CommentForm';
 import CommentItem from '../post/CommentItem';
 
-import { getPost } from '../../actions/post';
+import { getPost, getComment } from '../../actions/post';
 import Modal from 'react-modal';
 import Register from '../auth/Register-.js';
 import Login from '../auth/Log-in';
 
-const Post = ({ getPost, post: { post, loading, tick }, match, auth }) => {
+const Post = ({
+  getPost,
+  post: { post, loading, tick, comment },
+  match,
+  auth
+}) => {
   const clickAction = value => {
     if (value === 'register') {
       setActiveModal('register');
@@ -23,7 +28,7 @@ const Post = ({ getPost, post: { post, loading, tick }, match, auth }) => {
 
   useEffect(() => {
     getPost(match.params.id);
-  }, [getPost, match.params.id, tick]);
+  }, [getPost, match.params.id]);
 
   const [activeModal, setActiveModal] = useState('');
 
@@ -35,7 +40,7 @@ const Post = ({ getPost, post: { post, loading, tick }, match, auth }) => {
         Back To Post
       </Link>
 
-      <PostItem post={post} showActions={false} noReplyBtn={true} />
+      <PostItem post={post} />
 
       <div>
         {auth.isAuthenticated === true ? (
@@ -68,14 +73,16 @@ const Post = ({ getPost, post: { post, loading, tick }, match, auth }) => {
           ? post.comments.map(comment => (
               <CommentItem
                 key={comment._id}
-                postId={comment._id}
+                postId={post._id}
                 post={comment}
+                // comment={comment}
 
                 //there is no comments here when it loads
               />
             ))
           : null}
       </div>
+
       <Modal
         isOpen={activeModal === 'register'}
         onRequestClose={() => setActiveModal(false)}
