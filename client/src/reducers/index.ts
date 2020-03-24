@@ -5,6 +5,7 @@ import profile from './profile';
 import post from './post';
 import bibim from './bibim.js';
 
+
 export default combineReducers({
   alert,
   auth,

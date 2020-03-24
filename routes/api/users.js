@@ -14,7 +14,7 @@ const User = require('../../models/User');
 router.post(
   '/',
   [
-    check('name', 'Name is required')
+    check('userName', 'Name is required')
       .not()
       .isEmpty(),
     check('email', 'Please include a valid email').isEmail(),
@@ -24,15 +24,12 @@ router.post(
     ).isLength({ min: 6 })
   ],
   async (req, res) => {
-    // console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    // console.log('req post api/', req);
-
-    const { name, email, password } = req.body;
+    const { userName, email, password } = req.body;
 
     try {
       // See if user exists
@@ -51,31 +48,26 @@ router.post(
       });
 
       user = new User({
-        name,
+        userName,
         email,
         avatar,
         password
       });
-      // console.log('user1', user);
 
       // Encrypt password
       const salt = await bcrypt.genSalt(10);
 
       user.password = await bcrypt.hash(password, salt);
 
-      // console.log('user2', user);
       await user.save();
 
-      // console.log('user3', user);
       // Return jsonwebtoken
-
       const payload = {
         user: {
           id: user.id
         }
       };
 
-      // console.log('user4', user);
       jwt.sign(
         payload,
         config.get('jwtSecret'),
@@ -91,8 +83,6 @@ router.post(
 
       //   res.send('User resistered');
     } catch (error) {
-      // console.log(error.message);
-
       res.status(500).send('Server error');
     }
   }

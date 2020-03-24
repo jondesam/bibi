@@ -16,15 +16,9 @@ const User = require('../../models/User');
 router.get('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
-    // console.log('user', user);
 
     res.json(user);
   } catch (error) {
-    //   res.status(500).json({msg:''})
-    // console.log('error', error);
-
-    // console.log(error.message);
-
     res.status(500).send('Server err');
   }
 });
@@ -40,7 +34,6 @@ router.post(
     check('password', 'Password is required').exists()
   ],
   async (req, res) => {
-    // console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -74,8 +67,6 @@ router.post(
         }
       };
 
-      //   console.log('user', user);
-
       jwt.sign(
         payload,
         config.get('jwtSecret'),
@@ -91,8 +82,6 @@ router.post(
 
       //   res.send('User resistered');
     } catch (error) {
-      // console.log(error.message);
-
       res.status(500).send('Server error');
     }
   }

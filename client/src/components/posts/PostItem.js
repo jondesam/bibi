@@ -1,33 +1,33 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
-import { addLike, removeLike, deletePost } from '../../actions/post';
+import { addLike, removeLike, deletePost, getPost } from '../../actions/post';
 import Modal from 'react-modal';
 import Register from '../auth/Register-.js';
 import Linkify from 'react-linkify';
 
 Modal.setAppElement('#root');
 
-// : {
-//   text: textC,
-//   name: nameC,
-//   use: userC,
-//   date: dateC,
-//   likes: likesC,
-//   comments: commentsC
-// },
-
 const PostItem = ({
+  getPost,
   addLike,
   removeLike,
   deletePost,
   auth,
-
-  post: { _id, text, name, user, likes, comments, date, bibimName, bibim },
-  // comment: { _id: _idC, text: textC, name: nameC },
-  parentId
+  post: {
+    _id,
+    text,
+    userName,
+    user,
+    likes,
+    comments,
+    date,
+    bibimName,
+    bibimId,
+    parentId
+  }
 }) => {
   const clickAction = (_id, value) => {
     if (auth.isAuthenticated === true) {
@@ -61,9 +61,9 @@ const PostItem = ({
 
         <div className=''>
           <Link className='text-normal xsmall' to={`/profile/${user}`}>
-            <p className='inline text-normal ph'> {name} </p>
+            <p className='inline text-normal ph'> {userName} </p>
           </Link>
-          <Link to={`/bibims/${bibim}`}>
+          <Link to={`/bibims/${bibimId}`}>
             {bibimName && (
               <p className='inline text-normal ph my-1 xsmall'>
                 {' '}
@@ -108,12 +108,12 @@ const PostItem = ({
                     {comments.length > 1 ? (
                       <p>
                         <span className='comment-count'>{comments.length}</span>{' '}
-                        commnets
+                        Comments
                       </p>
                     ) : comments.length === 1 ? (
                       <p>
                         <span className='comment-count'>{comments.length}</span>{' '}
-                        comment
+                        Comment
                       </p>
                     ) : (
                       <p>Reply</p>
@@ -172,7 +172,7 @@ PostItem.defaultProps = {
 };
 
 PostItem.propTypes = {
-  post: PropTypes.object.isRequired,
+  // post: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   addLike: PropTypes.func.isRequired,
   removeLike: PropTypes.func.isRequired,
@@ -185,6 +185,9 @@ const mapStateToProps = state => ({
   bibim: state.bibim
 });
 
-export default connect(mapStateToProps, { addLike, removeLike, deletePost })(
-  PostItem
-);
+export default connect(mapStateToProps, {
+  addLike,
+  removeLike,
+  deletePost,
+  getPost
+})(PostItem);

@@ -17,7 +17,7 @@ router.post(
   [
     auth,
     [
-      check('name', 'name is required')
+      check('bibimName', 'bibimName is required')
         .not()
         .isEmpty()
     ]
@@ -31,12 +31,10 @@ router.post(
     try {
       const user = await User.findById(req.user.id).select('-password');
 
-      // console.log('found user', user);
-
       const newBibim = new Bibim({
-        name: req.body.name,
+        bibimName: req.body.bibimName,
         creater: user._id,
-        createrName: user.name,
+        createrName: user.userName,
         description: req.body.description
       });
 
@@ -58,8 +56,6 @@ router.get('/', pagination(Bibim), async (req, res) => {
     const bibims = await Bibim.find().sort({ date: -1 });
 
     // res.json(bibims);
-
-
 
     res.json(res.paginatedResults);
   } catch (err) {
@@ -106,14 +102,12 @@ router.put('/subscription/:id', auth, async (req, res) => {
         subscription => subscription.profileId.toString() === req.body._id
       ).length > 0
     ) {
-      // console.log('Bibim already subscribed');
-
       return res.status(400).json({ msg: 'Post already liked' });
     }
 
     profile.subscriptions.unshift({
       bibimId: req.params.id,
-      bibimName: bibim.name
+      bibimName: bibim.bibimName
     });
 
     bibim.subscriptions.unshift({
@@ -145,7 +139,6 @@ router.put('/unsubscription/:id', auth, async (req, res) => {
         subscription => subscription.userId.toString() === req.user.id
       ).length === 0
     ) {
-      // console.log('Bibim has not been subscribed');
       return res.status(400).json({ msg: 'Post has not yet been liked' });
     }
 

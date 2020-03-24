@@ -18,8 +18,6 @@ export default function(state = initialState, action) {
 
   switch (type) {
     case ADD_BIBIM:
-      // console.log('bibims : ', state.bibims);
-
       return {
         ...state,
         bibims: [payload, ...state.bibims]
@@ -40,8 +38,6 @@ export default function(state = initialState, action) {
       };
 
     case UPDATE_SUBSCRIPTION:
-
-
       return {
         ...state,
         bibims: state.bibims.map(bibim =>

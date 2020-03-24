@@ -13,7 +13,7 @@ const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   loading: true, //finished loading or not
-  user: null //user info
+  user: null //user id
 };
 
 export default function(state = initialState, action) {
@@ -38,22 +38,7 @@ export default function(state = initialState, action) {
         isAuthenticated: true,
         loading: false
       };
-    // case ACCOUNT_DELETED:
-    //   localStorage.removeItem('token');
-    //   return {
-    //     ...state,
-    //     token: null,
-    //     isAuthenticated: false,
-    //     loading: false
-    //   };
-    // case LOGOUT:
-    //   localStorage.removeItem('token');
-    //   return {
-    //     ...state,
-    //     token: null,
-    //     isAuthenticated: false,
-    //     loading: false
-    //   };
+
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:

@@ -27,3 +27,5 @@ export const GET_BIBIMS = 'GET_BIBIMS';
 export const GET_BIBIM = 'GET_BIBIM';
 export const UPDATE_SUBSCRIPTION = 'UPDATE_SUBSCRIPTION';
 
+export const GET_COMMENTS = 'GET_COMMENTS';
+export const GET_COMMENT = 'GET_COMMENT';

@@ -69,12 +69,6 @@ const BibimProfile = ({
     }
   };
 
-  // console.log(currentBibim[0].name, currentBibim[0]._id);
-
-  // console.log('currentBibim', currentBibim[0]);
-
-  // console.log('profile', profile);
-
   return loading === null ? (
     <p>Please Go Back</p>
   ) : (
@@ -82,7 +76,7 @@ const BibimProfile = ({
       {currentBibim.length > 0 ? (
         <div>
           <p className='lead'>
-            <i className='fas fa-window-maximize' /> {currentBibim[0].name}{' '}
+            <i className='fas fa-window-maximize' /> {currentBibim[0].BibimName}{' '}
             Bibip
           </p>
 
@@ -140,8 +134,6 @@ BibimProfile.propTypes = {
 };
 
 const mapStateToProps = state => {
-  // console.log('state profile', state);
-
   return {
     auth: state.auth,
     profile: state.profile,

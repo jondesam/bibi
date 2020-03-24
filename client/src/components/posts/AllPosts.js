@@ -23,6 +23,7 @@ const AllPosts = ({ getPosts, post: { posts, loading, next, previous } }) => {
   };
 
   const postsToShow = posts.filter(post => post.parentId === null);
+  logout();
 
   logout();
   return (

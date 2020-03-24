@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import Linkify from 'react-linkify';
 import PostItem from '../posts/PostItem';
+import CommentItem from '../post/CommentItem';
 import CommentForm from './CommentForm';
-import CcItem from './CcItem';
 import {
   getPost,
   getComments,
@@ -15,26 +15,30 @@ import {
   deleteComment,
   addLike,
   removeLike,
-  deletePost,
-  addPost
+  deletePost
 } from '../../actions/post';
-import { log } from 'util';
 
-const CommentItem = ({
-  getPost,
-  getComments,
+const CcItem = ({
   postId,
-  postState: { comment: childComments, comments },
-  postState,
   getComment,
-  post: { text, date, userName, bibimName, user, _id, tick },
-  comment,
-  post,
+  postState: { comment: childComments, comments: commentsState },
+  postState,
+  post: {
+    _id,
+    text,
+    userName,
+    avatar,
+    user,
+    date,
+    likes,
+    bibimName,
+    tick,
+    comments
+  },
   auth,
   deleteComment,
-  deletePost,
-  addComment,
-  addPost
+  getPost,
+  getComments
 }) => {
   let ok = null;
   if (childComments) {
@@ -43,25 +47,28 @@ const CommentItem = ({
     ok = false;
   }
 
-  // let postIdsToCheck = [];
-  // if (ok === ok) {
-  //   postState.post.comments.map(comment => {
-  //     postIdsToCheck.push(comment._id);
-  //     // postIdsToCheck.map(String);
-  //   });
-  // }
+  let postIdsToCheck = [];
 
+  postState.post.comments.map(comment => {
+    postIdsToCheck.push(comment._id);
+    // postIdsToCheck.map(String);
+  });
+
+  // const [tadan, setTadan] = useState(true);
+
+  // debugger;
   // useEffect(() => {
-  //   getComments(1, 10, true, postIdsToCheck);
-  // }, [getComments, tick]);
+  //   if (tadan) {
+  //     getComment(_id);
 
-  useEffect(() => {
-    getComment(_id);
+  //     setTadan(!tadan);
+  //   }
 
-    // return () => {
-    //   // childComments = null;
-    // };
-  }, [post]);
+  //   return () => {
+  //     setTadan(false);
+  //     // childComments = null;
+  //   };
+  // }, []);
 
   const componentDecorator = (href, text, key) => (
     <a href={href} key={key} target='_blank' rel='noopener noreferrer'>
@@ -108,11 +115,31 @@ const CommentItem = ({
             <p className='post-date inline my-1 xsmall'>
               on <Moment format='MM/DD/YYYY'>{date}</Moment>
             </p>{' '}
-            <p>{_id}</p>
             <div>
               {_id !== null ? (
                 <Fragment>
-                  {/* <div className='btn btn-primary'>
+                  <button
+                    onClick={() => clickAction(_id, 'like')}
+                    type='button'
+                    className='btn btn-light'
+                  >
+                    <i className='fas fa-thumbs-up' />{' '}
+                    <span>
+                      {/* {likes ? (
+                likes.length > 0 ? (
+                  <span>{likes.length}</span>
+                ) : null
+              ) : null} */}
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => clickAction(_id, 'unlike')}
+                    type='button'
+                    className='btn btn-light'
+                  >
+                    <i className='fas fa-thumbs-down' />
+                  </button>
+                  <div className='btn btn-primary'>
                     <p
                       onClick={() => {
                         clcikReply();
@@ -120,7 +147,7 @@ const CommentItem = ({
                     >
                       Reply
                     </p>
-                  </div> */}
+                  </div>
 
                   {auth.isAuthenticated === true && null !== auth.user
                     ? user === auth.user._id && (
@@ -133,21 +160,21 @@ const CommentItem = ({
                         </button>
                       )
                     : null}
-
-                  {/* {openBox ? (
+                  {/* comment form */}
+                  {openBox ? (
                     <CommentForm
                       postId={_id}
                       bibimName={bibimName}
                     ></CommentForm>
-                  ) : null} */}
+                  ) : null}
 
                   {/* postuser === logged in user */}
                 </Fragment>
               ) : null}
             </div>
           </div>
-
-          {/* <div className='comments'>
+          {/* 
+          <div className='comments'>
             {childComments.comments
               ? childComments.comments.map(comment => (
                   <CcItem
@@ -166,17 +193,23 @@ const CommentItem = ({
               <CcItem post={post} postId={post._id} key={post._id}></CcItem>
             ) : null
           )} */}
+
+          {comments.map(post => (
+            <CommentItem post={post} postId={post._id} key={post._id}>
+              {' '}
+            </CommentItem>
+          ))}
+
+          {/* {postState.comments.map(post =>
+            postIdsToCheck.includes(post.parentId) &&
+            post.parentId === postId ? (
+              <CcItem post={post} postId={post._id} key={post._id}></CcItem>
+            ) : null
+          )} */}
         </div>
       ) : null}
     </div>
   );
-};
-
-CommentItem.propTypes = {
-  postId: PropTypes.string.isRequired,
-
-  auth: PropTypes.object.isRequired,
-  deleteComment: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -189,27 +222,4 @@ export default connect(mapStateToProps, {
   getPost,
   getComments,
   getComment
-})(CommentItem);
-
-{
-  /* {.comments.map(post =>
-        postIdsToCheck.includes(post.parentId) &&
-        post.parentId === postId ? (
-          <CcItem post={post} postId={post._id} key={post._id}></CcItem>
-        ) : null
-      )} */
-}
-
-{
-}
-
-{
-  /* <p>{text}</p>
-
-      <div className='comments'>
-        {childComments.comments !== null
-          ? childComments.comments.map(comment => <p>{comment.text}</p>)
-          : null}
-      </div>
-    </div> */
-}
+})(CcItem);

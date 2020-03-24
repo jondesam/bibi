@@ -5,7 +5,6 @@ import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import { createProfile } from '../../actions/profile';
 import PropTypes from 'prop-types';
-// import { register } from '../../actions/auth';
 
 const Register = ({
   register,
@@ -17,31 +16,25 @@ const Register = ({
   match
 }) => {
   const [formData, setFormData] = useState({
-    name: '',
+    userName: '',
     email: '',
     password: '',
     password2: ''
   });
 
-  const { name, email, password, password2 } = formData;
+  const { userName, email, password, password2 } = formData;
 
   const onChange = e => {
-    // console.log('e.target is', e.target);
-
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const onSubmit = async e => {
     e.preventDefault();
-    // console.log('props', props);
 
     if (password !== password2) {
       setAlert("passwords don't match", 'danger');
-      // console.log('passwords dont match');
-
-      //   setAlert('Passwords do not match', 'danger');
     } else {
-      register({ name, email, password });
+      register({ userName, email, password });
     }
   };
 
@@ -58,8 +51,8 @@ const Register = ({
           <input
             type='text'
             placeholder='Name'
-            name='name'
-            value={name}
+            name='userName'
+            value={userName}
             onChange={onChange}
             autoComplete='on'
             // required

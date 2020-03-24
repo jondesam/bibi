@@ -7,12 +7,17 @@ import PostItem from '../posts/PostItem';
 import CommentForm from '../post/CommentForm';
 import CommentItem from '../post/CommentItem';
 
-import { getPost } from '../../actions/post';
+import { getPost, getComment } from '../../actions/post';
 import Modal from 'react-modal';
 import Register from '../auth/Register-.js';
 import Login from '../auth/Log-in';
 
-const Post = ({ getPost, post: { post, loading, comment }, match, auth }) => {
+const Post = ({
+  getPost,
+  post: { post, loading, tick, comment },
+  match,
+  auth
+}) => {
   const clickAction = value => {
     if (value === 'register') {
       setActiveModal('register');
@@ -27,9 +32,6 @@ const Post = ({ getPost, post: { post, loading, comment }, match, auth }) => {
 
   const [activeModal, setActiveModal] = useState('');
 
-  // console.log(loading, post, auth);
-  console.log('post :', post);
-
   return post === null ? (
     <Spinner />
   ) : post._id !== match.params.id ? null : (
@@ -38,12 +40,7 @@ const Post = ({ getPost, post: { post, loading, comment }, match, auth }) => {
         Back To Post
       </Link>
 
-      <CommentItem
-        post={post}
-        showActions={false}
-        noReplyBtn={true}
-        comment={comment}
-      />
+      <PostItem post={post} />
 
       <div>
         {auth.isAuthenticated === true ? (
@@ -72,18 +69,20 @@ const Post = ({ getPost, post: { post, loading, comment }, match, auth }) => {
       </div>
 
       <div className='comments'>
-        {post.comments === undefined || post.comments.length === 0
-          ? null
-          : post.comments.map(comment => (
-              <PostItem
-                post={post}
+        {post.comments !== null
+          ? post.comments.map(comment => (
+              <CommentItem
                 key={comment._id}
-                comment={comment}
                 postId={post._id}
-                parentId={post.parentId}
+                post={comment}
+                // comment={comment}
+
+                //there is no comments here when it loads
               />
-            ))}
+            ))
+          : null}
       </div>
+
       <Modal
         isOpen={activeModal === 'register'}
         onRequestClose={() => setActiveModal(false)}

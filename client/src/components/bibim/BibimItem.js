@@ -15,7 +15,7 @@ const BibimItem = ({
     createrName,
     date,
     likes,
-    name,
+    bibimName,
     description,
     creater,
     subscriptions
@@ -55,7 +55,7 @@ const BibimItem = ({
     <div className=' bg-white p-025-1 my-05 '>
       <div>
         <Link to={`/bibims/${_id}`}>
-          <p className='my-05 ph'> {name}</p>
+          <p className='my-05 ph'> {bibimName}</p>
         </Link>
       </div>
       <div>

@@ -8,6 +8,7 @@ const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 const Bibim = require('../../models/Bibim');
 const pagination = require('../../middleware/pagination');
+const paginationC = require('../../middleware/paginationC');
 
 // @route    POST api/posts
 // @desc     Create a post
@@ -30,23 +31,19 @@ router.post(
 
     try {
       const user = await User.findById(req.user.id).select('-password');
-      // console.log('req.params.id', req.params.id);
 
-      const bibim = await Bibim.findById(req.body.bibim);
-
-      // console.log('bibim PostCreate', bibim);
+      const bibim = await Bibim.findById(req.body.bibimId);
 
       const newPost = new Post({
         text: req.body.text,
-        name: user.name,
+        userName: user.userName,
         avatar: user.avatar,
         user: req.user.id,
-        bibim: req.body.bibim,
-        bibimName: bibim.name || req.body.bibimName,
+        bibimId: req.body.bibimId,
+        bibimName: bibim.bibimName,
         parentId: null
+        // comments: null
       });
-      // console.log('newPost PostCreate', newPost);
-      // console.log('res posts', res);
 
       bibim.posts.unshift(newPost);
 
@@ -67,27 +64,6 @@ router.post(
 // @access   Private
 router.get('/', pagination(Post), async (req, res) => {
   try {
-    // const bibims = await Bibim.find().sort({ date: -1 });
-
-    // const allPosts = [];
-
-    // bibims.map(item => {
-    //   if (item.posts.length !== 0) {
-    //     item.posts.map(post => allPosts.push(post));
-    //   }
-    // });
-
-    // res.json(allPosts);
-
-    // console.log('req.query', req.query);
-
-    // const posts = await Post.find()
-    //   .limit(5)
-    //   .sort({ date: -1 });
-    // console.log('posts', posts);
-
-    console.log('res', res.paginatedResults);
-
     res.json(res.paginatedResults);
   } catch (err) {
     console.error(err.message);
@@ -124,6 +100,7 @@ router.get('/:id', async (req, res) => {
 router.delete('/:id', auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
+    const bibim = await Bibim.findById(post.bibimId);
 
     // Check for ObjectId format and post
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !post) {
@@ -135,6 +112,9 @@ router.delete('/:id', auth, async (req, res) => {
       return res.status(401).json({ msg: 'User not authorized' });
     }
 
+    bibim.posts.pull(post._id);
+
+    await bibim.save();
     await post.remove();
 
     res.json({ msg: 'Post removed' });
@@ -160,19 +140,13 @@ router.put('/like/:id', auth, async (req, res) => {
     if (
       post.likes.filter(like => like.user.toString() === req.user.id).length > 0
     ) {
-      //   console.log(
-      //     'dddd',
-      //     post.likes.filter(like => like.user.toString() === req.user.id)
-      //   );
-      // console.log('Post already liked');
-
       return res.status(400).json({ msg: 'Post already liked' });
     }
 
     post.likes.unshift({ user: req.user.id });
 
     await post.save();
-    console.log('post', post);
+
     res.json(post.likes);
   } catch (err) {
     console.error(err.message);
@@ -192,7 +166,6 @@ router.put('/unlike/:id', auth, async (req, res) => {
       post.likes.filter(like => like.user.toString() === req.user.id).length ===
       0
     ) {
-      // console.log('Post has not yet been liked');
       return res.status(400).json({ msg: 'Post has not yet been liked' });
     }
 
@@ -204,7 +177,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
     post.likes.splice(removeIndex, 1);
 
     await post.save();
-    console.log('post', post);
+
     res.json(post.likes);
   } catch (err) {
     console.error(err.message);
@@ -220,7 +193,7 @@ router.post(
   [
     auth,
     [
-      check('text', 'Text is required')
+      check('commentText', 'Text is required')
         .not()
         .isEmpty()
     ]
@@ -234,19 +207,18 @@ router.post(
     try {
       const user = await User.findById(req.user.id).select('-password');
 
-      const post = await Post.findById(req.body.parentPost);
+      const post = await Post.findById(req.body.parentId);
 
       const newComment = new Post({
-        text: req.body.text,
-        name: user.name,
+        text: req.body.commentText,
+        userName: user.userName,
         avatar: user.avatar,
         user: req.user.id,
-        parentId: req.body.parentPost,
+        parentId: req.body.parentId,
         bibimName: req.body.bibimName,
-        comments: null
+        bibimId: req.body.bibimId
+        // comments: null
       });
-      console.log('newComment', newComment);
-      console.log('post', post);
 
       post.comments.unshift(newComment);
 
@@ -255,7 +227,6 @@ router.post(
       await newComment.save();
 
       res.json(post.comments);
-      // res.json(post.comments);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -269,14 +240,11 @@ router.post(
 router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
-    console.log('post', post);
 
     // Pull out comment
     const comment = post.comments.find(
       comment => comment.id === req.params.comment_id
     );
-
-    console.log('comment', comment);
 
     // Make sure comment exists
     if (!comment) {
@@ -292,12 +260,10 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
     const removeIndex = post.comments
       .map(comment => comment.id)
       .indexOf(req.params.comment_id);
-    console.log('removeIndex', removeIndex);
 
     post.comments.splice(removeIndex, 1);
 
     await post.save();
-    console.log('post after', post);
 
     res.json(post.comments);
   } catch (err) {
@@ -305,5 +271,17 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+// @route    GET api/comments
+// @desc     Get all comments
+// @access   Public
+// router.get('/c', paginationC(Post), async (req, res) => {
+//   try {
+//     res.json(res.paginatedResults);
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send('Server Error');
+//   }
+// });
 
 module.exports = router;

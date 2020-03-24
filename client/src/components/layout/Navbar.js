@@ -12,18 +12,11 @@ const Navbar = ({
 
   logout
 }) => {
-  // console.log('auth', auth, profile);
-
-  // useEffect(() => {
-  //   getCurrentProfile();
-  // }, [getCurrentProfile]);
-
   let userId = '';
 
   if (auth.user !== null) {
     userId = auth.user._id;
   }
-  // console.log('userId', userId);
 
   const authLinks = (
     <Fragment>
@@ -94,7 +87,7 @@ const Navbar = ({
   // Prevent button click from submitting form
   // e.preventDefault();
 
-  // console.log(`Search pressed`);
+
 
   // Create variables for our list, the item to add, and our form
   // let list = this.state.list;

@@ -8,8 +8,11 @@ import {
   ADD_POST,
   GET_POST,
   ADD_COMMENT,
-  REMOVE_COMMENT
+  REMOVE_COMMENT,
+  GET_COMMENTS,
+  GET_COMMENT
 } from './types';
+var qs = require('qs');
 
 // Get posts
 export const getPosts = (page, limit) => async dispatch => {
@@ -18,6 +21,34 @@ export const getPosts = (page, limit) => async dispatch => {
 
     dispatch({
       type: GET_POSTS,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response, status: err.response }
+    });
+  }
+};
+
+// Get comments
+export const getComments = (
+  page,
+  limit,
+  cm,
+  postIdsToCheck
+) => async dispatch => {
+  try {
+    // const res = await axios.get(`/api/posts/com`);
+    const res = await axios.get(
+      `/api/posts?page=${page}&limit=${limit}&cm=${cm}`,
+      {
+        params: { jsonData: postIdsToCheck }
+      }
+    );
+
+    dispatch({
+      type: GET_COMMENTS,
       payload: res.data
     });
   } catch (err) {
@@ -45,20 +76,34 @@ export const getPost = id => async dispatch => {
   }
 };
 
+// Get comment
+export const getComment = id => async dispatch => {
+  try {
+    const res = await axios.get(`/api/posts/${id}`);
+
+    dispatch({
+      type: GET_COMMENT,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
 // Add like
 //id : postId
 export const addLike = id => async dispatch => {
   try {
     const res = await axios.put(`/api/posts/like/${id}`);
-    console.log('res add like', res.data);
 
     dispatch({
       type: UPDATE_LIKES,
       payload: { id, likes: res.data }
     });
   } catch (err) {
-    // console.log('Already liked');
-
     dispatch({
       type: POST_ERROR,
       payload: { msg: err.response.data.msg, status: err.response.status }
@@ -70,7 +115,7 @@ export const addLike = id => async dispatch => {
 export const removeLike = id => async dispatch => {
   try {
     const res = await axios.put(`/api/posts/unlike/${id}`);
-    console.log('res remove like', res.data);
+
     dispatch({
       type: UPDATE_LIKES,
       payload: { id, likes: res.data }
@@ -109,7 +154,7 @@ export const addPost = formData => async dispatch => {
       'Content-Type': 'application/json'
     }
   };
-  if (!formData.bibim) {
+  if (!formData.bibimId) {
     dispatch(setAlert('Please select your bibip!', 'danger'));
   }
 
@@ -137,15 +182,13 @@ export const addComment = formData => async dispatch => {
       'Content-Type': 'application/json'
     }
   };
-  console.log('CALL');
 
   try {
     const res = await axios.post(
-      `/api/posts/comment/${formData.parentPost}`,
+      `/api/posts/comment/${formData.parentId}`,
       formData,
       config
     );
-    console.log('res addComment', res);
 
     dispatch({
       type: ADD_COMMENT,

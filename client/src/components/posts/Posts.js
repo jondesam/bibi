@@ -61,19 +61,17 @@ const Posts = ({
       {/* <div className='bg-primary p'></div> */}
 
       <div className='posts'>
-        {posts ? (
-          posts.map(post => {
-            if (bibimToShow.length === 0) {
-              return null;
-            } else {
-              return bibimToShow.includes(post.bibim) ? (
-                <PostItem key={post._id} post={post} />
-              ) : null;
-            }
-          })
-        ) : (
-          <p>adf</p>
-        )}
+        {posts
+          ? posts.map(post => {
+              if (bibimToShow.length === 0) {
+                return null;
+              } else {
+                return bibimToShow.includes(post.bibimId) ? (
+                  <PostItem key={post._id} post={post} />
+                ) : null;
+              }
+            })
+          : null}
 
         {previous ? (
           <button

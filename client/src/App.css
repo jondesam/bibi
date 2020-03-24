@@ -39,7 +39,7 @@
 
 /* Global Styles */
 :root {
-  --primary-color: #17a2b8;
+  --primary-color: #1e8ebe;
   --dark-color: #343a40;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
@@ -255,8 +255,8 @@ mtop-1 {
   display: inline-block;
   background: var(--light-color);
   color: #333;
-  padding: 0.3rem 1.2rem;
-  font-size: 0.7rem;
+  padding: 0.2rem 0.8rem;
+  font-size: 0.6rem;
   border: none;
   cursor: pointer;
   margin-right: 0.2rem;
@@ -264,6 +264,21 @@ mtop-1 {
   transition: opacity 0.2s ease-in;
   outline: none;
 }
+
+.btn-page {
+  display: inline-block;
+  background: var(--light-color);
+  color: #333;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.5rem;
+  border: none;
+  cursor: pointer;
+  margin-right: 0.2rem;
+  margin-top: 0.5rem;
+  transition: opacity 0.2s ease-in;
+  outline: none;
+}
+
 .btn-margin-bottom {
   display: inline-block;
   background: var(--light-color);

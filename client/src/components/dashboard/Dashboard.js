@@ -25,7 +25,7 @@ const Dashboard = ({
   return (
     <Fragment>
       <p className='lead'>
-        <i className='fas fa-user' /> Welcome {user && user.name}
+        <i className='fas fa-user' /> Welcome {user && user.userNname}
       </p>
       <Fragment>
         <p> Bibips </p>

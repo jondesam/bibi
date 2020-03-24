@@ -34,19 +34,17 @@ export const loadUser = () => async dispatch => {
 };
 
 // Register User
-export const register = ({ name, email, password }) => async dispatch => {
+export const register = ({ userName, email, password }) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
     }
   };
 
-  const body = JSON.stringify({ name, email, password });
+  const body = JSON.stringify({ userName, email, password });
 
   try {
     const res = await axios.post('/api/users', body, config);
-
-    // console.log('res.data in register action', res.data); //token received
 
     dispatch({
       type: REGISTER_SUCCESS,
@@ -80,8 +78,6 @@ export const register = ({ name, email, password }) => async dispatch => {
 
 // Login User
 export const login = (email, password) => async dispatch => {
-  // console.log('called', email, password);
-
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -92,9 +88,6 @@ export const login = (email, password) => async dispatch => {
 
   try {
     const res = await axios.post('/api/auth', body, config);
-    // console.log('login action', res.data);
-
-    // console.log('res in login auth client', res);
 
     dispatch({
       type: LOGIN_SUCCESS,
@@ -104,8 +97,6 @@ export const login = (email, password) => async dispatch => {
     dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
-
-    // console.log('errors /api/auth', err.response);
 
     dispatch(
       setAlert('Invalid email, or password. Please try again!', 'danger')

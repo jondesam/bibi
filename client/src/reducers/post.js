@@ -6,7 +6,9 @@ import {
   ADD_POST,
   GET_POST,
   ADD_COMMENT,
-  REMOVE_COMMENT
+  REMOVE_COMMENT,
+  GET_COMMENTS,
+  GET_COMMENT
 } from '../actions/types';
 
 const initialState = {
@@ -14,9 +16,12 @@ const initialState = {
   post: null, //post info for comment
   loading: true,
   error: {},
-  bibim: String,
+  bibimId: String,
   next: null,
-  previous: null
+  previous: null,
+  comments: [],
+  tick: false,
+  comment: null
 };
 
 export default function(state = initialState, action) {
@@ -24,8 +29,6 @@ export default function(state = initialState, action) {
 
   switch (type) {
     case GET_POSTS:
-      //console.log('GET_POSTS', 'posts : ', state.posts, 'post : ', state.post);
-
       return {
         ...state,
         posts: payload.results,
@@ -35,10 +38,16 @@ export default function(state = initialState, action) {
       };
 
     case GET_POST:
-      console.log('posts : ', state.posts, 'post : ', state.post);
       return {
         ...state,
         post: payload,
+        loading: false
+      };
+
+    case GET_COMMENT:
+      return {
+        ...state,
+        comment: payload,
         loading: false
       };
 
@@ -46,7 +55,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         posts: [payload, ...state.posts],
-        bibim: payload.bibim,
+        bibimId: payload.bibimId,
         loading: false
       };
     case DELETE_POST:
@@ -76,9 +85,10 @@ export default function(state = initialState, action) {
         post: {
           ...state.post,
           comments: payload,
-          parentId: payload.parentPost
+          parentId: payload.parentId
         },
-        loading: false
+        loading: false,
+        tick: !state.tick
       };
 
     case REMOVE_COMMENT:
@@ -92,6 +102,16 @@ export default function(state = initialState, action) {
         },
         loading: false
       };
+
+    case GET_COMMENTS:
+      return {
+        ...state,
+        comments: payload.results,
+        loading: false,
+        next: payload.next,
+        previous: payload.previous
+      };
+
     default:
       return state;
   }
