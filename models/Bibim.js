@@ -6,7 +6,6 @@ const BibimSchema = new Schema({
     type: String,
     required: true
   },
-
   creater: {
     type: Schema.Types.ObjectId,
     ref: 'users'

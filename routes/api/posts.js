@@ -123,7 +123,7 @@ router.get('/:id', async (req, res) => {
 router.delete('/:id', auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
-
+    const bibim = await Bibim.findById(post.bibimId);
     // Check for ObjectId format and post
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !post) {
       return res.status(404).json({ msg: 'Post not found' });
@@ -134,6 +134,9 @@ router.delete('/:id', auth, async (req, res) => {
       return res.status(401).json({ msg: 'User not authorized' });
     }
 
+    bibim.posts.pull(post._id);
+
+    await bibim.save();
     await post.remove();
 
     res.json({ msg: 'Post removed' });

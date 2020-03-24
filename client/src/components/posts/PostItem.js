@@ -107,12 +107,12 @@ const PostItem = ({
                     {comments.length > 1 ? (
                       <p>
                         <span className='comment-count'>{comments.length}</span>{' '}
-                        commnets
+                        Commnets
                       </p>
                     ) : comments.length === 1 ? (
                       <p>
                         <span className='comment-count'>{comments.length}</span>{' '}
-                        comment
+                        Comment
                       </p>
                     ) : (
                       <p>Reply</p>

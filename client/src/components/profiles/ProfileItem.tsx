@@ -5,10 +5,7 @@ import PropTypes from 'prop-types';
 const ProfileItem = ({
   profile: {
     user: { _id, userName, avatar },
-    status,
-    company,
-    location,
-    skills,
+
     bio
   }
 }) => {
@@ -16,21 +13,12 @@ const ProfileItem = ({
     <div className='profile bg-light'>
       <img src={avatar} alt='' className='round-img' />
       <div>
-        <p>
-          {status} {company && <span> at {company}</span>}
-        </p>
+        <h2>{userName}</h2>
         <p className='my-1'>{bio && <span>{bio}</span>}</p>
         <Link to={`/profile/${_id}`} className='btn btn-primary'>
           Profile
         </Link>
       </div>
-      <ul>
-        {skills.slice(0, 4).map((skill, index) => (
-          <li key={index} className='text-primary'>
-            <i className='fas fa-check' /> {skill}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };
