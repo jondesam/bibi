@@ -12,7 +12,6 @@ import {
   GET_COMMENTS,
   GET_COMMENT
 } from './types';
-var qs = require('qs');
 
 // Get posts
 export const getPosts = (page, limit) => async dispatch => {

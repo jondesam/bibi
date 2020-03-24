@@ -1,24 +1,16 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import Linkify from 'react-linkify';
-import PostItem from '../posts/PostItem';
-import CommentForm from './CommentForm';
-import CcItem from './CcItem';
+
 import {
   getPost,
   getComments,
   getComment,
-  addComment,
-  deleteComment,
-  addLike,
-  removeLike,
-  deletePost,
-  addPost
+  deleteComment
 } from '../../actions/post';
-import { log } from 'util';
 
 const CommentItem = ({
   getPost,
@@ -57,11 +49,7 @@ const CommentItem = ({
 
   useEffect(() => {
     getComment(_id);
-
-    // return () => {
-    //   // childComments = null;
-    // };
-  }, [post]);
+  });
 
   const componentDecorator = (href, text, key) => (
     <a href={href} key={key} target='_blank' rel='noopener noreferrer'>
@@ -69,26 +57,26 @@ const CommentItem = ({
     </a>
   );
 
-  const clickAction = (_id, value) => {
-    if (auth.isAuthenticated === true) {
-      if (value === 'like') {
-        addLike(_id);
-      } else if (value === 'unlike') {
-        removeLike(_id);
-      }
-    } else {
-      setModalIsOpen(true);
-    }
-  };
+  // const clickAction = (_id, value) => {
+  //   if (auth.isAuthenticated === true) {
+  //     if (value === 'like') {
+  //       addLike(_id);
+  //     } else if (value === 'unlike') {
+  //       removeLike(_id);
+  //     }
+  //   } else {
+  //     setModalIsOpen(true);
+  //   }
+  // };
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  // const [modalIsOpen, setModalIsOpen] = useState(false);
 
   //Click 'Reply' to open comment box
-  const [openBox, setOpenBox] = useState(false);
+  // const [openBox, setOpenBox] = useState(false);
 
-  const clcikReply = () => {
-    setOpenBox(!openBox);
-  };
+  // const clickReply = () => {
+  //   setOpenBox(!openBox);
+  // };
 
   return (
     <div>
@@ -108,7 +96,6 @@ const CommentItem = ({
             <p className='post-date inline my-1 xsmall'>
               on <Moment format='MM/DD/YYYY'>{date}</Moment>
             </p>{' '}
-            <p>{_id}</p>
             <div>
               {_id !== null ? (
                 <Fragment>
@@ -190,26 +177,3 @@ export default connect(mapStateToProps, {
   getComments,
   getComment
 })(CommentItem);
-
-{
-  /* {.comments.map(post =>
-        postIdsToCheck.includes(post.parentId) &&
-        post.parentId === postId ? (
-          <CcItem post={post} postId={post._id} key={post._id}></CcItem>
-        ) : null
-      )} */
-}
-
-{
-}
-
-{
-  /* <p>{text}</p>
-
-      <div className='comments'>
-        {childComments.comments !== null
-          ? childComments.comments.map(comment => <p>{comment.text}</p>)
-          : null}
-      </div>
-    </div> */
-}

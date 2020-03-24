@@ -7,7 +7,7 @@ import PostItem from '../posts/PostItem';
 import CommentForm from '../post/CommentForm';
 import CommentItem from '../post/CommentItem';
 
-import { getPost, getComment } from '../../actions/post';
+import { getPost } from '../../actions/post';
 import Modal from 'react-modal';
 import Register from '../auth/Register-.js';
 import Login from '../auth/Log-in';

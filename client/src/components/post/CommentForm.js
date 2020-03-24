@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addComment } from '../../actions/post';
-import { getPost } from '../../actions/post';
-import post from '../../reducers/post';
 
 const CommentForm = ({ postId, addComment, bibimName }) => {
   let initialData = {
@@ -12,11 +10,11 @@ const CommentForm = ({ postId, addComment, bibimName }) => {
     parentId: postId
   };
 
+  const [formData, setFormData] = useState(initialData);
+
   useEffect(() => {
     setFormData(initialData);
-  }, [getPost]);
-
-  const [formData, setFormData] = useState(initialData);
+  }, [initialData]);
 
   let { commentText } = formData;
 

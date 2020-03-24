@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPost } from '../../actions/post';
 import { getCurrentProfile } from '../../actions/profile';
-import { convertLinks } from '../utils/utils';
-import { log } from 'util';
 
 const PostForm = ({
   addPost,

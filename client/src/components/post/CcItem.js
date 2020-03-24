@@ -1,44 +1,26 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import Linkify from 'react-linkify';
-import PostItem from '../posts/PostItem';
 import CommentItem from '../post/CommentItem';
 import CommentForm from './CommentForm';
 import {
   getPost,
   getComments,
   getComment,
-  addComment,
   deleteComment,
   addLike,
-  removeLike,
-  deletePost
+  removeLike
 } from '../../actions/post';
 
 const CcItem = ({
   postId,
-  getComment,
-  postState: { comment: childComments, comments: commentsState },
+  postState: { comment: childComments },
   postState,
-  post: {
-    _id,
-    text,
-    userName,
-    avatar,
-    user,
-    date,
-    likes,
-    bibimName,
-    tick,
-    comments
-  },
+  post: { _id, text, userName, user, date, bibimName, comments },
   auth,
-  deleteComment,
-  getPost,
-  getComments
+  deleteComment
 }) => {
   let ok = null;
   if (childComments) {
@@ -46,29 +28,6 @@ const CcItem = ({
   } else {
     ok = false;
   }
-
-  let postIdsToCheck = [];
-
-  postState.post.comments.map(comment => {
-    postIdsToCheck.push(comment._id);
-    // postIdsToCheck.map(String);
-  });
-
-  // const [tadan, setTadan] = useState(true);
-
-  // debugger;
-  // useEffect(() => {
-  //   if (tadan) {
-  //     getComment(_id);
-
-  //     setTadan(!tadan);
-  //   }
-
-  //   return () => {
-  //     setTadan(false);
-  //     // childComments = null;
-  //   };
-  // }, []);
 
   const componentDecorator = (href, text, key) => (
     <a href={href} key={key} target='_blank' rel='noopener noreferrer'>

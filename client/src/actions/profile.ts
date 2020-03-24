@@ -5,10 +5,8 @@ import {
   GET_PROFILE,
   GET_PROFILES,
   PROFILE_ERROR,
-  UPDATE_PROFILE,
   CLEAR_PROFILE,
-  ACCOUNT_DELETED,
-  GET_REPOS
+  ACCOUNT_DELETED
 } from './types';
 
 // Get current users profile
@@ -103,7 +101,7 @@ export const createProfile = (
   }
 };
 
- // Delete account & profile
+// Delete account & profile
 export const deleteAccount = () => async dispatch => {
   if (window.confirm('Are you sure? This can NOT be undone!')) {
     try {

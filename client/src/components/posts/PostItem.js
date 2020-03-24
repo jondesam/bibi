@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
@@ -61,7 +61,7 @@ const PostItem = ({
 
         <div className=''>
           <Link className='text-normal xsmall' to={`/profile/${user}`}>
-            <p className='inline text-normal ph'> {userName} </p>
+            <p className='inline text-normal ph'>{userName} </p>
           </Link>
           <Link to={`/bibims/${bibimId}`}>
             {bibimName && (
