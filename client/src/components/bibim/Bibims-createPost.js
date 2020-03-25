@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 
-import { getBibims } from '../../actions/bibim';
-import { getCurrentProfile } from '../../actions/profile';
+import { getBibims } from '../../reduxActions/bibim';
+import { getCurrentProfile } from '../../reduxActions/profile';
 
 import BibimItem from './BibimItem.js';
 import PostForm from '../posts/PostForm.js';

@@ -10,7 +10,7 @@ import {
   getComments,
   getComment,
   deleteComment
-} from '../../actions/post';
+} from '../../reduxActions/post';
 
 const CommentItem = ({
   getPost,

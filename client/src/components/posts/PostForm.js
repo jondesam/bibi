@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addPost } from '../../actions/post';
-import { getCurrentProfile } from '../../actions/profile';
+import { addPost } from '../../reduxActions/post';
+import { getCurrentProfile } from '../../reduxActions/profile';
 
 const PostForm = ({
   addPost,

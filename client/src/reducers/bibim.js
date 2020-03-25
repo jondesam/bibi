@@ -3,7 +3,7 @@ import {
   GET_BIBIMS,
   POST_ERROR,
   UPDATE_SUBSCRIPTION
-} from '../actions/types';
+} from '../reduxActions/types';
 
 const initialState = {
   bibims: [], //list of all bibims

@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 
 import PostItem from './PostItem';
 
-import { getBibims } from '../../actions/bibim.ts';
-import { getPosts } from '../../actions/post';
-import { getCurrentProfile } from '../../actions/profile';
+import { getBibims } from '../../reduxActions/bibim.ts';
+import { getPosts } from '../../reduxActions/post';
+import { getCurrentProfile } from '../../reduxActions/profile';
 
 const Posts = ({
   getPosts,

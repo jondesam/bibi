@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addComment } from '../../actions/post';
+import { addComment, getPost } from '../../reduxActions/post';
 
 const CommentForm = ({ postId, addComment, bibimName }) => {
   let initialData = {
@@ -14,7 +14,7 @@ const CommentForm = ({ postId, addComment, bibimName }) => {
 
   useEffect(() => {
     setFormData(initialData);
-  }, [initialData]);
+  }, [getPost]);
 
   let { commentText } = formData;
 

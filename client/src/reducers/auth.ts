@@ -7,7 +7,7 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   ACCOUNT_DELETED
-} from '../actions/types';
+} from '../reduxActions/types';
 
 const initialState = {
   token: localStorage.getItem('token'),

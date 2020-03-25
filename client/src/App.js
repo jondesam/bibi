@@ -9,7 +9,7 @@ import Routes from './components/routing/Routes';
 import { Provider } from 'react-redux';
 import store from './store';
 import setAuthToken from './utils/setAuthToken';
-import { loadUser } from './actions/auth';
+import { loadUser } from './reduxActions/auth';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);

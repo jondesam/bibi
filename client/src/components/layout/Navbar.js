@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { logout } from '../../actions/auth';
-import { getCurrentProfile } from '../../actions/profile.ts';
+import { logout } from '../../reduxActions/auth';
+import { getCurrentProfile } from '../../reduxActions/profile.ts';
 
 const Navbar = ({
   getCurrentProfile,

@@ -6,7 +6,7 @@ import Spinner from '../layout/Spinner';
 import DashboardActions from './DashboardAction';
 import Experience from './Experience';
 import Education from './Education';
-import { getCurrentProfile, deleteAccount } from '../../actions/profile';
+import { getCurrentProfile, deleteAccount } from '../../reduxActions/profile';
 import Profile from '../profile/Profile';
 import EditProfile from '../profile-forms/EditProfile';
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addBibim } from '../../actions/bibim';
+import { addBibim } from '../../reduxActions/bibim';
 
 const BibimForm = ({ addBibim }) => {
   const [formData, setFormData] = useState({

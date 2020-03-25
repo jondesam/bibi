@@ -7,7 +7,7 @@ import PostItem from '../posts/PostItem';
 import CommentForm from '../post/CommentForm';
 import CommentItem from '../post/CommentItem';
 
-import { getPost } from '../../actions/post';
+import { getPost } from '../../reduxActions/post';
 import Modal from 'react-modal';
 import Register from '../auth/Register-.js';
 import Login from '../auth/Log-in';
@@ -30,6 +30,12 @@ const Post = ({
     getPost(match.params.id);
   }, [getPost, match.params.id]);
 
+
+    useEffect(() => {
+    getComments(1, 10, true, postIdsToCheck);
+  }, [getComments, tick]);
+
+  
   const [activeModal, setActiveModal] = useState('');
 
   return post === null ? (

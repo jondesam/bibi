@@ -6,9 +6,9 @@ import Spinner from '../layout/Spinner';
 import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
 
-import { getProfileById } from '../../actions/profile';
+import { getProfileById } from '../../reduxActions/profile';
 import ProfilePosts from '../posts/ProfilePosts';
-import { logout } from '../../actions/auth';
+import { logout } from '../../reduxActions/auth';
 
 const Profile = ({
   getProfileById,

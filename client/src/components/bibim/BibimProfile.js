@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import PostItem from '../posts/PostItem';
-import { addSubscription, removeSubscription } from '../../actions/bibim.ts';
+import { addSubscription, removeSubscription } from '../../reduxActions/bibim.ts';
 import { Link } from 'react-router-dom';
 
 import {
@@ -11,9 +11,9 @@ import {
   getProfiles,
   deleteAccount,
   getProfileById
-} from '../../actions/profile';
+} from '../../reduxActions/profile';
 
-import { getBibims } from '../../actions/bibim';
+import { getBibims } from '../../reduxActions/bibim';
 
 import PostForm from '../posts/PostForm.js';
 

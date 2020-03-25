@@ -9,7 +9,7 @@ import {
   REMOVE_COMMENT,
   GET_COMMENTS,
   GET_COMMENT
-} from '../actions/types';
+} from '../reduxActions/types';
 
 const initialState = {
   posts: [], //list of all posts

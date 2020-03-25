@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 
 import PostItem from './PostItem';
 
-import { getPosts } from '../../actions/post';
-import { getProfileById } from '../../actions/profile';
+import { getPosts } from '../../reduxActions/post';
+import { getProfileById } from '../../reduxActions/profile';
 
 const Posts = ({
   getPosts,

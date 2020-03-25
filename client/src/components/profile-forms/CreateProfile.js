@@ -2,7 +2,7 @@ import React, { useState, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createProfile } from '../../actions/profile';
+import { createProfile } from '../../reduxActions/profile';
 
 const CreateProfile = props => {
   const [formData, setFormData] = useState({

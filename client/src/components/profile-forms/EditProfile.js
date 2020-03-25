@@ -6,7 +6,7 @@ import {
   createProfile,
   getCurrentProfile,
   deleteAccount
-} from '../../actions/profile';
+} from '../../reduxActions/profile';
 
 const initialState = {
   bio: '',

@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
-import { addSubscription, removeSubscription } from '../../actions/bibim';
-import { getCurrentProfile } from '../../actions/profile';
+import { addSubscription, removeSubscription } from '../../reduxActions/bibim';
+import { getCurrentProfile } from '../../reduxActions/profile';
 
 const BibimItem = ({
   addSubscription,

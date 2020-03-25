@@ -12,7 +12,7 @@ import {
   deleteComment,
   addLike,
   removeLike
-} from '../../actions/post';
+} from '../../reduxActions/post';
 
 const CcItem = ({
   postId,

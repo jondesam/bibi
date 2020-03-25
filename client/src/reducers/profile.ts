@@ -5,7 +5,7 @@ import {
   UPDATE_PROFILE,
   GET_PROFILES,
   GET_REPOS
-} from '../actions/types';
+} from '../reduxActions/types';
 
 const initialState = {
   profile: null,

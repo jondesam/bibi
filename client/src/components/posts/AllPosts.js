@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 
 import PostItem from './PostItem';
 
-import { getPosts } from '../../actions/post';
-import { logout } from '../../actions/auth.ts';
+import { getPosts } from '../../reduxActions/post';
+import { logout } from '../../reduxActions/auth.ts';
 
 const AllPosts = ({ getPosts, post: { posts, loading, next, previous } }) => {
   let [page, setPage] = useState(1);
