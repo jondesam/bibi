@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import PostItem from '../posts/PostItem';
-import { addSubscription, removeSubscription } from '../../reduxActions/bibim.ts';
+import {
+  addSubscription,
+  removeSubscription
+} from '../../reduxActions/bibim.ts';
 import { Link } from 'react-router-dom';
 
 import {
@@ -14,6 +17,7 @@ import {
 } from '../../reduxActions/profile';
 
 import { getBibims } from '../../reduxActions/bibim';
+import { getPosts } from '../../reduxActions/post';
 
 import PostForm from '../posts/PostForm.js';
 
@@ -27,8 +31,11 @@ const BibimProfile = ({
   bibim: { bibims },
   auth: { user },
   profile: { profile, loading },
-  match
+  post,
+  match,
+  getPosts
 }) => {
+  let [page, setPage] = useState(1);
   const currentBibim = bibims.filter(bibim => match.params.id === bibim._id);
 
   let inintialTitle = null;
@@ -46,6 +53,13 @@ const BibimProfile = ({
   useEffect(() => {
     getBibims();
   }, [getBibims]);
+
+  useEffect(() => {
+    if (page !== 'undefined') {
+      getPosts(page, 10);
+    }
+  }, [page, getPosts]);
+  console.log('currentBibim', currentBibim);
 
   if (currentBibim.length > 0 && profile !== null) {
     const result = currentBibim[0].subscriptions.filter(element =>
@@ -68,6 +82,7 @@ const BibimProfile = ({
       setTitle('Join');
     }
   };
+  console.log('post', post);
 
   return loading === null ? (
     <p>Please Go Back</p>
@@ -114,9 +129,11 @@ const BibimProfile = ({
           </div>
 
           <div className='posts post-item'>
-            {currentBibim[0].posts.map(post => (
-              <PostItem key={post._id} post={post} />
-            ))}
+            {post.posts.map(post =>
+              post.bibimId === currentBibim[0]._id ? (
+                <PostItem key={post._id} post={post}></PostItem>
+              ) : null
+            )}
           </div>
         </div>
       ) : (
@@ -137,7 +154,8 @@ const mapStateToProps = state => {
   return {
     auth: state.auth,
     profile: state.profile,
-    bibim: state.bibim
+    bibim: state.bibim,
+    post: state.post
   };
 };
 
@@ -148,5 +166,6 @@ export default connect(mapStateToProps, {
   deleteAccount,
   getBibims,
   getProfiles,
-  getProfileById
+  getProfileById,
+  getPosts
 })(BibimProfile);

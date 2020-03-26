@@ -71,10 +71,18 @@ export default function(state = initialState, action) {
         loading: false
       };
     case UPDATE_LIKES:
+      console.log('UPDATE_LIKES', payload);
+
       return {
         ...state,
         posts: state.posts.map(post =>
           post._id === payload.id ? { ...post, likes: payload.likes } : post
+        ),
+        post: { ...state.post, likes: payload.likes },
+        comments: state.comments.map(comment =>
+          comment._id === payload.id
+            ? { ...comment, likes: payload.likes }
+            : comment
         ),
         loading: false
       };

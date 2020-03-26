@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
-import { addLike, removeLike, deletePost, getPost } from '../../reduxActions/post';
+import {
+  addLike,
+  removeLike,
+  deletePost,
+  getPost
+} from '../../reduxActions/post';
 import Modal from 'react-modal';
 import Register from '../auth/Register-.js';
 import Linkify from 'react-linkify';
@@ -29,13 +34,9 @@ const PostItem = ({
     parentId
   }
 }) => {
-  const clickAction = (_id, value) => {
+  const clickAction = _id => {
     if (auth.isAuthenticated === true) {
-      if (value === 'like') {
-        addLike(_id);
-      } else if (value === 'unlike') {
-        removeLike(_id);
-      }
+      addLike(_id);
     } else {
       setModalIsOpen(true);
     }
@@ -93,14 +94,6 @@ const PostItem = ({
                       ) : null
                     ) : null}
                   </span>
-                </button>
-
-                <button
-                  onClick={() => clickAction(_id, 'unlike')}
-                  type='button'
-                  className='btn btn-light'
-                >
-                  <i className='fas fa-thumbs-down' />
                 </button>
 
                 {_id ? (

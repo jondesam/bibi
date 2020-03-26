@@ -5,6 +5,8 @@ import Moment from 'react-moment';
 import Linkify from 'react-linkify';
 import CommentItem from '../post/CommentItem';
 import CommentForm from './CommentForm';
+import Modal from 'react-modal';
+import Register from '../auth/Register-.js';
 import {
   getPost,
   getComments,
@@ -21,16 +23,18 @@ const CcItem = ({
     post: { _id: topParentId }
   },
   postState,
-  post: { _id, text, userName, user, date, bibimName, bibimId },
+  post: { _id, text, userName, user, date, bibimName, bibimId, likes },
   auth,
-  deleteComment
+  deleteComment,
+  addLike
 }) => {
-  // let ok = null;
-  // if (childComments) {
-  //   ok = true;
-  // } else {
-  //   ok = false;
-  // }
+  const clickAction = _id => {
+    if (auth.isAuthenticated === true) {
+      addLike(_id);
+    } else {
+      setModalIsOpen(true);
+    }
+  };
 
   const componentDecorator = (href, text, key) => (
     <a href={href} key={key} target='_blank' rel='noopener noreferrer'>
@@ -38,29 +42,21 @@ const CcItem = ({
     </a>
   );
 
-  const clickAction = (_id, value) => {
-    if (auth.isAuthenticated === true) {
-      if (value === 'like') {
-        addLike(_id);
-      } else if (value === 'unlike') {
-        removeLike(_id);
-      }
-    } else {
-      setModalIsOpen(true);
-    }
-  };
-
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   //Click 'Reply' to open comment box
   const [openBox, setOpenBox] = useState(false);
 
-  const clcikReply = () => {
-    setOpenBox(!openBox);
+  const clickReply = () => {
+    if (auth.isAuthenticated === true) {
+      setOpenBox(!openBox);
+    } else {
+      setModalIsOpen(true);
+    }
   };
   // console.log('CC post', post);
 
-  console.log('postState', postState);
+  // console.log('postState', postState);
 
   return (
     <div className=' bg-white p-1 my-05  post-item'>
@@ -79,33 +75,26 @@ const CcItem = ({
           on <Moment format='MM/DD/YYYY'>{date}</Moment>
         </p>{' '}
         <div>
+          <button
+            onClick={() => clickAction(_id, 'like')}
+            type='button'
+            className='btn btn-light'
+          >
+            <i className='fas fa-thumbs-up' />{' '}
+            <span>
+              {likes ? (
+                likes.length > 0 ? (
+                  <span>{likes.length}</span>
+                ) : null
+              ) : null}
+            </span>
+          </button>
           {_id !== null ? (
             <Fragment>
-              <button
-                onClick={() => clickAction(_id, 'like')}
-                type='button'
-                className='btn btn-light'
-              >
-                <i className='fas fa-thumbs-up' />{' '}
-                <span>
-                  {/* {likes ? (
-          likes.length > 0 ? (
-            <span>{likes.length}</span>
-          ) : null
-        ) : null} */}
-                </span>
-              </button>
-              <button
-                onClick={() => clickAction(_id, 'unlike')}
-                type='button'
-                className='btn btn-light'
-              >
-                <i className='fas fa-thumbs-down' />
-              </button>
               <div className='btn btn-primary'>
                 <p
                   onClick={() => {
-                    clcikReply();
+                    clickReply();
                   }}
                 >
                   Reply
@@ -141,46 +130,22 @@ const CcItem = ({
             </Fragment>
           ) : null}
         </div>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={() => setModalIsOpen(false)}
+          style={{
+            content: { top: '130px', bottom: '30px', padding: '40px' }
+          }}
+        >
+          <Register></Register>
+        </Modal>
       </div>
-      {/*
-    <div className='comments'>
-      {childComments.comments
-        ? childComments.comments.map(comment => (
-            <CcItem
-              // post={post}
-              key={comment._id}
-              post={comment}
-              postId={comment._id}
-            />
-          ))
-        : null}
-    </div> */}
-
-      {/* {postState.comments.map(post =>
-      postIdsToCheck.includes(post.parentId) &&
-      post.parentId === postId ? (
-        <CcItem post={post} postId={post._id} key={post._id}></CcItem>
-      ) : null
-    )} */}
-
-      {/* {comments.map(post => (
-        <CommentItem post={post} postId={post._id} key={post._id}>
-          {' '}
-        </CommentItem>
-      ))} */}
 
       {comments.map(comment =>
         comment.parentId === _id ? (
           <CommentItem post={comment} key={comment._id}></CommentItem>
         ) : null
       )}
-
-      {/* {postState.comments.map(post =>
-      postIdsToCheck.includes(post.parentId) &&
-      post.parentId === postId ? (
-        <CcItem post={post} postId={post._id} key={post._id}></CcItem>
-      ) : null
-    )} */}
     </div>
   );
 };
@@ -194,5 +159,6 @@ export default connect(mapStateToProps, {
   deleteComment,
   getPost,
   getComments,
-  getComment
+  getComment,
+  addLike
 })(CcItem);

@@ -34,7 +34,6 @@ const Posts = ({
     if (page !== 'undefined') {
       getPosts(page, 10);
     }
-    // console.log('PPP');
   }, [page, getPosts]);
 
   const clickAction = value => {

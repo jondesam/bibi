@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
@@ -133,8 +134,11 @@ router.delete('/:id', auth, async (req, res) => {
 // @desc     Like a post
 // @access   Private
 router.put('/like/:id', auth, async (req, res) => {
+  console.log('/like/:id', req.params);
+
   try {
     const post = await Post.findById(req.params.id);
+    console.log(post);
 
     // Check if the post has already been liked
     if (
@@ -150,6 +154,32 @@ router.put('/like/:id', auth, async (req, res) => {
     res.json(post.likes);
   } catch (err) {
     console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+//@route    POST api/posts/like/:_id
+//@desc     Like/Unlike a post
+//@access   Private
+router.post('/like/:_id', auth, async (req, res) => {
+  const _id = req.params._id;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
+      return res.status(404).json({ msg: 'No Post By that Id' });
+    }
+    const post = await Post.findById(_id);
+    if (!post) return res.status(404).json({ msg: 'No Post By that Id' });
+    // Check if User has already liked a post
+    if (post.likes.filter(like => like.id === req.user.id).length > 0) {
+      //Remove user from likes array
+      post.likes = post.likes.filter(like => like.id !== req.user.id);
+    } else {
+      //Add user to likes array
+      post.likes.unshift(req.user.id);
+    }
+    await post.save();
+    return res.status(200).json(post.likes);
+  } catch (err) {
     res.status(500).send('Server Error');
   }
 });
