@@ -216,7 +216,8 @@ router.post(
         user: req.user.id,
         parentId: req.body.parentId,
         bibimName: req.body.bibimName,
-        bibimId: req.body.bibimId
+        bibimId: req.body.bibimId,
+        topParentId: req.body.topParentId
         // comments: null
       });
 

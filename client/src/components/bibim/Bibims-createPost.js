@@ -31,7 +31,7 @@ const Bibim = ({
   }, [getCurrentProfile]);
 
   useEffect(() => {
-    getBibims(page, 5);
+    getBibims(page, 10);
   }, [page, getBibims]);
 
   return (

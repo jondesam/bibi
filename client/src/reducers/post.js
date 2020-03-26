@@ -16,7 +16,7 @@ const initialState = {
   post: null, //post info for comment
   loading: true,
   error: {},
-  bibimId: String,
+  // bibimId: null,
   next: null,
   previous: null,
   comments: [],
@@ -55,7 +55,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         posts: [payload, ...state.posts],
-        bibimId: payload.bibimId,
+        // bibimId: payload.bibimId,
         loading: false
       };
     case DELETE_POST:

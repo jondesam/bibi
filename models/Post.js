@@ -19,9 +19,11 @@ const PostSchema = new Schema({
   userName: {
     type: String
   },
+
   avatar: {
     type: String
   },
+  topParentId: { type: String },
   parentId: { type: String },
   likes: [
     {

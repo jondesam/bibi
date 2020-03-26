@@ -34,17 +34,21 @@ export const getPosts = (page, limit) => async dispatch => {
 export const getComments = (
   page,
   limit,
-  cm,
-  postIdsToCheck
+  isComment,
+  topParentId,
+  bibimId
 ) => async dispatch => {
+  console.log(' bibimIdspatch =>', bibimId);
+
   try {
     // const res = await axios.get(`/api/posts/com`);
     const res = await axios.get(
-      `/api/posts?page=${page}&limit=${limit}&cm=${cm}`,
+      `/api/posts?page=${page}&limit=${limit}&isComment=${isComment}`,
       {
-        params: { jsonData: postIdsToCheck }
+        params: { topParentId, bibimId }
       }
     );
+    console.log('// Get comments', res.data);
 
     dispatch({
       type: GET_COMMENTS,
@@ -176,6 +180,8 @@ export const addPost = formData => async dispatch => {
 
 // Add comment
 export const addComment = formData => async dispatch => {
+  console.log('addComment', formData);
+
   const config = {
     headers: {
       'Content-Type': 'application/json'

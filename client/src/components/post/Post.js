@@ -6,18 +6,21 @@ import Spinner from '../layout/Spinner';
 import PostItem from '../posts/PostItem';
 import CommentForm from '../post/CommentForm';
 import CommentItem from '../post/CommentItem';
-
-import { getPost } from '../../reduxActions/post';
+import { getPost, getComments } from '../../reduxActions/post';
 import Modal from 'react-modal';
 import Register from '../auth/Register-.js';
 import Login from '../auth/Log-in';
+import { cpus } from 'os';
 
 const Post = ({
   getPost,
-  post: { post, loading, tick, comment },
+  getComments,
+  post: { post, loading, tick, comments },
+
   match,
   auth
 }) => {
+  let bibimId = null;
   const clickAction = value => {
     if (value === 'register') {
       setActiveModal('register');
@@ -30,12 +33,26 @@ const Post = ({
     getPost(match.params.id);
   }, [getPost, match.params.id]);
 
+  const topParentId = match.params.id;
+  // const bibimId = post.bibimId;
+  console.log(comments, post);
+  // let bibimId = null;
 
-    useEffect(() => {
-    getComments(1, 10, true, postIdsToCheck);
-  }, [getComments, tick]);
+  let postInstan = null;
+  if (post) {
+    postInstan = post;
+    bibimId = postInstan.bibimId;
+  }
 
-  
+  useEffect(() => {
+    if (bibimId) {
+      getComments(1, 10, true, topParentId, bibimId);
+    }
+
+    console.log('!!!');
+  }, [tick, bibimId]);
+  console.log('bibimId', bibimId);
+
   const [activeModal, setActiveModal] = useState('');
 
   return post === null ? (
@@ -50,7 +67,12 @@ const Post = ({
 
       <div>
         {auth.isAuthenticated === true ? (
-          <CommentForm postId={post._id} bibimName={post.bibimName} />
+          <CommentForm
+            postId={post._id}
+            bibimName={post.bibimName}
+            topParentId={topParentId}
+            bibimId={post.bibimId}
+          />
         ) : (
           <div className='bg-white p-05 '>
             <p className={'small-nomargin text-primary'}>
@@ -75,18 +97,25 @@ const Post = ({
       </div>
 
       <div className='comments'>
-        {post.comments !== null
-          ? post.comments.map(comment => (
+        {comments.map(comment =>
+          comment.parentId === topParentId ? (
+            <CommentItem post={comment} key={comment._id}></CommentItem>
+          ) : null
+        )}
+
+        {/* {comments !== null
+          ? comments.map(comment => (
               <CommentItem
                 key={comment._id}
-                postId={post._id}
+                // postId={post._id}
                 post={comment}
+                topParentId={topParentId}
                 // comment={comment}
 
                 //there is no comments here when it loads
               />
             ))
-          : null}
+          : null} */}
       </div>
 
       <Modal
@@ -123,4 +152,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { getPost })(Post);
+export default connect(mapStateToProps, { getPost, getComments })(Post);

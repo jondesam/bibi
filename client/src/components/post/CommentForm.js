@@ -3,11 +3,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addComment, getPost } from '../../reduxActions/post';
 
-const CommentForm = ({ postId, addComment, bibimName }) => {
+const CommentForm = ({
+  postId,
+  addComment,
+  bibimName,
+  topParentId,
+  bibimId
+}) => {
   let initialData = {
     commentText: '',
     bibimName,
-    parentId: postId
+    parentId: postId,
+    topParentId,
+    bibimId
   };
 
   const [formData, setFormData] = useState(initialData);
@@ -21,6 +29,9 @@ const CommentForm = ({ postId, addComment, bibimName }) => {
   const onChange = e => {
     return setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  console.log('CF topParentId', topParentId);
+  console.log('formData', formData);
 
   return (
     <div className='post-form'>

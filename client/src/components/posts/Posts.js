@@ -31,7 +31,10 @@ const Posts = ({
   let [page, setPage] = useState(1);
 
   useEffect(() => {
-    getPosts(page, 10);
+    if (page !== 'undefined') {
+      getPosts(page, 10);
+    }
+    // console.log('PPP');
   }, [page, getPosts]);
 
   const clickAction = value => {

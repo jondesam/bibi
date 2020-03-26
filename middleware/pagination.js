@@ -2,8 +2,9 @@ module.exports = model => {
   return async (req, res, next) => {
     const page = parseInt(req.query.page);
     const limit = parseInt(req.query.limit);
-    const cm = req.query.cm;
+    // const cm = req.query.isComment;
     // let postIdsToCheck = req.query.postIdsToCheck.json_data;
+    console.log('AAAAA', req.query);
 
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
@@ -24,12 +25,17 @@ module.exports = model => {
       };
     }
 
-    if (cm === 'true') {
+    if (req.query.isComment === 'true') {
       try {
         results.results = await model
           .find({
-            parentId: {
-              $in: req.query.jsonData
+            bibimId: {
+              $in: req.query.bibimId
+            }
+          })
+          .find({
+            topParentId: {
+              $in: req.query.topParentId
             }
           })
           .sort({ date: -1 })

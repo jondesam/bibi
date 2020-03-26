@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -22,9 +22,19 @@ const Posts = ({
     getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
 
+  let [page, setPage] = useState(1);
+
   useEffect(() => {
-    getPosts();
-  }, [getPosts]);
+    getPosts(page, 10);
+  }, [page, getPosts]);
+
+  const clickAction = value => {
+    if (value === 'pre') {
+      setPage(page - 1);
+    } else if (value === 'next') {
+      setPage(page + 1);
+    }
+  };
 
   let userId = match.params.id;
 
