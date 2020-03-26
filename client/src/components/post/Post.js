@@ -15,7 +15,7 @@ import { cpus } from 'os';
 const Post = ({
   getPost,
   getComments,
-  post: { post, loading, tick, comments },
+  post: { post, loading, tick, comments, posts },
 
   match,
   auth
@@ -34,9 +34,6 @@ const Post = ({
   }, [getPost, match.params.id]);
 
   const topParentId = match.params.id;
-  // const bibimId = post.bibimId;
-  console.log(comments, post);
-  // let bibimId = null;
 
   let postInstan = null;
   if (post) {
@@ -48,10 +45,7 @@ const Post = ({
     if (bibimId) {
       getComments(1, 10, true, topParentId, bibimId);
     }
-
-    console.log('!!!');
   }, [tick, bibimId]);
-  console.log('bibimId', bibimId);
 
   const [activeModal, setActiveModal] = useState('');
 
@@ -96,26 +90,12 @@ const Post = ({
         )}
       </div>
 
-      <div className='comments'>
+      <div className='comment'>
         {comments.map(comment =>
           comment.parentId === topParentId ? (
             <CommentItem post={comment} key={comment._id}></CommentItem>
           ) : null
         )}
-
-        {/* {comments !== null
-          ? comments.map(comment => (
-              <CommentItem
-                key={comment._id}
-                // postId={post._id}
-                post={comment}
-                topParentId={topParentId}
-                // comment={comment}
-
-                //there is no comments here when it loads
-              />
-            ))
-          : null} */}
       </div>
 
       <Modal

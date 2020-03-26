@@ -38,8 +38,6 @@ export const getComments = (
   topParentId,
   bibimId
 ) => async dispatch => {
-  console.log(' bibimIdspatch =>', bibimId);
-
   try {
     // const res = await axios.get(`/api/posts/com`);
     const res = await axios.get(
@@ -48,7 +46,6 @@ export const getComments = (
         params: { topParentId, bibimId }
       }
     );
-    console.log('// Get comments', res.data);
 
     dispatch({
       type: GET_COMMENTS,
@@ -99,8 +96,6 @@ export const getComment = id => async dispatch => {
 // Add like
 //id : postId
 export const addLike = id => async dispatch => {
-  console.log('addLike', id);
-
   try {
     const res = await axios.post(`/api/posts/like/${id}`);
 
@@ -182,8 +177,6 @@ export const addPost = formData => async dispatch => {
 
 // Add comment
 export const addComment = formData => async dispatch => {
-  console.log('addComment', formData);
-
   const config = {
     headers: {
       'Content-Type': 'application/json'

@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
@@ -36,6 +36,9 @@ const CcItem = ({
     }
   };
 
+  useEffect(() => {
+    setOpenBox(false);
+  }, [comments]);
   const componentDecorator = (href, text, key) => (
     <a href={href} key={key} target='_blank' rel='noopener noreferrer'>
       {text}
@@ -54,12 +57,19 @@ const CcItem = ({
       setModalIsOpen(true);
     }
   };
-  // console.log('CC post', post);
-
-  // console.log('postState', postState);
 
   return (
-    <div className=' bg-white p-1 my-05  post-item'>
+    <div className=' bg-white  p-comment m-comment  post-item comment'>
+      <div className='m-0-0-025-0 '>
+        {' '}
+        <Link className='text-normal xsmall' to={`/profile/${user}`}>
+          <p className='inline ph'> {userName} </p>
+        </Link>
+        <p className='post-date inline my-1 xsmall'>
+          on <Moment format='MM/DD/YYYY'>{date}</Moment>
+        </p>{' '}
+      </div>
+
       <Linkify
         componentDecorator={componentDecorator}
         className='mbottom-025  text-normal'
@@ -68,19 +78,13 @@ const CcItem = ({
       </Linkify>
 
       <div>
-        <Link className='text-normal xsmall' to={`/profile/${user}`}>
-          <p className='inline ph'>by {userName} </p>
-        </Link>
-        <p className='post-date inline my-1 xsmall'>
-          on <Moment format='MM/DD/YYYY'>{date}</Moment>
-        </p>{' '}
         <div>
           <button
             onClick={() => clickAction(_id, 'like')}
             type='button'
-            className='btn btn-light'
+            className='btn-comment btn-light'
           >
-            <i className='fas fa-thumbs-up' />{' '}
+            <i class='fas fa-heart'></i>
             <span>
               {likes ? (
                 likes.length > 0 ? (
@@ -91,14 +95,13 @@ const CcItem = ({
           </button>
           {_id !== null ? (
             <Fragment>
-              <div className='btn btn-primary'>
-                <p
-                  onClick={() => {
-                    clickReply();
-                  }}
-                >
-                  Reply
-                </p>
+              <div
+                className='btn-comment btn-primary'
+                onClick={() => {
+                  clickReply();
+                }}
+              >
+                <i class='fas fa-reply'></i>{' '}
               </div>
 
               {auth.isAuthenticated === true && null !== auth.user
@@ -106,9 +109,9 @@ const CcItem = ({
                     <button
                       onClick={() => deleteComment(postId, _id)}
                       type='button'
-                      className='btn   '
+                      className='btn-comment'
                     >
-                      <p> Delete</p>
+                      <i class='far fa-trash-alt'></i>
                     </button>
                   )
                 : null}

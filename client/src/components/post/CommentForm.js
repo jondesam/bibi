@@ -30,14 +30,14 @@ const CommentForm = ({
     return setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  console.log('CF topParentId', topParentId);
-  console.log('formData', formData);
-
   return (
     <div className='post-form'>
-      <div className='bg-primary p'>
-        <h3>Leave a Comment</h3>
-      </div>
+      {topParentId === postId ? (
+        <div className='bg-primary p'>
+          <h3>Leave a Comment</h3>
+        </div>
+      ) : null}
+
       <form
         className='form my-05 '
         onSubmit={e => {
@@ -51,7 +51,7 @@ const CommentForm = ({
           name='commentText'
           cols='10'
           rows='5'
-          placeholder='Comment the post'
+          placeholder='Any thought about it...?'
           value={commentText}
           onChange={onChange}
           required

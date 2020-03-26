@@ -4,7 +4,6 @@ module.exports = model => {
     const limit = parseInt(req.query.limit);
     // const cm = req.query.isComment;
     // let postIdsToCheck = req.query.postIdsToCheck.json_data;
-    console.log('AAAAA', req.query);
 
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;

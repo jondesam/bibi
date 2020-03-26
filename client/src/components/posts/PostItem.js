@@ -53,14 +53,7 @@ const PostItem = ({
   return (
     <div>
       <div className='bg-white p-1 my-05 post-item'>
-        <Linkify
-          componentDecorator={componentDecorator}
-          className='mbottom-025  text-normal'
-        >
-          {text}
-        </Linkify>
-
-        <div className=''>
+        <div className='m-0-0-025-0 '>
           <Link className='text-normal xsmall' to={`/profile/${user}`}>
             <p className='inline text-normal ph'>{userName} </p>
           </Link>
@@ -77,7 +70,16 @@ const PostItem = ({
             {' '}
             on <Moment format='MM/DD/YYYY'>{date}</Moment>
           </p>
+        </div>
 
+        <Linkify
+          componentDecorator={componentDecorator}
+          className='mbottom-025  text-normal'
+        >
+          {text}
+        </Linkify>
+
+        <div className=''>
           <div>
             {_id !== null ? (
               <Fragment>
@@ -86,7 +88,7 @@ const PostItem = ({
                   type='button'
                   className='btn btn-light'
                 >
-                  <i className='fas fa-thumbs-up' />{' '}
+                  <i className='fas fa-heart'></i>{' '}
                   <span>
                     {likes ? (
                       likes.length > 0 ? (
@@ -121,7 +123,7 @@ const PostItem = ({
                         type='button'
                         className='btn'
                       >
-                        <p> Delete</p>
+                        <i className='far fa-trash-alt'></i>
                       </button>
                     )
                   : null}
@@ -145,20 +147,6 @@ const PostItem = ({
     </div>
   );
 };
-
-//SHOULD WORK BUT.....
-// {auth.user_id
-//   ? user === auth.user._id && (
-//       <button
-//         onClick={() => deletePost(_id)}
-//         type='button'
-//         className='btn btn-danger'
-//       >
-//         <i className='fas fa-times' />
-//         <p>adf</p>
-//       </button>
-//     )
-//   : null}
 
 PostItem.defaultProps = {
   showActions: true

@@ -71,8 +71,6 @@ export default function(state = initialState, action) {
         loading: false
       };
     case UPDATE_LIKES:
-      console.log('UPDATE_LIKES', payload);
-
       return {
         ...state,
         posts: state.posts.map(post =>

@@ -59,7 +59,7 @@ const BibimProfile = ({
       getPosts(page, 10);
     }
   }, [page, getPosts]);
-  console.log('currentBibim', currentBibim);
+
 
   if (currentBibim.length > 0 && profile !== null) {
     const result = currentBibim[0].subscriptions.filter(element =>
@@ -82,7 +82,7 @@ const BibimProfile = ({
       setTitle('Join');
     }
   };
-  console.log('post', post);
+
 
   return loading === null ? (
     <p>Please Go Back</p>
