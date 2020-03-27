@@ -12,8 +12,7 @@ import {
   getComments,
   getComment,
   deleteComment,
-  addLike,
-  removeLike
+  addLike
 } from '../../reduxActions/post';
 
 const CcItem = ({
@@ -23,7 +22,17 @@ const CcItem = ({
     post: { _id: topParentId }
   },
   postState,
-  post: { _id, text, userName, user, date, bibimName, bibimId, likes },
+  post: {
+    _id,
+    text,
+    userName,
+    user,
+    date,
+    bibimName,
+    bibimId,
+    likes,
+    parentId
+  },
   auth,
   deleteComment,
   addLike
@@ -107,7 +116,7 @@ const CcItem = ({
               {auth.isAuthenticated === true && null !== auth.user
                 ? user === auth.user._id && (
                     <button
-                      onClick={() => deleteComment(postId, _id)}
+                      onClick={() => deleteComment(parentId, _id)}
                       type='button'
                       className='btn-comment'
                     >

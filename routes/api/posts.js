@@ -248,7 +248,7 @@ router.post(
         // comments: null
       });
       let topPost = null;
-      
+
       if (req.body.parentId !== req.body.topParentId) {
         topPost = await Post.findById(req.body.topParentId);
 
@@ -282,6 +282,10 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
+    //remove post in posts of DB
+    const postAsComment = await Post.findById(req.params.comment_id);
+    await postAsComment.remove();
+
     // Pull out comment
     const comment = post.comments.find(
       comment => comment.id === req.params.comment_id
@@ -297,6 +301,16 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
       return res.status(401).json({ msg: 'User not authorized' });
     }
 
+    // remove comment of topParent
+    const topPost = await Post.findById(post.parentId);
+
+    const topPostRemoveIndex = topPost.comments
+      .map(comment => comment.id)
+      .indexOf(req.params.comment_id);
+
+    topPost.comments.splice(topPostRemoveIndex, 1);
+
+    await topPost.save();
     // Get remove index
     const removeIndex = post.comments
       .map(comment => comment.id)

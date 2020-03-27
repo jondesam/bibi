@@ -106,7 +106,9 @@ export default function(state = initialState, action) {
             comment => comment._id !== payload
           )
         },
-        loading: false
+        // comments: payload,
+        loading: false,
+        tick: !state.tick
       };
 
     case GET_COMMENTS:

@@ -20,14 +20,24 @@ import CcItem from './CcItem';
 const CommentItem = ({
   getPost,
   getComments,
-  postId,
   postState: {
     comments,
     post: { _id: topParentId }
   },
   postState,
   getComment,
-  post: { text, date, userName, bibimName, user, _id, tick, bibimId, likes },
+  post: {
+    text,
+    date,
+    userName,
+    bibimName,
+    user,
+    _id,
+    tick,
+    bibimId,
+    likes,
+    parentId
+  },
   comment,
   post,
   auth,
@@ -48,6 +58,7 @@ const CommentItem = ({
   useEffect(() => {
     setOpenBox(false);
   }, [comments]);
+
   const componentDecorator = (href, text, key) => (
     <a href={href} key={key} target='_blank' rel='noopener noreferrer'>
       {text}
@@ -116,7 +127,7 @@ const CommentItem = ({
                 {auth.isAuthenticated === true && null !== auth.user
                   ? user === auth.user._id && (
                       <button
-                        onClick={() => deleteComment(postId, _id)}
+                        onClick={() => deleteComment(parentId, _id)}
                         type='button'
                         className='btn-comment'
                       >
