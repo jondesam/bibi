@@ -318,7 +318,7 @@ mtop-1 {
   display: inline-block;
   background: var(--light-color);
   color: #333;
-  padding: 0.3rem 1.2rem;
+  padding: 0.2rem 0.8rem;
   font-size: 0.7rem;
   border: none;
   cursor: pointer;
@@ -720,7 +720,7 @@ button {
   .container {
     margin-top: 3.5rem;
     padding: 0 1rem;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
   }
 
   .hide-sm {

@@ -7,7 +7,7 @@ import PostItem from './PostItem';
 import { getPosts } from '../../reduxActions/post';
 import { getProfileById } from '../../reduxActions/profile';
 
-const Posts = ({
+const ProfilePosts = ({
   getPosts,
 
   getProfileById,
@@ -66,7 +66,7 @@ const Posts = ({
 // )}
 // </div>
 
-Posts.propTypes = {
+ProfilePosts.propTypes = {
   getPosts: PropTypes.func.isRequired,
   post: PropTypes.object.isRequired
 };
@@ -81,4 +81,4 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   getPosts,
   getProfileById
-})(Posts);
+})(ProfilePosts);

@@ -84,7 +84,7 @@ const PostForm = ({
           onChange={onChange}
           required
         />
-        <input type='submit' className='btn btn-dark ' value='Submit' />
+        <input type='submit' className='btn-side btn-dark ' value='Submit' />
       </form>
     </div>
   );
