@@ -152,6 +152,10 @@ img {
   color: black;
   word-break: keep-all;
 }
+.text-deleted {
+  color: gray;
+  font-size: 0.7rem;
+}
 
 /* Padding */
 .p {

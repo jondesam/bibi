@@ -78,87 +78,94 @@ const CommentItem = ({
     }
   };
 
+
   return (
     <div>
       <div className=' bg-white p-comment m-comment post-item comment'>
-        <div className='m-0-0-025-0 '>
-          {' '}
-          <Link className='text-normal xsmall' to={`/profile/${user}`}>
-            <p className='inline ph'> {userName} </p>
-          </Link>
-          <p className='post-date inline my-1 xsmall'>
-            on <Moment format='MM/DD/YYYY'>{date}</Moment>
-          </p>{' '}
-        </div>
-        <Linkify
-          componentDecorator={componentDecorator}
-          className='mbottom-025  text-normal'
-        >
-          {text}
-        </Linkify>
-
-        <div>
-          <div>
-            <button
-              onClick={() => clickAction(_id, 'like')}
-              type='button'
-              className='btn-comment btn-light'
+        {text !== null ? (
+          <Fragment>
+            <div className='m-0-0-025-0 '>
+              {' '}
+              <Link className='text-normal xsmall' to={`/profile/${user}`}>
+                <p className='inline ph'> {userName} </p>
+              </Link>
+              <p className='post-date inline my-1 xsmall'>
+                on <Moment format='MM/DD/YYYY'>{date}</Moment>
+              </p>{' '}
+            </div>
+            <Linkify
+              componentDecorator={componentDecorator}
+              className='mbottom-025  text-normal'
             >
-              <i className='fas fa-heart'></i>{' '}
-              <span>
-                {likes ? (
-                  likes.length > 0 ? (
-                    <span>{likes.length}</span>
-                  ) : null
-                ) : null}
-              </span>
-            </button>
-            {_id !== null ? (
-              <Fragment>
-                <div
-                  className='btn-comment btn-primary'
-                  onClick={() => {
-                    clickReply();
-                  }}
+              {text}
+            </Linkify>
+
+            <div>
+              <div>
+                <button
+                  onClick={() => clickAction(_id, 'like')}
+                  type='button'
+                  className='btn-comment btn-light'
                 >
-                  <i className='fas fa-reply'></i>
-                </div>
+                  <i className='fas fa-heart'></i>{' '}
+                  <span>
+                    {likes ? (
+                      likes.length > 0 ? (
+                        <span>{likes.length}</span>
+                      ) : null
+                    ) : null}
+                  </span>
+                </button>
+                {_id !== null ? (
+                  <Fragment>
+                    <div
+                      className='btn-comment btn-primary'
+                      onClick={() => {
+                        clickReply();
+                      }}
+                    >
+                      <i className='fas fa-reply'></i>
+                    </div>
 
-                {auth.isAuthenticated === true && null !== auth.user
-                  ? user === auth.user._id && (
-                      <button
-                        onClick={() => deleteComment(parentId, _id)}
-                        type='button'
-                        className='btn-comment'
-                      >
-                        <i className='far fa-trash-alt'></i>
-                      </button>
-                    )
-                  : null}
+                    {auth.isAuthenticated === true && null !== auth.user
+                      ? user === auth.user._id && (
+                          <button
+                            onClick={() => deleteComment(parentId, _id)}
+                            type='button'
+                            className='btn-comment'
+                          >
+                            <i className='far fa-trash-alt'></i>
+                          </button>
+                        )
+                      : null}
 
-                {openBox ? (
-                  <CommentForm
-                    postId={_id}
-                    bibimName={bibimName}
-                    bibimId={bibimId}
-                    topParentId={topParentId}
-                  ></CommentForm>
+                    {openBox ? (
+                      <CommentForm
+                        postId={_id}
+                        bibimName={bibimName}
+                        bibimId={bibimId}
+                        topParentId={topParentId}
+                      ></CommentForm>
+                    ) : null}
+
+                    {/* postuser === logged in user */}
+                  </Fragment>
                 ) : null}
-
-                {/* postuser === logged in user */}
-              </Fragment>
-            ) : null}
-          </div>
-          <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={() => setModalIsOpen(false)}
-            style={{
-              content: { top: '130px', bottom: '30px', padding: '40px' }
-            }}
-          >
-            <Register></Register>
-          </Modal>
-        </div>
+              </div>
+              <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={() => setModalIsOpen(false)}
+                style={{
+                  content: { top: '130px', bottom: '30px', padding: '40px' }
+                }}
+              >
+                <Register></Register>
+              </Modal>
+            </div>
+          </Fragment>
+        ) : (
+          <p className='text-deleted'>Comment deleted by user</p>
+        )}
 
         {comments.map(comment =>
           comment.parentId === _id ? (

@@ -49,6 +49,8 @@ const Post = ({
 
   const [activeModal, setActiveModal] = useState('');
 
+
+
   return post === null ? (
     <Spinner />
   ) : post._id !== match.params.id ? null : (

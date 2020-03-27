@@ -284,7 +284,9 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
 
     //remove post in posts of DB
     const postAsComment = await Post.findById(req.params.comment_id);
-    await postAsComment.remove();
+
+    postAsComment.text = null;
+    await postAsComment.save();
 
     // Pull out comment
     const comment = post.comments.find(
@@ -301,8 +303,15 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
       return res.status(401).json({ msg: 'User not authorized' });
     }
 
-    // remove comment of topParent
-    const topPost = await Post.findById(post.parentId);
+    // remove comment of
+
+    let topPost = null;
+
+    if (post.topParentId) {
+      topPost = await Post.findById(post.topParentId);
+    } else {
+      topPost = await Post.findById(post._id);
+    }
 
     const topPostRemoveIndex = topPost.comments
       .map(comment => comment.id)
@@ -311,14 +320,15 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
     topPost.comments.splice(topPostRemoveIndex, 1);
 
     await topPost.save();
+
     // Get remove index
-    const removeIndex = post.comments
-      .map(comment => comment.id)
-      .indexOf(req.params.comment_id);
+    // const removeIndex = post.comments
+    //   .map(comment => comment.id)
+    //   .indexOf(req.params.comment_id);
 
-    post.comments.splice(removeIndex, 1);
+    // post.comments.splice(removeIndex, 1);
 
-    await post.save();
+    // await post.save();
 
     res.json(post.comments);
   } catch (err) {

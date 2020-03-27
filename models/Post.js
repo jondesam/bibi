@@ -13,8 +13,8 @@ const PostSchema = new Schema({
     ref: 'users'
   },
   text: {
-    type: String,
-    required: true
+    type: String
+    // required: true
   },
   userName: {
     type: String
