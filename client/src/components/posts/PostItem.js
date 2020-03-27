@@ -32,7 +32,8 @@ const PostItem = ({
     bibimName,
     bibimId,
     parentId
-  }
+  },
+  postState
 }) => {
   const clickAction = _id => {
     if (auth.isAuthenticated === true) {
@@ -163,7 +164,8 @@ PostItem.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  bibim: state.bibim
+  bibim: state.bibim,
+  postState: state.post
 });
 
 export default connect(mapStateToProps, {

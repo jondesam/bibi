@@ -93,7 +93,11 @@ const Post = ({
       <div className='comment'>
         {comments.map(comment =>
           comment.parentId === topParentId ? (
-            <CommentItem post={comment} key={comment._id}></CommentItem>
+            <CommentItem
+              post={comment}
+              key={comment._id}
+              inPost={true}
+            ></CommentItem>
           ) : null
         )}
       </div>

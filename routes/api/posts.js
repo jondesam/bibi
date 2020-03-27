@@ -247,6 +247,15 @@ router.post(
         topParentId: req.body.topParentId
         // comments: null
       });
+      let topPost = null;
+      
+      if (req.body.parentId !== req.body.topParentId) {
+        topPost = await Post.findById(req.body.topParentId);
+
+        topPost.comments.unshift(newComment);
+
+        await topPost.save();
+      }
 
       post.comments.unshift(newComment);
 
@@ -254,7 +263,11 @@ router.post(
 
       await newComment.save();
 
-      res.json(post.comments);
+      if (topPost !== null) {
+        res.json(topPost.comments);
+      } else {
+        res.json(post.comments);
+      }
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');

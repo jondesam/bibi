@@ -84,7 +84,7 @@ const CcItem = ({
             type='button'
             className='btn-comment btn-light'
           >
-            <i class='fas fa-heart'></i>
+            <i className='fas fa-heart'></i>{' '}
             <span>
               {likes ? (
                 likes.length > 0 ? (
@@ -101,7 +101,7 @@ const CcItem = ({
                   clickReply();
                 }}
               >
-                <i class='fas fa-reply'></i>{' '}
+                <i className='fas fa-reply'></i>{' '}
               </div>
 
               {auth.isAuthenticated === true && null !== auth.user
@@ -111,7 +111,7 @@ const CcItem = ({
                       type='button'
                       className='btn-comment'
                     >
-                      <i class='far fa-trash-alt'></i>
+                      <i className='far fa-trash-alt'></i>
                     </button>
                   )
                 : null}
