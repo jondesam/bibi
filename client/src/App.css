@@ -54,7 +54,7 @@
 
 body {
   font-family: 'Raleway', sans-serif;
-  font-size: 0.75rem;
+  font-size: 1rem;
   line-height: 1.6;
   background-color: #fff;
   color: #333;
@@ -122,7 +122,8 @@ img {
   line-height: 1.2;
 }
 .xsmall {
-  font-size: 0.65rem;
+  font-size: 0.9rem;
+  color: gray;
 }
 .xxsmall {
   font-size: 0.5rem;
@@ -144,7 +145,7 @@ img {
   color: var(--dark-color);
 }
 .text-normal {
-  color: black;
+  color: gray;
   word-break: break-all;
   white-space: normal;
 }
@@ -169,7 +170,7 @@ img {
   padding: 0 0.3rem;
   display: block;
   white-space: nowrap;
-  font-size: 1rem;
+  font-size: 1.25rem;
   /* overflow: hidden; */
   /* text-overflow: ellipsis; */
 }
@@ -267,7 +268,7 @@ mtop-1 {
   background: var(--light-color);
   color: #333;
   padding: 0.2rem 0.8rem;
-  font-size: 0.6rem;
+  font-size: 1rem;
   border: none;
   cursor: pointer;
   margin-right: 0.2rem;
@@ -355,6 +356,7 @@ mtop-1 {
 .alert-primary {
   background: var(--primary-color);
   color: #fff;
+  font-size: 1rem;
 }
 
 .btn-light,
@@ -363,6 +365,7 @@ mtop-1 {
 .alert-light {
   background: var(--light-color);
   color: #333;
+  font-size: 1rem;
 }
 
 .btn-dark,
@@ -371,6 +374,7 @@ mtop-1 {
 .alert-dark {
   background: var(--dark-color);
   color: #fff;
+  font-size: 1rem;
 }
 
 .btn-danger {
@@ -452,7 +456,7 @@ mtop-1 {
   display: block;
   width: 100%;
   padding: 0.4rem;
-  font-size: 1rem;
+  font-size: 1.2rem;
   border: 1px solid #ccc;
 }
 
