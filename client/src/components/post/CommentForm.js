@@ -3,6 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addComment, getPost } from '../../reduxActions/post';
 
+
+// <<<<<<< HEAD
+// import { addComment, getPost } from '../../reduxActions/post';
+// =======
+// import { addComment, getPost } from '../../actions/post';
+// >>>>>>> d410acb49722d1164145aedefed4b8d1105b6446
+
 const CommentForm = ({
   postId,
   addComment,
